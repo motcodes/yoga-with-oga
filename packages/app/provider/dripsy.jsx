@@ -9,7 +9,7 @@ const theme = makeTheme({
   },
 })
 
-export function Dripsy({ children }: { children: React.ReactNode }) {
+export function Dripsy({ children }) {
   return (
     <DripsyProvider
       theme={theme}

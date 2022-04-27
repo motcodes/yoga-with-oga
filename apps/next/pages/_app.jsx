@@ -1,17 +1,17 @@
-import { Provider } from 'app/provider'
-import Head from 'next/head'
 import React from 'react'
-import type { SolitoAppProps } from 'solito'
+import Head from 'next/head'
 import 'raf/polyfill'
+import { Provider } from 'app/provider'
+import 'app/styles/global.css'
 
-function MyApp({ Component, pageProps }: SolitoAppProps) {
+function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Solito Example App</title>
+        <title>Yoga with Oga</title>
         <meta
           name="description"
-          content="Expo + Next.js with Solito. By Fernando Rojo."
+          content="Yoga with Oga - by Matthias Oberholzer &amp; Sebastian Hinterauer"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

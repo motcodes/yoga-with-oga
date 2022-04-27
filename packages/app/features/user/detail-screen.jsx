@@ -9,9 +9,7 @@ export function UserDetailScreen() {
 
   return (
     <View sx={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text
-        sx={{ textAlign: 'center', mb: 16, fontWeight: 'bold' }}
-      >{`User ID: ${id}`}</Text>
+      <Text sx={{ textAlign: 'center', mb: 16 }}>{`User ID: ${id}`}</Text>
 
       <TextLink href="/">👈 Go Home</TextLink>
     </View>

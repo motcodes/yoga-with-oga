@@ -1,3 +1,5 @@
+@import url(global.css);
+
 @font-face {
   font-family: GeneralSans-Light;
   src: url('../../fonts/GeneralSans-Light.woff2') format('woff2'),
@@ -96,4 +98,37 @@
   font-weight: 700;
   font-display: swap;
   font-style: italic;
+}
+
+/* ----Font-Formats---- */
+.h2XL {
+  font-size: var(--h2XL-font-size);
+}
+
+.hXL {
+  font-size: var(--hXL-font-size);
+}
+
+.hLG {
+  font-size: var(--hLG-font-size);
+}
+
+.hMD {
+  font-size: var(--hMD-font-size);
+}
+
+.hSM {
+  font-size: var(--hSM-font-size);
+}
+
+.base {
+  font-size: var(--base-font-size);
+}
+
+.small {
+  font-size: var(--small-font-size);
+}
+
+.extraSmall {
+  font-size: var(--extraSmall-font-size);
 }

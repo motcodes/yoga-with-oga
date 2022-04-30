@@ -1,0 +1,29 @@
+@import url(global.css);
+@import url(fonts.css);
+
+.playInfo {
+    height: 179px;
+    width: 375px;
+    background-color: var(--white);
+    justify-content: center;
+}
+
+.playTime {
+    font-size: var(--hLG-font-size);
+    color: var(--green-dark);
+    margin: 23px 0 3px 0;
+    text-align: center;
+}
+
+.playTitle {
+    font-size: var(--hSM-font-size);
+    color: var(--green);
+    text-align: center;
+    margin: 0;
+}
+
+.playInfoTimeline {
+    margin: 32.12px auto 0 auto;
+    width: 335px;
+    height: 28px;
+}

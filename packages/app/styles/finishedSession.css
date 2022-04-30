@@ -1,0 +1,22 @@
+@import url(global.css);
+@import url(fonts.css);
+
+.finishedSessionheader {
+    width: 334px;
+}
+
+.gratulations {
+    color: var(--yellow);
+    margin: 0;
+}
+
+.finishedSessionTitle {
+    color: var(--green-dark);
+    margin: 0;
+}
+
+.hSM {
+    font-size: var(--hSM-font-size);
+    color: var(--green-dark);
+    margin: 54px 0 19px 0;
+}

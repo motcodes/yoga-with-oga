@@ -1,58 +1,45 @@
-import { Text, useSx, View, H1, P, Row, A, H2 } from 'dripsy'
+import { Text, useSx, View, H1, P, Row, A, H2, Flex } from 'dripsy'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
+import { Button } from '../components/button'
+import { Input } from '../components/input'
+import { Banner } from '../components/session'
 
 export function HomeScreen() {
   const sx = useSx()
 
   return (
     <View
-      sx={{ flex: 1, justifyContent: 'center', alignItems: 'center', p: 16 }}
+      sx={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 32,
+        p: 16,
+      }}
     >
       <H1>Welcome to Yoga with Oga</H1>
-      <View sx={{ maxWidth: 600 }}>
-        <P sx={{ textAlign: 'center' }}>
-          A funny turn on a yoga app for beginners from beginners. You can
-          choose from multiple sessions to fit your personal preference. Oga
-          (motcodes) will perform in the yoga clips, so a beginner can learn and
-          progress with him.
-        </P>
-      </View>
-      <View sx={{ height: 32 }} />
+      <Flex
+        sx={{
+          width: 375,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 32,
+        }}
+      >
+        <Input />
+        <Button>Button</Button>
+        <Banner
+          imageUrl="https://images.unsplash.com/photo-1567281150864-5296ada11f3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+          title="Downward Facing Dog"
+          subtitle="24min - Legs and Back"
+          highlight="Featured"
+        />
+      </Flex>
       <Row>
-        <TextLink
-          href="/user/motcodes"
-          textProps={{
-            style: sx({ fontSize: 16, color: 'blue' }),
-          }}
-        >
-          Regular Link
-        </TextLink>
-        <TextLink
-          href="/front-end"
-          textProps={{
-            style: sx({ fontSize: 16, color: 'blue' }),
-          }}
-        >
-          Front-End
-        </TextLink>
-        <View sx={{ width: 32 }} />
-        <MotiLink
-          href="/user/motcodes"
-          animate={({ hovered, pressed }) => {
-            'worklet'
-
-            return {
-              scale: pressed ? 0.95 : hovered ? 1.1 : 1,
-              rotateZ: pressed ? '0deg' : hovered ? '-3deg' : '0deg',
-            }
-          }}
-          transition={{
-            type: 'timing',
-            duration: 150,
-          }}
-        >
-          <Text selectable={false} sx={{ fontSize: 16, color: 'yellow' }}>
+        <MotiLink href="/user/motcodes">
+          <Text selectable={false} sx={{ color: '$yellow' }}>
             Moti Link
           </Text>
         </MotiLink>

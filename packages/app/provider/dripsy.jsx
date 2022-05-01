@@ -19,7 +19,7 @@ const headingStyles = {
 }
 const textStyles = {
   fontStyle: 'normal',
-  fontWeight: 500,
+  fontWeight: 400,
   lineHeight: '150%',
   marginTop: 0,
   marginBottom: 0,
@@ -58,6 +58,10 @@ const theme = makeTheme({
       ...textStyles,
     },
     p: {
+      fontSize: 16,
+      ...textStyles,
+    },
+    a: {
       fontSize: 16,
       ...textStyles,
     },

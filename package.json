@@ -21,5 +21,6 @@
     "native:build-all": "cd apps/expo && eas build --platform all",
     "native:build-android": "cd apps/expo && eas build --platform android",
     "native:build-ios": "cd apps/expo && eas build --platform ios"
-  }
+  },
+  "packageManager": "yarn@1.22.17"
 }

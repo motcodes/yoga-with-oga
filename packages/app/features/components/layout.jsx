@@ -1,11 +1,11 @@
-import { useSx, View } from 'dripsy'
+import { View } from 'dripsy'
 import React from 'react'
 
 export function Layout({ children }) {
   return (
     <View
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: '$white',
         minHeight: '100vh',
       }}
     >

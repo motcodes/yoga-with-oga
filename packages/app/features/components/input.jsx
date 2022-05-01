@@ -11,8 +11,8 @@ export function Input({
   return (
     <TextInput
       {...rest}
-      // onChangeText={onChange}
-      // value={value}
+      onChangeText={onChange}
+      value={value}
       placeholder={placeholder}
       sx={{
         paddingBlock: 12,

@@ -1,13 +1,15 @@
 import { Text, useSx, View, H1, P, Row, A, H2, Flex } from 'dripsy'
+import { useState } from 'react'
 import { TextLink } from 'solito/link'
 import { MotiLink } from 'solito/moti'
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import { Banner } from '../components/session'
+import { ListItem } from '../components/session/listItem'
 
 export function HomeScreen() {
   const sx = useSx()
-
+  const [textInput, setTextInput] = useState('')
   return (
     <View
       sx={{
@@ -28,7 +30,11 @@ export function HomeScreen() {
           gap: 32,
         }}
       >
-        <Input />
+        <Input
+          value={textInput}
+          onChange={setTextInput}
+          placeholder="Text Input"
+        />
         <Button>Button</Button>
         <Banner
           imageUrl="https://images.unsplash.com/photo-1567281150864-5296ada11f3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
@@ -36,6 +42,7 @@ export function HomeScreen() {
           subtitle="24min - Legs and Back"
           highlight="Featured"
         />
+        <ListItem />
       </Flex>
       <Row>
         <MotiLink href="/user/motcodes">

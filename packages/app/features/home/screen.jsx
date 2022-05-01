@@ -28,6 +28,14 @@ export function HomeScreen() {
         >
           Regular Link
         </TextLink>
+        <TextLink
+          href="/front-end"
+          textProps={{
+            style: sx({ fontSize: 16, color: 'blue' }),
+          }}
+        >
+          Front-End
+        </TextLink>
         <View sx={{ width: 32 }} />
         <MotiLink
           href="/user/motcodes"

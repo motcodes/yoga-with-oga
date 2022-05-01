@@ -1,0 +1,51 @@
+@import url(global.css);
+@import url(fonts.css);
+
+.notification {
+    width: 233px;
+    padding: 16px;
+    border-radius: 6px;
+    background-color: var(--white);
+}
+
+.notificationTitle {
+    margin: 0;
+    text-align: center;
+}
+
+.small {
+    font-size: var(--small-font-size);
+    color: var(--green-light);
+    margin: 8px 0;
+    text-align: center;
+}
+
+.notificationDecision {
+    height: 48px;
+    display: grid;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .notification a {
+        text-align: center;
+        font-size: var(--base-font-size);
+        height: auto;
+        border-radius: 6px;
+    }
+    
+    .declineNotification {
+        color: var(--white);
+        background-color: var(--green);
+        width: 95.5px;
+        height: 32px;
+        padding-top: 14px;
+    }
+
+    .acceptNotification {
+        color: var(--green);
+        width: 91.5px;
+        height: 25px;
+        padding-top: 12px;
+        border: solid 2px var(--green);
+    }

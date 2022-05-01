@@ -7,7 +7,7 @@ h6 {
   font-weight: 500 !important;
 }
 
-* {
+/* * {
   --h2XL-font-size: 48.83px;
   --hXL-font-size: 39.06px;
   --hLG-font-size: 31.25px;
@@ -15,17 +15,22 @@ h6 {
   --hSM-font-size: 20px;
   --base-font-size: 16px;
   --small-font-size: 16px;
-  --extraSmall-font-size: 16px;
-  
-  --green: #00473E;
-  --green-light: #475D5B;
-  --green-dark: #00332C;
-  --yellow: #FAAE2B;
-  --pink: #FFA8BA;
-  --salmon: #FA5246;
-  --white: #F2F7F5;
-  --grey-45: #6F7676;
-  --grey-80: #CACECD;
+  --extraSmall-font-size: 12.8px;
 
+} */
+
+:root {
+  --green: #00473e;
+  --green-light: #475d5b;
+  --green-dark: #00332c;
+  --yellow: #faae2b;
+  --pink: #ffa8ba;
+  --salmon: #fa5246;
+  --white: #f2f7f5;
+  --grey-45: #6f7676;
+  --grey-80: #cacecd;
+}
+
+html {
   font-family: 'GeneralSans-Medium';
 }

@@ -2,8 +2,8 @@ import { Text, useSx } from 'dripsy'
 import { useState } from 'react'
 import { Pressable as NativeButton } from 'react-native'
 
-const DEFAULT_VARIANTS = 'filled' || 'outlined' || 'text'
-const DEFAULT_SIZE = 'default' || 'small'
+const DEFAULT_VARIANTS = 'filled' | 'outlined' | 'text'
+const DEFAULT_SIZE = 'default' | 'small'
 
 export const Button = ({
   children,
@@ -11,6 +11,7 @@ export const Button = ({
   size = DEFAULT_SIZE,
   hasShadow = false,
   onClick,
+  style,
   ...rest
 }) => {
   const sx = useSx()
@@ -29,7 +30,6 @@ export const Button = ({
         paddingBlock: 12,
         paddingInline: 32,
         width: size === 'small' ? 'fit-content' : '100%',
-        maxWidth: 332,
         backgroundColor:
           variant === 'text'
             ? 'transparent'
@@ -47,6 +47,7 @@ export const Button = ({
         },
         filter: pressing ? 'brightness(50%)' : 'brightness(100%)',
         transition: 'all 0.1s ease-out',
+        ...style,
       })}
     >
       <Text

@@ -1,8 +1,16 @@
-import { Box, Container, H1, H2, H3, H4, H5, Text, useSx } from 'dripsy'
 import React from 'react'
-import { Image, ImageBackground } from 'react-native'
+import { ImageBackground } from 'react-native'
+import { Box, H1, H4, Text, useSx } from 'dripsy'
 
-export function Banner({ imageUrl, title, subtitle, highlight = '' }) {
+const DEFAULT_IMAGE =
+  'https://images.unsplash.com/photo-1567281150864-5296ada11f3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
+
+export function Banner({
+  imageUrl = DEFAULT_IMAGE,
+  title = '',
+  subtitle = '',
+  highlight = '',
+}) {
   const sx = useSx()
   return (
     <Box
@@ -46,7 +54,7 @@ export function Banner({ imageUrl, title, subtitle, highlight = '' }) {
             zIndex: 2,
           }}
         >
-          <Text sx={{ color: '$green' }}>{'Featured'}</Text>
+          {highlight && <Text sx={{ color: '$green' }}>{highlight}</Text>}
           <H4 as={H1} sx={{ color: '$greenDark' }}>
             {title}
           </H4>

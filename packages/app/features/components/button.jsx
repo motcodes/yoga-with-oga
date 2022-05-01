@@ -27,8 +27,10 @@ export const Button = ({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBlock: 12,
-        paddingInline: 32,
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 32,
+        paddingRight: 32,
         width: size === 'small' ? 'fit-content' : '100%',
         backgroundColor:
           variant === 'text'
@@ -36,12 +38,11 @@ export const Button = ({
             : variant === 'outlined'
             ? '$white'
             : '$green',
-        border: variant === 'outlined' ? '2px solid' : 'none',
+        borderWidth: variant === 'outlined' ? 2 : 0,
+        borderStyle: 'solid',
         borderColor: '$green',
         borderRadius: 6,
-        boxShadow: hasShadow
-          ? '0px 33px 148px rgba(0, 71, 62, 0.17), 0px 12.5486px 54.0224px rgba(0, 71, 62, 0.10341), 0px 6.24621px 26.2269px rgba(0, 71, 62, 0.0793439), 0px 3.12397px 12.8569px rgba(0, 71, 62, 0.063914), 0px 1.26043px 5.08364px rgba(0, 71, 62, 0.0473013)'
-          : 'none',
+        boxShadow: hasShadow ? 'md' : 'none',
         ':active': {
           backgroundColor: 'red',
         },
@@ -54,7 +55,6 @@ export const Button = ({
         sx={{
           color:
             variant === 'text' || variant === 'outlined' ? '$green' : '$white',
-          pointerEvents: 'none',
           userSelect: 'none',
         }}
       >

@@ -1,5 +1,6 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
+import { useFonts } from 'expo-font'
 
 const fontName = 'General Sans'
 
@@ -12,7 +13,7 @@ const webFont = (font) =>
 const headingStyles = {
   fontStyle: 'normal',
   fontWeight: 'default',
-  lineHeight: '130%',
+  lineHeight: 1.3,
   fontFamily: 'heading',
   marginTop: 0,
   marginBottom: 0,
@@ -20,7 +21,7 @@ const headingStyles = {
 const textStyles = {
   fontStyle: 'normal',
   fontWeight: 400,
-  lineHeight: '150%',
+  lineHeight: 1.5,
   marginTop: 0,
   marginBottom: 0,
 }
@@ -100,6 +101,28 @@ const theme = makeTheme({
     $yellow: 'hsla(38, 95%, 57%, 1)',
     $white: 'hsla(156, 24%, 96%, 1)',
     $black: 'hsla(0, 0%, 0%, 1)',
+  },
+  shadows: {
+    md: {
+      shadowColor: 'hsla(172, 100%, 14%, 1)',
+      shadowOffset: {
+        width: 0,
+        height: 32,
+      },
+      shadowOpacity: 0.17,
+      shadowRadius: 148,
+      elevation: 5,
+    },
+    modal: {
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 0,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 33,
+      elevation: 5,
+    },
   },
 })
 

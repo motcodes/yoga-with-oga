@@ -1,4 +1,4 @@
-import { Box, Flex, H3, Image, Text } from 'dripsy'
+import { Box, Flex, H3, Image, Text, View } from 'dripsy'
 import React from 'react'
 
 const DEFAULT_IMAGE =
@@ -12,10 +12,6 @@ export const ListItem = ({
   return (
     <Box
       sx={{
-        display: 'grid',
-        gridTemplateColumns: '2fr 3fr',
-        gap: 20,
-        alignItems: 'center',
         height: 88,
         width: '100%',
       }}
@@ -24,8 +20,9 @@ export const ListItem = ({
         source={imageUrl}
         alt={title}
         resizeMode="cover"
-        sx={{ borderRadius: 6, height: '100%' }}
+        sx={{ borderRadius: 6, height: '100%', width: '40%' }}
       />
+      <View sx={{ width: 20 }} />
       <Flex sx={{ flexDirection: 'column', justifyContent: 'center' }}>
         <Text as={H3} sx={{ color: '$green' }}>
           {title}

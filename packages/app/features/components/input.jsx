@@ -15,9 +15,13 @@ export function Input({
       value={value}
       placeholder={placeholder}
       sx={{
-        paddingBlock: 12,
-        paddingInline: 14,
-        border: '2px solid var(--grey-80)',
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 14,
+        paddingRight: 14,
+        borderWidth: 2,
+        borderStyle: 'solid',
+        borderColor: '$grey80',
         borderRadius: 6,
         width: '100%',
         fontSize: 16,

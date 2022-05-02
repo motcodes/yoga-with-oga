@@ -1,4 +1,4 @@
-import { TextInput } from 'dripsy'
+import { TextInput, useSx } from 'dripsy'
 import React from 'react'
 
 export function Input({
@@ -8,13 +8,15 @@ export function Input({
   placeholder = 'placeholder',
   ...rest
 }) {
+  const sx = useSx()
+
   return (
-    <TextInput
+    <input
       {...rest}
-      onChangeText={onChange}
+      onChange={onChange}
       value={value}
       placeholder={placeholder}
-      sx={{
+      style = {sx({
         paddingTop: 12,
         paddingBottom: 12,
         paddingLeft: 14,
@@ -23,11 +25,12 @@ export function Input({
         borderStyle: 'solid',
         borderColor: '$grey80',
         borderRadius: 6,
-        width: '100%',
         fontSize: 16,
         backgroundColor: '$white',
         color: '$greenDark',
-      }}
+        width: '90%',
+        ...style
+      })}
     />
   )
 }

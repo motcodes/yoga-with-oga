@@ -8,6 +8,7 @@
     "dripsy": "^3.6.0",
     "expo-font": "latest",
     "expo-linking": "^3.0.0",
+    "firebase": "^9.7.0",
     "moti": "0.18.0-alpha.8",
     "react-native-feather": "^1.1.2",
     "react-native-svg": "^12.3.0",

@@ -29,7 +29,7 @@ export function NativeNavigation() {
         />
         <Stack.Screen
           name="signUp"
-          component={SignUp(user = user, setUser = setUser)}
+          component={SignUp}
           options={{
             title: 'Sign Up',
           }}

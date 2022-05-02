@@ -16,40 +16,25 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from 'app/firebase/client'
 import { Banner } from '../components/session'
 import { Link } from 'solito/link'
-
-// console.log('db :', db)
-const sessionCol = collection(db, 'session')
+import { useSessions } from 'app/helper'
 
 export function HomeScreen() {
-  const [textInput, setTextInput] = useState('')
-
-  const [videos, setVideos] = useState([])
-  console.log('videos :', videos)
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const sessionsSnapshot = await getDocs(sessionCol)
-      const sessions = sessionsSnapshot.docs.map((doc) => doc.data())
-      setVideos(sessions)
-    }
-    fetchSession()
-  }, [])
+  const sessions = useSessions()
+  console.log('sessions :', sessions)
 
   return (
     <SafeAreaView>
       <ScrollView
         sx={{
           display: 'flex',
-          mx: 16,
         }}
       >
         <H1>Welcome to Yoga with Oga</H1>
         <View sx={{ height: 32 }} />
-        {videos &&
-          videos.map((item) => (
-            <Link href={`/session/${item.slug}`}>
+        {sessions &&
+          sessions.map((item) => (
+            <Link href={`/session/${item.id}`} key={item.title}>
               <Banner
-                key={item.title}
                 title={item.title}
                 subtitle={item.subtitle}
                 imageUrl={item.imageUrl}

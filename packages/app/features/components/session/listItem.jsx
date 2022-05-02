@@ -8,12 +8,14 @@ export const ListItem = ({
   imageUrl = DEFAULT_IMAGE,
   title = 'Pose #1',
   href = '/',
+  style,
 }) => {
   return (
     <Flex
       sx={{
         height: 88,
         width: '100%',
+        ...style,
       }}
     >
       <Image

@@ -11,7 +11,7 @@ export function Input({
   const sx = useSx()
 
   return (
-    <input
+    <TextInput
       {...rest}
       onChange={onChange}
       value={value}
@@ -28,7 +28,7 @@ export function Input({
         fontSize: 16,
         backgroundColor: '$white',
         color: '$greenDark',
-        width: '90%',
+        width: '100%',
         ...style
       })}
     />

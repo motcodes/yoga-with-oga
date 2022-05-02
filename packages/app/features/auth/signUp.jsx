@@ -24,7 +24,7 @@ import { doc, collection, setDoc } from 'firebase/firestore'
 export function SignUp({ user, setUser }) {
   const { push, replace, back, parseNextPath } = useRouter()
   //const [inputs, setInputs] = useState({ userName: '', firstName: '', mail: '', password: '' })
-  const [userName, setUserName] = useState()
+  const [userName, setUserName] = useState('')
   const [firstName, setFirstName] = useState()
   const [mail, setMail] = useState()
   const [password, setPassword] = useState()
@@ -33,10 +33,10 @@ export function SignUp({ user, setUser }) {
   let fNameBC = '$grey80'
   let mailBC = '$grey80'
   let passwordBC = '$grey80'
-  if (userName === '') uNameBC = '$salmon'
+  /*if (userName === '') uNameBC = '$salmon'
   if (firstName === '') fNameBC = '$salmon'
   if (mail === '') mailBC = '$salmon'
-  if (password === '') passwordBC = '$salmon'
+  if (password === '') passwordBC = '$salmon'*/
 
   return (
     <SafeAreaView>
@@ -55,31 +55,32 @@ export function SignUp({ user, setUser }) {
         <View sx={{ height: 16 }} />
         <Input
           value={userName}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={text => window.location ? setUserName(text.target.value) : setUserName(text)}
           placeholder="Username*"
           style={{ borderColor: uNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={text => window.location ? setFirstName(text.target.value) : setFirstName(text)}
           placeholder="First name*"
           style={{ borderColor: fNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={mail}
-          onChange={ e => setMail(e.target.value) }
+          onChange={text => window.location ? setMail(text.target.value) : setMail(text)}
           placeholder="Email address*"
           style={{ borderColor: mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={password}
-          onChange={ e => setPassword(e.target.value) }
+          onChange={text => window.location ? setPassword(text.target.value) : setPassword(text)}
           placeholder="Password*"
           type="password"
           style={{ borderColor: passwordBC }}
+          secureTextEntry={true}
         />
 
         <View sx={{ height: 16 }} />
@@ -107,6 +108,7 @@ function onClickContinue(mail, firstName, userName, password, { push }) {
     push('/')
   } else {
     console.log('Du hast was vergessen!')
+    console.log(userName)
   }
 }
 

@@ -6,7 +6,7 @@ export function Layout({ children }) {
     <View
       sx={{
         backgroundColor: '$white',
-        minHeight: '100vh',
+        minHeight: '100%',
       }}
     >
       {children}

@@ -5,9 +5,9 @@ import { Button } from './button'
 export const Modal = ({
   title = '',
   copy = '',
-  leftButtonText = 'No',
+  leftButtonText = 'Yes',
   leftButtonClick,
-  rightButtonText = 'Yes',
+  rightButtonText = 'No',
   rightButtonClick,
   ...rest
 }) => {
@@ -25,6 +25,7 @@ export const Modal = ({
         textAlign: 'center',
         borderRadius: 8,
         boxShadow: 'modal',
+        backgroundColor: '$white',
       }}
     >
       <H5 sx={{ mb: 16 }}>{title}</H5>

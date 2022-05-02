@@ -10,14 +10,14 @@ export const ListItem = ({
   href = '/',
 }) => {
   return (
-    <Box
+    <Flex
       sx={{
         height: 88,
         width: '100%',
       }}
     >
       <Image
-        source={imageUrl}
+        source={{ uri: imageUrl }}
         alt={title}
         resizeMode="cover"
         sx={{ borderRadius: 6, height: '100%', width: '40%' }}
@@ -28,6 +28,6 @@ export const ListItem = ({
           {title}
         </Text>
       </Flex>
-    </Box>
+    </Flex>
   )
 }

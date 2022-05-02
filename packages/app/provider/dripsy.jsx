@@ -1,6 +1,5 @@
 import { DripsyProvider, makeTheme } from 'dripsy'
 import { Platform } from 'react-native'
-import { useFonts } from 'expo-font'
 
 const fontName = 'General Sans'
 
@@ -13,7 +12,7 @@ const webFont = (font) =>
 const headingStyles = {
   fontStyle: 'normal',
   fontWeight: 'default',
-  lineHeight: 1.3,
+  lineHeight: '1.3',
   fontFamily: 'heading',
   marginTop: 0,
   marginBottom: 0,
@@ -21,7 +20,7 @@ const headingStyles = {
 const textStyles = {
   fontStyle: 'normal',
   fontWeight: 400,
-  lineHeight: 1.5,
+  lineHeight: '1.5',
   marginTop: 0,
   marginBottom: 0,
 }
@@ -51,40 +50,49 @@ const theme = makeTheme({
       fontWeight: 500,
     },
     extraSmall: {
-      fontSize: 10.24,
       ...textStyles,
+      fontSize: 10.24,
+      lineHeight: 10.25 * 1.5,
     },
     small: {
-      fontSize: 12.8,
       ...textStyles,
+      fontSize: 12.8,
+      lineHeight: 12.8 * 1.5,
     },
     p: {
-      fontSize: 16,
       ...textStyles,
+      fontSize: 16,
+      lineHeight: 16 * 1.5,
     },
     a: {
-      fontSize: 16,
       ...textStyles,
+      fontSize: 16,
+      lineHeight: 16 * 1.5,
     },
     h1: {
-      fontSize: 48.83,
       ...headingStyles,
+      fontSize: 48.83,
+      lineHeight: 48.83 * 1.3,
     },
     h2: {
-      fontSize: 39,
       ...headingStyles,
+      fontSize: 39,
+      lineHeight: 39 * 1.3,
     },
     h3: {
-      fontSize: 31.25,
       ...headingStyles,
+      fontSize: 31.25,
+      lineHeight: 31.25 * 1.3,
     },
     h4: {
-      fontSize: 25,
       ...headingStyles,
+      fontSize: 25,
+      lineHeight: 25 * 1.3,
     },
     h5: {
-      fontSize: 20,
       ...headingStyles,
+      fontSize: 20,
+      lineHeight: 20 * 1.3,
     },
   },
   colors: {

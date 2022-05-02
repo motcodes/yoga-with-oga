@@ -1,4 +1,4 @@
-import { Text, useSx } from 'dripsy'
+import React, { Text, useSx } from 'dripsy'
 import { useState } from 'react'
 import { Pressable as NativeButton } from 'react-native'
 

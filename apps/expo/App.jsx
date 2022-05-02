@@ -1,21 +1,24 @@
 import { NativeNavigation } from 'app/navigation/native'
 import { Provider } from 'app/provider'
 import * as Font from 'expo-font'
-import { AppLoading } from 'expo'
+import { AppLoading } from 'expo-app-loading'
 import { useState } from 'react'
 
-const fetchFonts = () =>
-  Font.loadAsync({
-    'GeneralSans-Medium': require('./assets/fonts/GeneralSans-Medium.ttf'),
-  })
+// const fetchFonts = () =>
+//   Font.loadAsync({
+//     'GeneralSans-Medium': require('./assets/fonts/GeneralSans-Medium.ttf'),
+//   })
 
 export default function App() {
-  const [isLoaded, setLoading] = useState(false)
+  const [loaded] = Font.useFonts({
+    'GeneralSans-Medium': require('./assets/fonts/GeneralSans-Medium.ttf'),
+    'GeneralSans-Regular': require('./assets/fonts/GeneralSans-Regular.ttf'),
+    'General Sans': require('./assets/fonts/GeneralSans-Regular.ttf'),
+    'GeneralSans-Bold': require('./assets/fonts/GeneralSans-Bold.ttf'),
+  })
 
-  if (!isLoaded) {
-    return (
-      <AppLoading startAsync={fetchFonts} onFinish={() => setLoading(true)} />
-    )
+  if (!loaded) {
+    return null
   }
 
   return (
@@ -23,4 +26,9 @@ export default function App() {
       <NativeNavigation />
     </Provider>
   )
+  // return (
+  //   <Provider>
+  //     <NativeNavigation />
+  //   </Provider>
+  // )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { ImageBackground } from 'react-native'
-import { Box, H1, H4, Text, useSx } from 'dripsy'
+import { Box, Flex, H1, H4, Text, useSx, View } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 
 const DEFAULT_IMAGE =
@@ -31,21 +31,31 @@ export function Banner({
           justifyContent: 'flex-end',
         })}
       >
-        <Svg
-          viewBox="0 0 375 117"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{
+        <Flex
+          sx={{
+            height: 117,
+            width: '100%',
             position: 'absolute',
             bottom: 0,
-            zIndex: 1,
           }}
         >
-          <Path
-            d="M383 138.5C383 120.312 377.943 102.302 368.118 85.4983C358.294 68.6947 343.893 53.4266 325.739 40.5657C307.586 27.7048 286.034 17.503 262.315 10.5427C238.595 3.58241 213.173 -7.95026e-07 187.5 0C161.827 7.95026e-07 136.405 3.58241 112.685 10.5427C88.9662 17.503 67.4145 27.7048 49.2606 40.5657C31.1068 53.4266 16.7063 68.6948 6.88155 85.4984C-2.94325 102.302 -8 120.312 -8 138.5L187.5 138.5H383Z"
-            fill="#F2F7F5"
-          />
-        </Svg>
+          <Svg
+            viewBox="0 0 375 117"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              height: '100%',
+              width: '100%',
+            }}
+          >
+            <Path
+              d="M383 138.5C383 120.312 377.943 102.302 368.118 85.4983C358.294 68.6947 343.893 53.4266 325.739 40.5657C307.586 27.7048 286.034 17.503 262.315 10.5427C238.595 3.58241 213.173 -7.95026e-07 187.5 0C161.827 7.95026e-07 136.405 3.58241 112.685 10.5427C88.9662 17.503 67.4145 27.7048 49.2606 40.5657C31.1068 53.4266 16.7063 68.6948 6.88155 85.4984C-2.94325 102.302 -8 120.312 -8 138.5L187.5 138.5H383Z"
+              fill="#F2F7F5"
+            />
+          </Svg>
+        </Flex>
         <Box
           sx={{
             display: 'flex',

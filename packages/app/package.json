@@ -6,10 +6,11 @@
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "dripsy": "^3.6.0",
+    "expo-font": "latest",
     "expo-linking": "^3.0.0",
     "moti": "0.18.0-alpha.8",
-    "solito": "0.0.22",
-    "expo-font": "latest"
+    "react-native-svg": "^12.3.0",
+    "solito": "0.0.22"
   },
   "sideEffects": false
 }

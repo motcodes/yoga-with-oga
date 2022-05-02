@@ -18,9 +18,12 @@ import { Input } from '../components/input'
 import { Modal } from '../components/modal'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
+import { TextLink } from 'solito/link'
+import { BottomNavigation } from '../components/bottomNavigation'
 
 export function HomeScreen() {
   const [textInput, setTextInput] = useState('')
+  const sx = useSx()
   return (
     <SafeAreaView>
       <ScrollView
@@ -60,15 +63,15 @@ export function HomeScreen() {
             title="You’re a loser if you give up now"
             copy="Do you really want to cancle your training?"
           />
+          <View sx={{ height: 32 }} />
         </Flex>
         <Row>
-          <MotiLink href="/user/motcodes">
-            <Text selectable={false} sx={{ color: '$yellow' }}>
-              Moti Link
-            </Text>
-          </MotiLink>
+          <TextLink style={sx({mb: 50})} href="/user/motcodes">
+            User
+          </TextLink>
         </Row>
       </ScrollView>
+      
     </SafeAreaView>
   )
 }

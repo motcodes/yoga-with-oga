@@ -12,8 +12,9 @@ export function NavigationProvider({ children }) {
             initialRouteName: 'home',
             screens: {
               home: '',
+              session: 'session/:slug',
               'user-detail': 'user/:id',
-              'front-end': 'front-end'
+              'front-end': 'front-end',
             },
           },
         }),

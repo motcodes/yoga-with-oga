@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
+import { SessionScreen } from '../../features/session'
 import { FrontEndDetailScreen } from '../../features/front-end/fe-detail-screen'
 
 const Stack = createNativeStackNavigator()
@@ -24,10 +25,10 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="front-end"
-        component={FrontEndDetailScreen}
+        name="session"
+        component={SessionScreen}
         options={{
-          title: 'Front End',
+          title: 'Session',
         }}
       />
     </Stack.Navigator>

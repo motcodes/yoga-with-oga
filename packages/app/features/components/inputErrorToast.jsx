@@ -15,6 +15,7 @@ import {
 import { Modal } from 'react-native'
 
 export const InputErrorToast = ({ modalVisible }) => {
+    const sx = useSx()
     return(
         <Modal
             animationType="fade"
@@ -24,11 +25,11 @@ export const InputErrorToast = ({ modalVisible }) => {
             <View sx={{
             alignItems: 'center'
             }}>
-            <View sx={{ height: 8 }} />
+            <View sx={{ height: '87%' }} />
             <View sx={{
-                backgroundColor: '$white',
+                backgroundColor: '$salmonLight',
                 width: '90%',
-                height: 30,
+                height: 40,
                 borderRadius: 6,
                 boxShadow: 'modal',
                 display: 'flex',
@@ -37,10 +38,10 @@ export const InputErrorToast = ({ modalVisible }) => {
                 alignItems: 'center'
             }}>
                 <Text variant={'small'} sx={{
-                    color: '$greenDark'
+                    color: '$grey45'
                 }}>
-                    ❌ Something went Wrong! Please check your input.
-                </Text>
+                    ❌  Something went Wrong! Please check your input.
+                    </Text>
             </View>
             </View>
         </Modal>

@@ -106,6 +106,7 @@ const theme = makeTheme({
     $grey90: 'hsla(165, 4%, 90%, 1)',
     $pink: 'hsla(348, 100%, 83%, 1)',
     $salmon: 'hsla(4, 95%, 63%, 1)',
+    $salmonLight: 'hsla(5, 92.3%, 94.9%, 1)',
     $yellow: 'hsla(38, 95%, 57%, 1)',
     $white: 'hsla(156, 24%, 96%, 1)',
     $black: 'hsla(0, 0%, 0%, 1)',

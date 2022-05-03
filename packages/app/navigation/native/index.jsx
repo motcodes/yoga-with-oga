@@ -3,13 +3,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
 import { SignUp } from '../../features/auth/signUp'
-import { useState } from 'react'
+import { SignIn } from '../../features/auth/singIn'
+import { useUser } from '../../provider/userContext'
+
+import { auth } from '../../firebase-config'
 
 const Stack = createNativeStackNavigator()
 
 export function NativeNavigation() {
-  const [user, setUser] = useState()
-
   return (
     <>
       <Stack.Navigator>
@@ -32,6 +33,13 @@ export function NativeNavigation() {
           component={SignUp}
           options={{
             title: 'Sign Up',
+          }}
+        />
+        <Stack.Screen
+          name="signIn"
+          component={SignIn}
+          options={{
+            title: 'Sign In',
           }}
         />
       </Stack.Navigator>

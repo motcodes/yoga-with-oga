@@ -12,18 +12,25 @@ import {
   SafeAreaView,
 } from 'dripsy'
 import { useEffect, useState, useReducer } from 'react'
-import { TextLink } from 'solito/link'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
+import { Logo } from '../components/logo'
 
 import { auth, db } from '../../firebase-config'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, collection, setDoc } from 'firebase/firestore'
+import { TextLink } from 'solito/link'
+import { useUser } from '../../provider/userContext'
 
-export function SignUp({ user, setUser }) {
+export function SignUp() {
   const { push, replace, back, parseNextPath } = useRouter()
+  const { user, setUser } = useUser()
+
+  if (user && user.id !== '') {
+    push('/')
+  }
 
   const initialState = {
     userName: { val: '', gotTargeted: false },
@@ -65,7 +72,6 @@ export function SignUp({ user, setUser }) {
   if (state.password.gotTargeted && state.password.val === '') passwordBC = '$salmon'
 
   const [modalVisible, setModalVisible] = useState(false)
-  const sx = useSx()
 
   const onClickContinue = (mail, firstName, userName, password, { push }) => {
     if (mail && firstName && userName && password) {
@@ -93,6 +99,8 @@ export function SignUp({ user, setUser }) {
         firstName: firstName,
         userName: userName,
       })
+
+      setUser({id: uId, userName: userName, firstName: firstName})
   
       push('/')
     } catch (error) {
@@ -114,6 +122,12 @@ export function SignUp({ user, setUser }) {
         }}
       >
         <InputErrorToast modalVisible={modalVisible} />
+        
+        <View sx={{ height: 32 }} />
+        
+        {/*<Logo />*/}
+
+        <View sx={{ height: 32 }} />
 
         <Text variant={'base'} sx={{ color: '$green' }}>
           Welcome to Yoga with Oga
@@ -165,7 +179,11 @@ export function SignUp({ user, setUser }) {
           Continue
         </Button>
         <View sx={{ height: 12 }} />
-        <Button variant={'text'}>Sign In</Button>
+        <Button variant={'text'}>
+          <TextLink href={'/auth/signIn'}>
+            Sign In
+          </TextLink>
+        </Button>
       </ScrollView>
     </SafeAreaView>
   )

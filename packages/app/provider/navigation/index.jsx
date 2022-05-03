@@ -13,7 +13,8 @@ export function NavigationProvider({ children }) {
             screens: {
               home: '',
               'user-detail': 'user/:id',
-              'signUp': 'auth/signUp'
+              'signUp': 'auth/signUp',
+              'signIn': 'auth/signIn'
             },
           },
         }),

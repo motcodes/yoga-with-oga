@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'dripsy'
-import Svg, { Path, Rect, G, Defs } from 'react-native-Svg'
+//import Svg, { Path, Rect, G, Defs } from 'react-native-Svg'
 
 export const Logo = ({ width = '128px', height = '128px', style }) => {
     return(

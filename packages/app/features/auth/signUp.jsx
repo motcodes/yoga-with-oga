@@ -11,7 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TextLink } from 'solito/link'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
@@ -24,19 +24,24 @@ import { doc, collection, setDoc } from 'firebase/firestore'
 export function SignUp({ user, setUser }) {
   const { push, replace, back, parseNextPath } = useRouter()
   //const [inputs, setInputs] = useState({ userName: '', firstName: '', mail: '', password: '' })
-  const [userName, setUserName] = useState('')
-  const [firstName, setFirstName] = useState()
-  const [mail, setMail] = useState()
-  const [password, setPassword] = useState()
+  const [userName, setUserName] = useState({ val: '', gotTargeted: false })
+  const [firstName, setFirstName] = useState({ val: '', gotTargeted: false })
+  const [mail, setMail] = useState({ val: '', gotTargeted: false })
+  const [password, setPassword] = useState({ val: '', gotTargeted: false })
   
   let uNameBC = '$grey80'
   let fNameBC = '$grey80'
   let mailBC = '$grey80'
   let passwordBC = '$grey80'
-  /*if (userName === '') uNameBC = '$salmon'
-  if (firstName === '') fNameBC = '$salmon'
-  if (mail === '') mailBC = '$salmon'
-  if (password === '') passwordBC = '$salmon'*/
+  if (userName.gotTargeted && userName.val === '') uNameBC = '$salmon'
+  if (firstName.gotTargeted && firstName.val === '') fNameBC = '$salmon'
+  if (mail.gotTargeted && mail.val === '') mailBC = '$salmon'
+  if (password.gotTargeted && password.val === '') passwordBC = '$salmon'
+
+  const handleChangeUName = text => setUserName({ val: text, gotTargeted: true })
+  const handleChangeFName = text => setFirstName({ val: text, gotTargeted: true })
+  const handleChangeMail = text => setMail({ val: text, gotTargeted: true })
+  const handleChangePassword = text => setPassword({ val: text, gotTargeted: true })
 
   return (
     <SafeAreaView>
@@ -54,29 +59,29 @@ export function SignUp({ user, setUser }) {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
-          value={userName}
-          onChange={text => window.location ? setUserName(text.target.value) : setUserName(text)}
+          value={userName.val}
+          onChange={text => handleChangeUName(text)}
           placeholder="Username*"
           style={{ borderColor: uNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={firstName}
-          onChange={text => window.location ? setFirstName(text.target.value) : setFirstName(text)}
+          value={firstName.val}
+          onChange={text => handleChangeFName(text)}
           placeholder="First name*"
           style={{ borderColor: fNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={mail}
-          onChange={text => window.location ? setMail(text.target.value) : setMail(text)}
+          value={mail.val}
+          onChange={text => handleChangeMail(text)}
           placeholder="Email address*"
           style={{ borderColor: mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={password}
-          onChange={text => window.location ? setPassword(text.target.value) : setPassword(text)}
+          value={password.val}
+          onChange={text => handleChangePassword(text)}
           placeholder="Password*"
           type="password"
           style={{ borderColor: passwordBC }}
@@ -91,7 +96,7 @@ export function SignUp({ user, setUser }) {
         <View sx={{ height: 24 }} />
 
         <Button
-          onClick={() => onClickContinue(mail, firstName, userName, password, { push })}
+          onClick={() => onClickContinue(mail.val, firstName.val, userName.val, password.val, { push })}
         >
           Continue
         </Button>
@@ -102,7 +107,7 @@ export function SignUp({ user, setUser }) {
   )
 }
 
-function onClickContinue(mail, firstName, userName, password, { push }) {
+async function onClickContinue(mail, firstName, userName, password, { push }) {
   if (mail && firstName && userName && password) {
     onSignUpSubmit(mail, firstName, userName, password)
     push('/')

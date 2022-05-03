@@ -7,7 +7,6 @@ const DEFAULT_IMAGE =
 export const ListItem = ({
   imageUrl = DEFAULT_IMAGE,
   title = 'Pose #1',
-  href = '/',
   style,
 }) => {
   return (
@@ -22,7 +21,7 @@ export const ListItem = ({
         source={{ uri: imageUrl }}
         alt={title}
         resizeMode="cover"
-        sx={{ borderRadius: 6, height: '100%', width: '40%' }}
+        sx={{ borderRadius: 6, height: '100%', width: '40%', maxWidth: 204 }}
       />
       <View sx={{ width: 20 }} />
       <Flex sx={{ flexDirection: 'column', justifyContent: 'center' }}>

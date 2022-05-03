@@ -31,7 +31,7 @@ export const Button = ({
         paddingBottom: 12,
         paddingLeft: 32,
         paddingRight: 32,
-        width: size === 'small' ? 'fit-content' : '100%',
+        width: size === 'small' ? 'auto' : '100%',
         backgroundColor:
           variant === 'text'
             ? 'transparent'

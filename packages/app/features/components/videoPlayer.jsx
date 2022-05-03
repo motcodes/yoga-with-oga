@@ -2,23 +2,36 @@ import React, { useEffect, useRef, useState } from 'react'
 import { View } from 'dripsy'
 import { Video, AVPlaybackStatus } from 'expo-av'
 import { Button } from './button'
+import { useWindowDimensions } from 'react-native'
 
-export function VideoPlayer({ videoUrl }) {
-  console.log('videoUrl :', videoUrl)
+export function VideoPlayer({ videoUrl, thumbnail }) {
   const video = useRef(null)
   const [status, setStatus] = useState({})
+  const windowSize = useWindowDimensions()
+
+  useEffect(() => {
+    if (video.current) {
+      video.current.playAsync()
+    }
+  }, [video.current])
 
   return (
-    <View sx={{ height: 800, width: '100%' }}>
+    <View sx={{ height: windowSize.height, width: '100%' }}>
       <Video
         ref={video}
-        style={{ height: 600, width: '100%' }}
+        style={{
+          height: windowSize.height,
+          width: 'auto',
+          maxWidth: 512,
+          marginHorizontal: 'auto',
+        }}
         source={{
           uri: videoUrl,
         }}
-        useNativeControls
+        isMuted
+        usePoster
+        posterSource={{ uri: thumbnail }}
         resizeMode="contain"
-        isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
       <View>

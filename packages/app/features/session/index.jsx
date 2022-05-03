@@ -1,18 +1,17 @@
-import { useSession } from 'app/helper'
-import { FlatList, H3, H4, H5, ScrollView, Text, View } from 'dripsy'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView } from 'react-native'
 import { createParam } from 'solito'
+import { Link } from 'solito/link'
+import { useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
-import { VideoPlayer } from '../components/videoPlayer'
 
 const { useParam } = createParam()
 export function SessionScreen() {
-  const [slug] = useParam('slug')
+  const [sessionId] = useParam('sessionId')
 
-  const session = useSession(slug)
-  console.log('session :', session)
+  const session = useSession(sessionId)
 
   if (!session) {
     return (
@@ -38,21 +37,18 @@ export function SessionScreen() {
             my: 80,
           }}
         >
-          <FlatList
-            data={session.videos}
-            renderItem={({ item }) => {
-              console.log('item :', item)
-              return (
-                // <ListItem
-                //   key={item.title}
-                //   imageUrl={item.imageUrl}
-                //   title={item.title}
-                //   style={{ my: 16 }}
-                // />
-                <VideoPlayer key={item.title} videoUrl={item.vimeo.videoUrl} />
-              )
-            }}
-          />
+          <H5>Workout Overview</H5>
+          {session &&
+            session.videos &&
+            session.videos.map((item) => (
+              <Link key={item.title} href={`/session/${sessionId}/${item.id}`}>
+                <ListItem
+                  imageUrl={item.vimeo.thumbnailUrl}
+                  title={item.title}
+                  style={{ my: 16 }}
+                />
+              </Link>
+            ))}
         </View>
       </ScrollView>
     </SafeAreaView>

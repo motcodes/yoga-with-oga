@@ -24,10 +24,10 @@ export function useSessions() {
 
 export function useSession(slug) {
   const [video, setVideo] = useState([])
+  const sessionBlock = doc(db, 'session', slug)
 
   useEffect(() => {
     const fetchSession = async () => {
-      const sessionBlock = doc(db, 'session', slug)
       const sessionSnapshot = await getDoc(sessionBlock)
       if (sessionSnapshot.exists()) {
         const session = sessionSnapshot.data()
@@ -35,16 +35,17 @@ export function useSession(slug) {
           session.videos.map(async (item) => {
             const videoSnap = await getDoc(item)
             const video = videoSnap.data()
-            console.log('video :', video)
             const vimeoRes = await fetch(
               `http://localhost:3000/api/vimeo/${video.videoId}`
             )
             const vimeoData = await vimeoRes.json()
             video.vimeo = vimeoData
+            video.id = item.id
             return video
           })
         )
         session.videos = videos
+        session.id = slug
         setVideo(session)
       } else {
         console.log('No such document!')
@@ -55,5 +56,3 @@ export function useSession(slug) {
 
   return video
 }
-
-// export function usePoses() {}

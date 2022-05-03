@@ -4,9 +4,13 @@ import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
 import { SessionScreen } from '../../features/session'
 import { SessionWorkoutScreen } from '../../features/workout'
+import { SignUp } from '../../features/auth/signUp'
+import { SignIn } from '../../features/auth/singIn'
+import { useUser } from '../../provider/userContext'
+
+import { auth } from '../../firebase-config'
 
 const Stack = createNativeStackNavigator()
-const SessionStack = createNativeStackNavigator()
 
 export function NativeNavigation() {
   return (
@@ -43,6 +47,35 @@ export function NativeNavigation() {
           headerShown: false,
         }}
       />
-    </Stack.Navigator>
+
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{
+            title: 'Home',
+          }}
+        />
+        <Stack.Screen
+          name="user-detail"
+          component={UserDetailScreen}
+          options={{
+            title: 'User',
+          }}
+        />
+        <Stack.Screen
+          name="signUp"
+          component={SignUp}
+          options={{
+            title: 'Sign Up',
+          }}
+        />
+        <Stack.Screen
+          name="signIn"
+          component={SignIn}
+          options={{
+            title: 'Sign In',
+          }}
+        />
+      </Stack.Navigator>
   )
 }

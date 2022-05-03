@@ -1,5 +1,6 @@
 import { View } from 'dripsy'
 import React from 'react'
+import { useUser } from '../../provider/userContext'
 
 export function Layout({ children }) {
   return (

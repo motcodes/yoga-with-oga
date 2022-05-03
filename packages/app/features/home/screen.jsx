@@ -18,10 +18,14 @@ import { Banner } from '../components/session'
 import { Link } from 'solito/link'
 import { useSessions } from 'app/helper'
 
-export function HomeScreen() {
-  const sessions = useSessions()
-  console.log('sessions :', sessions)
+import { ListItem } from '../components/session/listItem'
+import { TextLink } from 'solito/link'
+import { BottomNavigation } from '../components/bottomNavigation'
 
+export function HomeScreen() {
+  const [textInput, setTextInput] = useState('')
+  const sx = useSx()
+  const sessions = useSessions()
   return (
     <SafeAreaView>
       <ScrollView
@@ -43,6 +47,7 @@ export function HomeScreen() {
             </Link>
           ))}
       </ScrollView>
+      
     </SafeAreaView>
   )
 }

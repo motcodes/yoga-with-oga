@@ -16,6 +16,8 @@ export function NavigationProvider({ children }) {
               workout: 'session/:sessionId/:workoutId',
               'user-detail': 'user/:id',
               'front-end': 'front-end',
+              'signUp': 'auth/signUp',
+              'signIn': 'auth/signIn'
             },
           },
         }),

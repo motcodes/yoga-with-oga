@@ -8,7 +8,7 @@ import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { useUser } from '../../provider/userContext'
 
-import { auth } from '../../firebase-config'
+import { auth } from '../../firebase/client'
 
 const Stack = createNativeStackNavigator()
 
@@ -48,34 +48,34 @@ export function NativeNavigation() {
         }}
       />
 
-        <Stack.Screen
-          name="home"
-          component={HomeScreen}
-          options={{
-            title: 'Home',
-          }}
-        />
-        <Stack.Screen
-          name="user-detail"
-          component={UserDetailScreen}
-          options={{
-            title: 'User',
-          }}
-        />
-        <Stack.Screen
-          name="signUp"
-          component={SignUp}
-          options={{
-            title: 'Sign Up',
-          }}
-        />
-        <Stack.Screen
-          name="signIn"
-          component={SignIn}
-          options={{
-            title: 'Sign In',
-          }}
-        />
-      </Stack.Navigator>
+      <Stack.Screen
+        name="home"
+        component={HomeScreen}
+        options={{
+          title: 'Home',
+        }}
+      />
+      <Stack.Screen
+        name="user-detail"
+        component={UserDetailScreen}
+        options={{
+          title: 'User',
+        }}
+      />
+      <Stack.Screen
+        name="signUp"
+        component={SignUp}
+        options={{
+          title: 'Sign Up',
+        }}
+      />
+      <Stack.Screen
+        name="signIn"
+        component={SignIn}
+        options={{
+          title: 'Sign In',
+        }}
+      />
+    </Stack.Navigator>
   )
 }

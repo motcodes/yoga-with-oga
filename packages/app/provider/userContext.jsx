@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import { auth, db } from '../firebase-config'
-import { collection, getDocs } from 'firebase/firestore'
+import { auth, db } from '../firebase/client'
+import { doc, getDoc } from 'firebase/firestore'
 
 const UserContext = React.createContext()
 
-function UserProvider({children}) {
+function UserProvider({ children }) {
   const [user, setUser] = useState()
 
-  const getUser = async (userCollectionRef, userId) => {
-    const data = await getDocs(userCollectionRef)
-    let fetchUser
-    data.docs.map((doc) => { 
-        /*{doc: doc.id, auth: userId}*/ if (doc.id === userId) {
-                fetchUser = { id: doc.id, userName: doc.data().userName, firstName: doc.data().firstName}
-        }})
+  const getUser = async (userCollectionRef) => {
+    console.log('userCollectionRef :', userCollectionRef)
+    const data = await getDoc(userCollectionRef)
+    const { userName, firstName } = data.data()
+    const fetchUser = {
+      id: userCollectionRef.id,
+      userName: userName,
+      firstName: firstName,
+    }
     setUser(fetchUser)
   }
 
   useEffect(() => {
-      auth.onAuthStateChanged((authUser) => {
-        //console.log(authUser.uid)
-        const userCollectionRef = collection(db, 'users')
+    auth.onAuthStateChanged((authUser) => {
+      const userCollectionRef = doc(db, 'users', authUser.uid)
 
-        getUser(userCollectionRef, authUser.uid)
-        
+      getUser(userCollectionRef)
     })
   }, [])
 
   // NOTE: you *might* need to memoize this value
   // Learn more in http://kcd.im/optimize-context
-  const value = {user, setUser}
+  const value = { user, setUser }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
 
@@ -41,4 +41,4 @@ function useUser() {
   return context
 }
 
-export {UserProvider, useUser}
+export { UserProvider, useUser }

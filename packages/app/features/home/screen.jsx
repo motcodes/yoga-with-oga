@@ -1,30 +1,12 @@
-import {
-  Text,
-  useSx,
-  View,
-  H1,
-  P,
-  Row,
-  A,
-  H2,
-  Flex,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
-import React, { useEffect, useState } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from 'app/firebase/client'
+import { View, H1, ScrollView, SafeAreaView } from 'dripsy'
+import React from 'react'
 import { Banner } from '../components/session'
 import { Link } from 'solito/link'
 import { useSessions } from 'app/helper'
-
-import { ListItem } from '../components/session/listItem'
-import { TextLink } from 'solito/link'
-import { BottomNavigation } from '../components/bottomNavigation'
+import { useUser } from 'app/provider/userContext'
 
 export function HomeScreen() {
-  const [textInput, setTextInput] = useState('')
-  const sx = useSx()
+  const { user } = useUser()
   const sessions = useSessions()
   return (
     <SafeAreaView>
@@ -33,7 +15,9 @@ export function HomeScreen() {
           display: 'flex',
         }}
       >
-        <H1>Welcome to Yoga with Oga</H1>
+        <H1>
+          Welcome to Yoga with Oga{user && <span>, {user.firstName}</span>}
+        </H1>
         <View sx={{ height: 32 }} />
         {sessions &&
           sessions.map((item) => (
@@ -47,7 +31,6 @@ export function HomeScreen() {
             </Link>
           ))}
       </ScrollView>
-      
     </SafeAreaView>
   )
 }

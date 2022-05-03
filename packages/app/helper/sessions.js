@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore'
 import { db } from 'app/firebase/client'
-import { vimeoClient } from '../../../apps/next/vimeo'
-import { useFetch } from './useFetch'
 
 export const sessionCol = collection(db, 'session')
 
@@ -39,7 +37,7 @@ export function useSession(slug) {
             const video = videoSnap.data()
             console.log('video :', video)
             const vimeoRes = await fetch(
-              `http://localhost:3000/api/vimeo/${video.videoUrl.split('/')[0]}`
+              `http://localhost:3000/api/vimeo/${video.videoId}`
             )
             const vimeoData = await vimeoRes.json()
             video.vimeo = vimeoData

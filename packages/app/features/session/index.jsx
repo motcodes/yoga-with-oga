@@ -5,12 +5,14 @@ import { SafeAreaView } from 'react-native'
 import { createParam } from 'solito'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
+import { VideoPlayer } from '../components/videoPlayer'
 
 const { useParam } = createParam()
 export function SessionScreen() {
   const [slug] = useParam('slug')
 
   const session = useSession(slug)
+  console.log('session :', session)
 
   if (!session) {
     return (
@@ -41,11 +43,13 @@ export function SessionScreen() {
             renderItem={({ item }) => {
               console.log('item :', item)
               return (
-                <ListItem
-                  imageUrl={item.imageUrl}
-                  titel={item.title}
-                  style={{ my: 16 }}
-                />
+                // <ListItem
+                //   key={item.title}
+                //   imageUrl={item.imageUrl}
+                //   title={item.title}
+                //   style={{ my: 16 }}
+                // />
+                <VideoPlayer key={item.title} videoUrl={item.vimeo.videoUrl} />
               )
             }}
           />

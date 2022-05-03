@@ -12,7 +12,10 @@ export function NavigationProvider({ children }) {
             initialRouteName: 'home',
             screens: {
               home: '',
+              session: 'session/:sessionId',
+              workout: 'session/:sessionId/:workoutId',
               'user-detail': 'user/:id',
+              'front-end': 'front-end',
               'signUp': 'auth/signUp',
               'signIn': 'auth/signIn'
             },

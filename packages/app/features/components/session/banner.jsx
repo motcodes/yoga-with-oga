@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, Dimensions, useWindowDimensions } from 'react-native'
 import { Box, Flex, H1, H4, Text, useSx, View } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 
@@ -7,12 +7,14 @@ const DEFAULT_IMAGE =
   'https://images.unsplash.com/photo-1567281150864-5296ada11f3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
 
 export function Banner({
-  imageUrl = DEFAULT_IMAGE,
+  imageUrl,
   title = '',
   subtitle = '',
   highlight = '',
 }) {
   const sx = useSx()
+  const windowSizes = useWindowDimensions()
+
   return (
     <Box
       sx={{
@@ -33,8 +35,8 @@ export function Banner({
       >
         <Flex
           sx={{
-            height: 117,
-            width: '100%',
+            height: windowSizes.width * 0.304,
+            width: windowSizes.width,
             position: 'absolute',
             bottom: 0,
           }}
@@ -46,8 +48,11 @@ export function Banner({
             style={{
               position: 'absolute',
               bottom: 0,
+              left: 0,
+              right: 0,
               height: '100%',
               width: '100%',
+              maxWidth: 450,
             }}
           >
             <Path

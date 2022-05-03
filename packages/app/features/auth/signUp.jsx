@@ -11,11 +11,12 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import { TextLink } from 'solito/link'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
+import { InputErrorToast } from '../components/inputErrorToast'
 
 import { auth, db } from '../../firebase-config'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -23,25 +24,86 @@ import { doc, collection, setDoc } from 'firebase/firestore'
 
 export function SignUp({ user, setUser }) {
   const { push, replace, back, parseNextPath } = useRouter()
-  //const [inputs, setInputs] = useState({ userName: '', firstName: '', mail: '', password: '' })
-  const [userName, setUserName] = useState({ val: '', gotTargeted: false })
-  const [firstName, setFirstName] = useState({ val: '', gotTargeted: false })
-  const [mail, setMail] = useState({ val: '', gotTargeted: false })
-  const [password, setPassword] = useState({ val: '', gotTargeted: false })
+
+  const initialState = {
+    userName: { val: '', gotTargeted: false },
+    firstName: { val: '', gotTargeted: false },
+    mail: { val: '', gotTargeted: false },
+    password: { val: '', gotTargeted: false }
+  }
+
+  const reducer = (state, action) => {
+    let newState;
+    switch (action.type) {
+      case 'uNameChange':
+        newState = { ...state, userName: { val: action.value, gotTargeted: true } };
+        break;
+      case 'fNameChange':
+        newState = { ...state, firstName: { val: action.value, gotTargeted: true } };
+        break;
+      case 'mailChange':
+        newState = { ...state, mail: { val: action.value, gotTargeted: true } };
+        break;
+      case 'passwordChange':
+        newState = { ...state, password: { val: action.value, gotTargeted: true } };
+        break;
+      default:
+        throw new Error();
+    }
+    return newState;
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialState)
   
   let uNameBC = '$grey80'
   let fNameBC = '$grey80'
   let mailBC = '$grey80'
   let passwordBC = '$grey80'
-  if (userName.gotTargeted && userName.val === '') uNameBC = '$salmon'
-  if (firstName.gotTargeted && firstName.val === '') fNameBC = '$salmon'
-  if (mail.gotTargeted && mail.val === '') mailBC = '$salmon'
-  if (password.gotTargeted && password.val === '') passwordBC = '$salmon'
+  if (state.userName.gotTargeted && state.userName.val === '') uNameBC = '$salmon'
+  if (state.firstName.gotTargeted && state.firstName.val === '') fNameBC = '$salmon'
+  if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
+  if (state.password.gotTargeted && state.password.val === '') passwordBC = '$salmon'
 
-  const handleChangeUName = text => setUserName({ val: text, gotTargeted: true })
-  const handleChangeFName = text => setFirstName({ val: text, gotTargeted: true })
-  const handleChangeMail = text => setMail({ val: text, gotTargeted: true })
-  const handleChangePassword = text => setPassword({ val: text, gotTargeted: true })
+  const [modalVisible, setModalVisible] = useState(false)
+  const sx = useSx()
+
+  const onClickContinue = (mail, firstName, userName, password, { push }) => {
+    if (mail && firstName && userName && password) {
+      onSignUpSubmit(mail, firstName, userName, password)
+    } else {
+      console.log('Du hast was vergessen!')
+
+      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 2000);
+    }
+  }
+
+  const onSignUpSubmit = async (mail, firstName, userName, password) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        mail,
+        password
+      )
+  
+      const uId = userCredentials.user.uid
+      await setDoc(doc(db, 'users', uId), {
+        firstName: firstName,
+        userName: userName,
+      })
+  
+      push('/')
+    } catch (error) {
+      console.log(error)
+
+      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 2000);
+    }
+  }
 
   return (
     <SafeAreaView>
@@ -51,6 +113,8 @@ export function SignUp({ user, setUser }) {
           mx: 16,
         }}
       >
+        <InputErrorToast modalVisible={modalVisible} />
+
         <Text variant={'base'} sx={{ color: '$green' }}>
           Welcome to Yoga with Oga
         </Text>
@@ -59,29 +123,29 @@ export function SignUp({ user, setUser }) {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
-          value={userName.val}
-          onChange={text => handleChangeUName(text)}
+          value={state.userName.val}
+          onChange={text => dispatch({ type: 'uNameChange', value: text })}
           placeholder="Username*"
           style={{ borderColor: uNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={firstName.val}
-          onChange={text => handleChangeFName(text)}
+          value={state.firstName.val}
+          onChange={text => dispatch({ type: 'fNameChange', value: text })}
           placeholder="First name*"
           style={{ borderColor: fNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={mail.val}
-          onChange={text => handleChangeMail(text)}
+          value={state.mail.val}
+          onChange={text => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
           style={{ borderColor: mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={password.val}
-          onChange={text => handleChangePassword(text)}
+          value={state.password.val}
+          onChange={text => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
           type="password"
           style={{ borderColor: passwordBC }}
@@ -96,7 +160,7 @@ export function SignUp({ user, setUser }) {
         <View sx={{ height: 24 }} />
 
         <Button
-          onClick={() => onClickContinue(mail.val, firstName.val, userName.val, password.val, { push })}
+          onClick={() => onClickContinue(state.mail.val, state.firstName.val, state.userName.val, state.password.val, { push, setModalVisible, modalVisible })}
         >
           Continue
         </Button>
@@ -105,32 +169,4 @@ export function SignUp({ user, setUser }) {
       </ScrollView>
     </SafeAreaView>
   )
-}
-
-async function onClickContinue(mail, firstName, userName, password, { push }) {
-  if (mail && firstName && userName && password) {
-    onSignUpSubmit(mail, firstName, userName, password)
-    push('/')
-  } else {
-    console.log('Du hast was vergessen!')
-    console.log(userName)
-  }
-}
-
-async function onSignUpSubmit(mail, firstName, userName, password) {
-  try {
-    const userCredentials = await createUserWithEmailAndPassword(
-      auth,
-      mail,
-      password
-    )
-
-    const uId = userCredentials.user.uid
-    await setDoc(doc(db, 'users', uId), {
-      firstName: firstName,
-      userName: userName,
-    })
-  } catch (error) {
-    console.log(error)
-  }
 }

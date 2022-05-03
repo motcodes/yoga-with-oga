@@ -74,4 +74,4 @@ build/**
 
 .env.local
 .env.production
-secrets.js
+# secrets.js

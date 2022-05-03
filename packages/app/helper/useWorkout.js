@@ -13,7 +13,7 @@ export function useWorkout(workoutId) {
         const videoData = videoSnapshot.data()
         console.log('videoData :', videoData)
         const vimeoRes = await fetch(
-          `http://localhost:3000/api/vimeo/${videoData.videoId}`
+          `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
         )
         const vimeoData = await vimeoRes.json()
         setVideo({ ...video, ...vimeoData })

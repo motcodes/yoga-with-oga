@@ -1,3 +1,5 @@
+import appConfig from 'app/app.config'
+
 export default {
   expo: {
     name: 'yoga-with-oga',
@@ -6,7 +8,7 @@ export default {
     sdkVersion: '44.0.0',
     scheme: 'solito-blank',
     owner: 'motcodes',
-    platforms: ['ios', 'android'],
+    platforms: ['ios', 'android', 'web'],
     ios: {
       bundleIdentifier: 'com.solito.blank',
     },

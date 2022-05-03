@@ -36,7 +36,7 @@ export function useSession(slug) {
             const videoSnap = await getDoc(item)
             const video = videoSnap.data()
             const vimeoRes = await fetch(
-              `http://localhost:3000/api/vimeo/${video.videoId}`
+              `https://yoga-with-oga.vercel.app/api/vimeo/${video.videoId}`
             )
             const vimeoData = await vimeoRes.json()
             video.vimeo = vimeoData

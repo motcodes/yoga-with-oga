@@ -19,7 +19,7 @@ import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
 import { usePersonalInfo } from '../../helper/usePersonalInfo'
 
-import { db } from '../../firebase-config'
+import { db } from '../../firebase/client'
 import { doc, setDoc } from 'firebase/firestore'
 import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
@@ -29,7 +29,7 @@ export const PersonalInfo = () => {
     const { user, setUser } = useUser()
 
     if (!user) {
-        push('/')
+        //push('/')
     }
     
     const [state, dispatch] = usePersonalInfo()
@@ -56,7 +56,7 @@ export const PersonalInfo = () => {
 
     const onPersonalInfoSubmit = async (gender, height, weight, { push, user }) => {
         try {
-            await setDoc(doc(db, 'users', user.id), { ...user, gender: gender, height: height, weight: weight })        
+            await setDoc(doc(db, 'users', user.id), { userName: user.userName, firstName: user.firstName, gender: gender, height: height, weight: weight })        
     
             push('/')
         } catch (error) {
@@ -86,10 +86,10 @@ export const PersonalInfo = () => {
                 <View sx={{ height: 32 }} />
 
                 <Text variant={'base'} sx={{ color: '$green' }}>
-                New To Yoga with Oga?
+                    Almost ready
                 </Text>
-                <Text variant={'small'} sx={{ color: '$yellow' }}>
-                Sign up for free
+                <Text variant={'small'} sx={{ color: '$greenLight' }}>
+                    Just some more information about yourself, which helps us create a better experience.
                 </Text>
                 <View sx={{ height: 16 }} />
                 <Input
@@ -112,6 +112,11 @@ export const PersonalInfo = () => {
                 placeholder="Weight"
                 style={{ borderColor: weightBC }}
                 />
+                <View sx={{ height: 16 }} />
+                <Text variant={'extraSmall'} sx={{ color: '$grey45' }}>
+                    By signing up, you’re agree to our Terms and Conditions and Privacy
+                    Policy
+                </Text>
                 <View sx={{ height: 24 }} />
         
                 <Button

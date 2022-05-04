@@ -11,7 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
@@ -29,9 +29,11 @@ export const SignIn = () => {
   const { push, replace, back, parseNextPath } = useRouter()
   const { user, setUser } = useUser()
 
-  if (user && user.id !== '') {
-    push('/')
-  }
+  useEffect(() => {
+      if (user && user.id !== '') {
+          push('/')
+      }
+  }, [user])
 
     const [state, dispatch] = useSignIn()
     

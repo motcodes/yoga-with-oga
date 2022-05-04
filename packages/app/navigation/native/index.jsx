@@ -7,6 +7,7 @@ import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
+import { ProfileScreen } from '../../features/profile'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
@@ -48,21 +49,6 @@ export function NativeNavigation() {
           headerShown: false,
         }}
       />
-
-      <Stack.Screen
-        name="home"
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
-        }}
-      />
       <Stack.Screen
         name="signUp"
         component={SignUp}
@@ -77,14 +63,27 @@ export function NativeNavigation() {
           title: 'Sign In',
         }}
       />
-
-        <Stack.Screen
-          name="personalInfo"
-          component={PersonalInfo}
-          options={{
-            title: 'Personal Info',
-          }}
-        />
+      <Stack.Screen
+        name="personalInfo"
+        component={PersonalInfo}
+        options={{
+          title: 'Personal Info',
+        }}
+      />
+      <Stack.Screen
+        name="personalInfo"
+        component={PersonalInfo}
+        options={{
+          title: 'Personal Info',
+        }}
+      />
+      <Stack.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+        }}
+      />
     </Stack.Navigator>
   )
 }

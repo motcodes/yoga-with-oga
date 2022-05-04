@@ -18,7 +18,8 @@ export function NavigationProvider({ children }) {
               'front-end': 'front-end',
               'signUp': 'auth/signUp',
               'signIn': 'auth/signIn',
-              'personalInfo': 'auth/personalInfo'
+              'personalInfo': 'auth/personalInfo',
+              'profile': 'profile'
             },
           },
         }),

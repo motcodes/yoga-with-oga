@@ -10,6 +10,7 @@ import { PersonalInfo } from '../../features/auth/personalInfo'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
+import { SessionWorkoutVideoScreen } from 'app/features/video'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,26 +42,19 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="workout"
+        name="session-workout"
         component={SessionWorkoutScreen}
         options={{
           title: 'Workout',
           headerShown: false,
         }}
       />
-
       <Stack.Screen
-        name="home"
-        component={HomeScreen}
+        name="session-workout-video"
+        component={SessionWorkoutVideoScreen}
         options={{
-          title: 'Home',
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
+          title: 'Workout Video',
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -78,13 +72,13 @@ export function NativeNavigation() {
         }}
       />
 
-        <Stack.Screen
-          name="personalInfo"
-          component={PersonalInfo}
-          options={{
-            title: 'Personal Info',
-          }}
-        />
+      <Stack.Screen
+        name="personalInfo"
+        component={PersonalInfo}
+        options={{
+          title: 'Personal Info',
+        }}
+      />
     </Stack.Navigator>
   )
 }

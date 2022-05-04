@@ -19,7 +19,7 @@ import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
 import { useSignUp } from '../../helper/useSingUp'
 
-import { auth, db } from '../../firebase-config'
+import { auth, db } from '../../firebase/client'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, collection, setDoc } from 'firebase/firestore'
 import { TextLink } from 'solito/link'
@@ -34,15 +34,18 @@ export function SignUp() {
   }
 
   const [state, dispatch] = useSignUp()  
-  
+
   let uNameBC = '$grey80'
   let fNameBC = '$grey80'
   let mailBC = '$grey80'
   let passwordBC = '$grey80'
-  if (state.userName.gotTargeted && state.userName.val === '') uNameBC = '$salmon'
-  if (state.firstName.gotTargeted && state.firstName.val === '') fNameBC = '$salmon'
+  if (state.userName.gotTargeted && state.userName.val === '')
+    uNameBC = '$salmon'
+  if (state.firstName.gotTargeted && state.firstName.val === '')
+    fNameBC = '$salmon'
   if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
-  if (state.password.gotTargeted && state.password.val === '') passwordBC = '$salmon'
+  if (state.password.gotTargeted && state.password.val === '')
+    passwordBC = '$salmon'
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -52,8 +55,8 @@ export function SignUp() {
     } else {
       setModalVisible(true);
       setTimeout(() => {
-        setModalVisible(false);
-      }, 2000);
+        setModalVisible(false)
+      }, 2000)
     }
   }
 
@@ -64,23 +67,23 @@ export function SignUp() {
         mail,
         password
       )
-  
+
       const uId = userCredentials.user.uid
       await setDoc(doc(db, 'users', uId), {
         firstName: firstName,
         userName: userName,
       })
 
-      setUser({id: uId, userName: userName, firstName: firstName})
-  
+      setUser({ id: uId, userName: userName, firstName: firstName })
+
       push('/')
     } catch (error) {
       console.log(error)
 
-      setModalVisible(true);
+      setModalVisible(true)
       setTimeout(() => {
-        setModalVisible(false);
-      }, 2000);
+        setModalVisible(false)
+      }, 2000)
     }
   }
 
@@ -93,9 +96,9 @@ export function SignUp() {
         }}
       >
         <InputErrorToast modalVisible={modalVisible} />
-        
+
         <View sx={{ height: 32 }} />
-        
+
         {/*<Logo />*/}
 
         <View sx={{ height: 32 }} />
@@ -109,28 +112,28 @@ export function SignUp() {
         <View sx={{ height: 16 }} />
         <Input
           value={state.userName.val}
-          onChange={text => dispatch({ type: 'uNameChange', value: text })}
+          onChange={(text) => dispatch({ type: 'uNameChange', value: text })}
           placeholder="Username*"
           style={{ borderColor: uNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={state.firstName.val}
-          onChange={text => dispatch({ type: 'fNameChange', value: text })}
+          onChange={(text) => dispatch({ type: 'fNameChange', value: text })}
           placeholder="First name*"
           style={{ borderColor: fNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={state.mail.val}
-          onChange={text => dispatch({ type: 'mailChange', value: text })}
+          onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
           style={{ borderColor: mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={state.password.val}
-          onChange={text => dispatch({ type: 'passwordChange', value: text })}
+          onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
           type="password"
           style={{ borderColor: passwordBC }}
@@ -145,15 +148,21 @@ export function SignUp() {
         <View sx={{ height: 24 }} />
 
         <Button
-          onClick={()=>onClickContinue(state.mail.val, state.firstName.val, state.userName.val, state.password.val, { push, setModalVisible, modalVisible })}
+          onClick={() =>
+            onClickContinue(
+              state.mail.val,
+              state.firstName.val,
+              state.userName.val,
+              state.password.val,
+              { push, setModalVisible, modalVisible }
+            )
+          }
         >
           Continue
         </Button>
         <View sx={{ height: 12 }} />
         <Button variant={'text'}>
-          <TextLink href={'/auth/signIn'}>
-            Sign In
-          </TextLink>
+          <TextLink href={'/auth/signIn'}>Sign In</TextLink>
         </Button>
       </ScrollView>
     </SafeAreaView>

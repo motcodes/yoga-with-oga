@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { auth, db } from '../firebase-config'
+import { auth, db } from '../firebase/client'
 import { doc, getDoc } from 'firebase/firestore'
 
 const UserContext = React.createContext()
@@ -8,17 +8,18 @@ function UserProvider({ children }) {
   const [user, setUser] = useState()
 
   const getUser = async (userCollectionRef) => {
-    console.log('userCollectionRef :', userCollectionRef)
     const data = await getDoc(userCollectionRef)
-    const fetchUser = { ...data.data(), id: data.id}
+    const fetchUser = { ...data.data(), id: userCollectionRef.id}
     setUser(fetchUser)
   }
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      const userCollectionRef = doc(db, 'users', authUser.uid)
+      if(authUser){
+        const userCollectionRef = doc(db, 'users', authUser.uid)
 
-      getUser(userCollectionRef)
+        getUser(userCollectionRef)
+      }
     })
   }, [])
 
@@ -36,4 +37,4 @@ function useUser() {
   return context
 }
 
-export {UserProvider, useUser}
+export { UserProvider, useUser }

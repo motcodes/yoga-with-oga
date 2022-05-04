@@ -1,77 +1,36 @@
-import {
-  Text,
-  useSx,
-  View,
-  H1,
-  P,
-  Row,
-  A,
-  H2,
-  Flex,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
-import React, { useState } from 'react'
-import { MotiLink } from 'solito/moti'
-import { Button } from '../components/button'
-import { Input } from '../components/input'
-import { Modal } from '../components/modal'
+import { View, H1, ScrollView, SafeAreaView } from 'dripsy'
+import React from 'react'
 import { Banner } from '../components/session'
-import { ListItem } from '../components/session/listItem'
-import { TextLink } from 'solito/link'
-import { BottomNavigation } from '../components/bottomNavigation'
+import { Link } from 'solito/link'
+import { useSessions } from 'app/helper'
+import { useUser } from 'app/provider/userContext'
 
 export function HomeScreen() {
-  const [textInput, setTextInput] = useState('')
-  const sx = useSx()
+  const { user } = useUser()
+  const sessions = useSessions()
   return (
     <SafeAreaView>
       <ScrollView
         sx={{
           display: 'flex',
-          mx: 16,
         }}
       >
-        <H1>Welcome to Yoga with Oga</H1>
+        <H1>
+          Welcome to Yoga with Oga{user && <span>, {user.firstName}</span>}
+        </H1>
         <View sx={{ height: 32 }} />
-        <Flex
-          sx={{
-            width: '100%',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Input
-            value={textInput}
-            onChange={setTextInput}
-            placeholder="Text Input"
-          />
-          <View sx={{ height: 32 }} />
-          <Button>Button</Button>
-          <View sx={{ height: 32 }} />
-          <Banner
-            imageUrl="https://images.unsplash.com/photo-1567281150864-5296ada11f3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-            title="Downward Facing Dog"
-            subtitle="24min - Legs and Back"
-            highlight="Featured"
-          />
-          <View sx={{ height: 32 }} />
-          <ListItem />
-          <View sx={{ height: 32 }} />
-          <Modal
-            title="You’re a loser if you give up now"
-            copy="Do you really want to cancle your training?"
-          />
-          <View sx={{ height: 32 }} />
-        </Flex>
-        <Row>
-          <TextLink style={sx({mb: 50})} href="/user/motcodes">
-            User
-          </TextLink>
-        </Row>
+        {sessions &&
+          sessions.map((item) => (
+            <Link href={`/session/${item.id}`} key={item.title}>
+              <Banner
+                title={item.title}
+                subtitle={item.subtitle}
+                imageUrl={item.imageUrl}
+                highlight="test"
+              />
+            </Link>
+          ))}
       </ScrollView>
-      
     </SafeAreaView>
   )
 }

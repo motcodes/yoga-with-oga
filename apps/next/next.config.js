@@ -2,6 +2,16 @@
 const nextConfig = {
   reactStrictMode: true,
   webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = {
+      fs: false,
+      https: false,
+      http: false,
+      path: false,
+    }
+
+    return config
+  },
 }
 
 const { withExpo } = require('@expo/next-adapter')

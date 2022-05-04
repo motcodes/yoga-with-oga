@@ -6,6 +6,7 @@ import { SessionScreen } from '../../features/session'
 import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
+import { PersonalInfo } from '../../features/auth/personalInfo'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
@@ -76,6 +77,14 @@ export function NativeNavigation() {
           title: 'Sign In',
         }}
       />
+
+        <Stack.Screen
+          name="personalInfo"
+          component={PersonalInfo}
+          options={{
+            title: 'Personal Info',
+          }}
+        />
     </Stack.Navigator>
   )
 }

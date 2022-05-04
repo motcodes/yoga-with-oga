@@ -8,22 +8,18 @@ function UserProvider({ children }) {
   const [user, setUser] = useState()
 
   const getUser = async (userCollectionRef) => {
-    console.log('userCollectionRef :', userCollectionRef)
     const data = await getDoc(userCollectionRef)
-    const { userName, firstName } = data.data()
-    const fetchUser = {
-      id: userCollectionRef.id,
-      userName: userName,
-      firstName: firstName,
-    }
+    const fetchUser = { ...data.data(), id: userCollectionRef.id}
     setUser(fetchUser)
   }
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      const userCollectionRef = doc(db, 'users', authUser.uid)
+      if(authUser){
+        const userCollectionRef = doc(db, 'users', authUser.uid)
 
-      getUser(userCollectionRef)
+        getUser(userCollectionRef)
+      }
     })
   }, [])
 

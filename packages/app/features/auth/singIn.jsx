@@ -11,16 +11,17 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useEffect, useState, useReducer } from 'react'
+import { useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
+import { useSignIn } from "../../helper/useSignIn";
 
 import { auth, db } from '../../firebase/client'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { doc, collection, setDoc } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
@@ -32,66 +33,47 @@ export const SignIn = () => {
     push('/')
   }
 
-  const initialState = {
-    mail: { val: '', gotTargeted: false },
-    password: { val: '', gotTargeted: false },
-  }
+    const [state, dispatch] = useSignIn()
+    
+    let mailBC = '$grey80'
+    let passwordBC = '$grey80'
+    if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
+    if (state.password.gotTargeted && state.password.val === '') passwordBC = '$salmon'
 
-  const reducer = (state, action) => {
-    let newState
-    switch (action.type) {
-      case 'mailChange':
-        newState = { ...state, mail: { val: action.value, gotTargeted: true } }
-        break
-      case 'passwordChange':
-        newState = {
-          ...state,
-          password: { val: action.value, gotTargeted: true },
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const onClickContinue = (mail, password, { push }) => {
+        if (mail && password) {
+            onSignUpSubmit(mail, password, { push })
+        } else {
+        setModalVisible(true);
+        setTimeout(() => {
+            setModalVisible(false);
+        }, 2000);
         }
-        break
-      default:
-        throw new Error()
-    }
-    return newState
-  }
-
-  const [state, dispatch] = useReducer(reducer, initialState)
-
-  let mailBC = '$grey80'
-  let passwordBC = '$grey80'
-  if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
-  if (state.password.gotTargeted && state.password.val === '')
-    passwordBC = '$salmon'
-
-  const [modalVisible, setModalVisible] = useState(false)
-
-  const onClickContinue = (mail, password, { push }) => {
-    if (mail && password) {
-      onSignUpSubmit(mail, password, { push })
-    } else {
-      console.log('Du hast was vergessen!')
-
-      setModalVisible(true)
-      setTimeout(() => {
-        setModalVisible(false)
-      }, 2000)
     }
   }
 
-  const onSignUpSubmit = async (mail, password, { push }) => {
-    try {
-      await signInWithEmailAndPassword(auth, mail, password)
+    const onSignUpSubmit = async (mail, password, { push }) => {
+        try {
+            const userCredentials = await signInWithEmailAndPassword(
+              auth,
+              mail,
+              password
+            )
 
-      setUser({ id: uId, userName: userName, firstName: firstName })
+            const uId = userCredentials.user.uid
+            const userDoc = await getDoc(doc(db, 'users', uId))
+            
+            setUser({...userDoc.data(), id: uId})
 
-      push('/')
-    } catch (error) {
-      console.log(error)
-
-      setModalVisible(true)
-      setTimeout(() => {
-        setModalVisible(false)
-      }, 2000)
+            push('/')
+        } catch (error) {
+            setModalVisible(true);
+            setTimeout(() => {
+                setModalVisible(false);
+            }, 2000);
+        }
     }
   }
 

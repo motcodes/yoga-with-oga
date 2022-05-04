@@ -1,2 +1,3 @@
-export * from './sessions'
+export * from './useSessions'
 export * from './useWorkout'
+export * from './useWorkoutVideo'

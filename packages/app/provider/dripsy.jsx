@@ -116,10 +116,10 @@ const theme = makeTheme({
       shadowColor: 'hsla(172, 100%, 14%, 1)',
       shadowOffset: {
         width: 0,
-        height: 32,
+        height: 16,
       },
-      shadowOpacity: 0.17,
-      shadowRadius: 148,
+      shadowOpacity: 0.5,
+      shadowRadius: 50,
       elevation: 5,
     },
     modal: {

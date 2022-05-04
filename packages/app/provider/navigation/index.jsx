@@ -14,7 +14,8 @@ export function NavigationProvider({ children }) {
               home: '',
               'user-detail': 'user/:id',
               'signUp': 'auth/signUp',
-              'signIn': 'auth/signIn'
+              'signIn': 'auth/signIn',
+              'personalInfo': 'auth/personalInfo'
             },
           },
         }),

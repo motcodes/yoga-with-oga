@@ -11,16 +11,17 @@ import {
     ScrollView,
     SafeAreaView
 } from 'dripsy'
-import { useEffect, useState, useReducer } from 'react'
+import { useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
+import { useSignIn } from "../../helper/useSignIn";
 
 import { auth, db } from '../../firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { doc, collection, setDoc } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
@@ -32,27 +33,7 @@ export const SignIn = () => {
         push('/')
     }
 
-    const initialState = {
-        mail: { val: '', gotTargeted: false },
-        password: { val: '', gotTargeted: false }
-    }
-
-    const reducer = (state, action) => {
-        let newState;
-        switch (action.type) {
-        case 'mailChange':
-            newState = { ...state, mail: { val: action.value, gotTargeted: true } };
-            break;
-        case 'passwordChange':
-            newState = { ...state, password: { val: action.value, gotTargeted: true } };
-            break;
-        default:
-            throw new Error();
-        }
-        return newState;
-    }
-
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [state, dispatch] = useSignIn()
     
     let mailBC = '$grey80'
     let passwordBC = '$grey80'
@@ -63,10 +44,8 @@ export const SignIn = () => {
 
     const onClickContinue = (mail, password, { push }) => {
         if (mail && password) {
-        onSignUpSubmit(mail, password, { push })
+            onSignUpSubmit(mail, password, { push })
         } else {
-        console.log('Du hast was vergessen!')
-
         setModalVisible(true);
         setTimeout(() => {
             setModalVisible(false);
@@ -76,15 +55,18 @@ export const SignIn = () => {
 
     const onSignUpSubmit = async (mail, password, { push }) => {
         try {
-            await signInWithEmailAndPassword(
+            const userCredentials = await signInWithEmailAndPassword(
               auth,
               mail,
               password
             )
 
-            setUser({id: uId, userName: userName, firstName: firstName})
-    
-            push('/')
+            const uId = userCredentials.user.uid
+            await getDoc(doc(db, 'users', uId)).then((data) => {
+                setUser({...data.data(), id: uId})
+
+                push('/')
+            })
         } catch (error) {
             console.log(error)
 

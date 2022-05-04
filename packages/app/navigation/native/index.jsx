@@ -4,6 +4,7 @@ import { HomeScreen } from '../../features/home/screen'
 import { UserDetailScreen } from '../../features/user/detail-screen'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
+import { PersonalInfo } from '../../features/auth/personalInfo'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase-config'
@@ -40,6 +41,13 @@ export function NativeNavigation() {
           component={SignIn}
           options={{
             title: 'Sign In',
+          }}
+        />
+        <Stack.Screen
+          name="personalInfo"
+          component={PersonalInfo}
+          options={{
+            title: 'Personal Info',
           }}
         />
       </Stack.Navigator>

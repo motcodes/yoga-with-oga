@@ -29,8 +29,8 @@ export function HomeScreen() {
       >
         <Flex
           sx={{
-            pt: 24,
-            pb: 32,
+            pt: 32,
+            pb: 56,
             px: 16,
             flexDirection: 'column',
           }}
@@ -44,10 +44,10 @@ export function HomeScreen() {
               width: 64,
               height: 64,
               alignSelf: 'center',
-              mb: '12px',
+              mb: '24px',
             }}
           />
-          <H4 as={H1} sx={{ color: '$green', mb: '8px' }}>
+          <H4 as={H1} sx={{ color: '$green', mb: '10px' }}>
             Get ready for some Yoga{user && <span>, {user.firstName}</span>}!
           </H4>
           <Text sx={{ color: '$greenLight' }}>

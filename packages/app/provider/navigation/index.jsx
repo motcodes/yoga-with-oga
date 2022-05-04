@@ -17,7 +17,8 @@ export function NavigationProvider({ children }) {
               'user-detail': 'user/:id',
               'front-end': 'front-end',
               'signUp': 'auth/signUp',
-              'signIn': 'auth/signIn'
+              'signIn': 'auth/signIn',
+              'personalInfo': 'auth/personalInfo'
             },
           },
         }),

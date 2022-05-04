@@ -11,12 +11,13 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useEffect, useState, useReducer } from 'react'
+import { useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
+import { useSignUp } from '../../helper/useSingUp'
 
 import { auth, db } from '../../firebase/client'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -32,44 +33,7 @@ export function SignUp() {
     push('/')
   }
 
-  const initialState = {
-    userName: { val: '', gotTargeted: false },
-    firstName: { val: '', gotTargeted: false },
-    mail: { val: '', gotTargeted: false },
-    password: { val: '', gotTargeted: false },
-  }
-
-  const reducer = (state, action) => {
-    let newState
-    switch (action.type) {
-      case 'uNameChange':
-        newState = {
-          ...state,
-          userName: { val: action.value, gotTargeted: true },
-        }
-        break
-      case 'fNameChange':
-        newState = {
-          ...state,
-          firstName: { val: action.value, gotTargeted: true },
-        }
-        break
-      case 'mailChange':
-        newState = { ...state, mail: { val: action.value, gotTargeted: true } }
-        break
-      case 'passwordChange':
-        newState = {
-          ...state,
-          password: { val: action.value, gotTargeted: true },
-        }
-        break
-      default:
-        throw new Error()
-    }
-    return newState
-  }
-
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useSignUp()  
 
   let uNameBC = '$grey80'
   let fNameBC = '$grey80'
@@ -89,9 +53,7 @@ export function SignUp() {
     if (mail && firstName && userName && password) {
       onSignUpSubmit(mail, firstName, userName, password)
     } else {
-      console.log('Du hast was vergessen!')
-
-      setModalVisible(true)
+      setModalVisible(true);
       setTimeout(() => {
         setModalVisible(false)
       }, 2000)

@@ -54,7 +54,7 @@ export const BottomNavigation = ({}) => {
 
       <View sx={{ width: 51}} />
 
-      <TextLink href='/user/motcodes'>
+      {/*<TextLink href='/user/motcodes'>
         <Flex
           sx={{
             flexDirection: 'column',
@@ -72,7 +72,7 @@ export const BottomNavigation = ({}) => {
         </Flex>
       </TextLink>
 
-      <View sx={{ width: 51}} />
+      <View sx={{ width: 51}} />*/}
 
       <TextLink href='/auth/signUp'>
         <Flex

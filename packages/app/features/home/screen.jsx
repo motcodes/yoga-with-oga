@@ -10,6 +10,7 @@ import {
   Flex,
   H5,
   Text,
+  H2,
 } from 'dripsy'
 import React from 'react'
 import { Banner } from '../components/session'
@@ -30,7 +31,7 @@ export function HomeScreen() {
         <Flex
           sx={{
             pt: 32,
-            pb: 56,
+            pb: 48,
             px: 16,
             flexDirection: 'column',
           }}
@@ -50,13 +51,16 @@ export function HomeScreen() {
           <H4 as={H1} sx={{ color: '$green', mb: '10px' }}>
             Get ready for some Yoga{user && <span>, {user.firstName}</span>}!
           </H4>
-          <Text sx={{ color: '$greenLight' }}>
-            Only the best Sessions from Oga for you:
-          </Text>
+          <Text sx={{ color: '$yellow' }}>Only the best Sessions for you:</Text>
         </Flex>
         {sessions &&
           sessions.map((item, index) => (
             <React.Fragment key={item.title}>
+              {index === 0 && (
+                <H5 as={H2} sx={{ px: 16, pb: '20px', color: '$greenDark' }}>
+                  Personalized Oga workout
+                </H5>
+              )}
               <Link href={`/session/${item.id}`}>
                 <Banner
                   title={item.title}
@@ -65,7 +69,17 @@ export function HomeScreen() {
                   highlight={index === 0 ? 'Feature' : ' '}
                 />
               </Link>
-              <Box sx={{ height: 48 }} />
+              <Box sx={{ height: 64 }} />
+              {index === 0 && (
+                <>
+                  <H5
+                    as={H3}
+                    sx={{ px: 16, mt: '0px', mb: '20px', color: '$greenDark' }}
+                  >
+                    More Yoga Flows
+                  </H5>
+                </>
+              )}
             </React.Fragment>
           ))}
         <View sx={{ px: 16, pt: 24, pb: 96 }}>

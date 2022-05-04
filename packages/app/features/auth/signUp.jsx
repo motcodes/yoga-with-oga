@@ -11,7 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'dripsy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
@@ -28,26 +28,26 @@ import { useUser } from '../../provider/userContext'
 export function SignUp() {
   const { push, replace, back, parseNextPath } = useRouter()
   const { user, setUser } = useUser()
-
-  if (user && user.id !== '') {
-    push('/')
-  }
-
   const [state, dispatch] = useSignUp()  
-
-  let uNameBC = '$grey80'
-  let fNameBC = '$grey80'
-  let mailBC = '$grey80'
-  let passwordBC = '$grey80'
-  if (state.userName.gotTargeted && state.userName.val === '')
-    uNameBC = '$salmon'
-  if (state.firstName.gotTargeted && state.firstName.val === '')
-    fNameBC = '$salmon'
-  if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
-  if (state.password.gotTargeted && state.password.val === '')
-    passwordBC = '$salmon'
-
   const [modalVisible, setModalVisible] = useState(false)
+
+  useEffect(() => {
+    if (user && user.id !== '') {
+      push('/')
+    }
+  }, [user])
+
+  useEffect(() => {
+    if (state.userName.gotTargeted && state.userName.val === '')
+      dispatch({ type: 'uNameBcChange' })
+    if (state.firstName.gotTargeted && state.firstName.val === '')
+      dispatch({ type: 'fNameBcChange' })
+    if (state.mail.gotTargeted && state.mail.val === '')
+      dispatch({ type: 'mailBcChange' })
+    if (state.password.gotTargeted && state.password.val === '')
+      dispatch({ type: 'passwordBcChange' })
+  }, [state])
+
 
   const onClickContinue = (mail, firstName, userName, password, { push }) => {
     if (mail && firstName && userName && password) {
@@ -114,21 +114,21 @@ export function SignUp() {
           value={state.userName.val}
           onChange={(text) => dispatch({ type: 'uNameChange', value: text })}
           placeholder="Username*"
-          style={{ borderColor: uNameBC }}
+          style={{ borderColor: state.userNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={state.firstName.val}
           onChange={(text) => dispatch({ type: 'fNameChange', value: text })}
           placeholder="First name*"
-          style={{ borderColor: fNameBC }}
+          style={{ borderColor: state.firstNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
           value={state.mail.val}
           onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
-          style={{ borderColor: mailBC }}
+          style={{ borderColor: state.mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
@@ -136,7 +136,7 @@ export function SignUp() {
           onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
           type="password"
-          style={{ borderColor: passwordBC }}
+          style={{ borderColor: state.passwordBC }}
           secureTextEntry={true}
         />
 

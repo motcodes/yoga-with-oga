@@ -17,7 +17,7 @@ import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
-import { useSignIn } from "../../helper/useSignIn";
+import { useSignIn } from "../../helper/useSignIn"
 
 import { auth, db } from '../../firebase/client'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -26,23 +26,22 @@ import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
 export const SignIn = () => {
-  const { push, replace, back, parseNextPath } = useRouter()
-  const { user, setUser } = useUser()
-
-  useEffect(() => {
-      if (user && user.id !== '') {
-          push('/')
-      }
-  }, [user])
-
-    const [state, dispatch] = useSignIn()
-    
-    let mailBC = '$grey80'
-    let passwordBC = '$grey80'
-    if (state.mail.gotTargeted && state.mail.val === '') mailBC = '$salmon'
-    if (state.password.gotTargeted && state.password.val === '') passwordBC = '$salmon'
-
+    const { push, replace, back, parseNextPath } = useRouter()
+    const { user, setUser } = useUser()
     const [modalVisible, setModalVisible] = useState(false)
+    const [state, dispatch] = useSignIn()
+
+    useEffect(() => {
+        if (user && user.id !== '') {
+            push('/')
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (state.mail.gotTargeted && state.mail.val === '') dispatch({ type: 'mailBcChange' })
+        if (state.password.gotTargeted && state.password.val === '') dispatch({ type: 'passwordBcChange' })
+    }, [state])
+
 
     const onClickContinue = (mail, password, { push }) => {
         if (mail && password) {
@@ -104,7 +103,7 @@ export const SignIn = () => {
             value={state.mail.val}
             onChange={(text) => dispatch({ type: 'mailChange', value: text })}
             placeholder="Email address*"
-            style={{ borderColor: mailBC }}
+            style={{ borderColor: state.mailBC }}
             />
             <View sx={{ height: 12 }} />
             <Input
@@ -112,7 +111,7 @@ export const SignIn = () => {
             onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
             placeholder="Password*"
             type="password"
-            style={{ borderColor: passwordBC }}
+            style={{ borderColor: state.passwordBC }}
             secureTextEntry={true}
             />
             <View sx={{ height: 24 }} />

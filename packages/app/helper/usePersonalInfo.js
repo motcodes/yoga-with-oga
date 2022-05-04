@@ -3,7 +3,10 @@ import { useReducer } from 'react'
 let initialState = {
     gender: { val: '', gotTargeted: false },
     height: { val: '', gotTargeted: false},
-    weight: { val: '', gotTargeted: false }
+    weight: { val: '', gotTargeted: false },
+    genderBC: '$grey80',
+    heightBC: '$grey80',
+    weightBC: '$grey80'
 }
 
 const reducer = (state, action) => {
@@ -17,6 +20,15 @@ const reducer = (state, action) => {
         break;
     case 'weightChange':
         newState = { ...state, weight: { val: action.value, gotTargeted: true } };
+        break;
+    case 'genderBcChange':
+        newState = { ...state, genderBC: '$salmon' };
+        break;
+    case 'heightBcChange':
+        newState = { ...state, heightBC: '$salmon' };
+        break;
+    case 'weightBcChange':
+        newState = { ...state, weightBC: '$salmon' };
         break;
     default:
         throw new Error();

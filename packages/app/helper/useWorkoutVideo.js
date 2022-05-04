@@ -11,9 +11,9 @@ export function useWorkoutVideo(videoId) {
       const videoSnapshot = await getDoc(videoDoc)
       if (videoSnapshot.exists()) {
         const videoData = videoSnapshot.data()
-        // `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
+        // `http://localhost:3000/api/vimeo/${videoData.videoId}`
         const vimeoRes = await fetch(
-          `http://localhost:3000/api/vimeo/${videoData.videoId}`
+          `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
         )
         const vimeoData = await vimeoRes.json()
         setVideo({ ...video, ...vimeoData })

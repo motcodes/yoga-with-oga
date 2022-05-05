@@ -11,12 +11,13 @@ export function useWorkoutVideo(videoId) {
       const videoSnapshot = await getDoc(videoDoc)
       if (videoSnapshot.exists()) {
         const videoData = videoSnapshot.data()
-        // `http://localhost:3000/api/vimeo/${videoData.videoId}`
+        console.log('videoData :', videoData)
         const vimeoRes = await fetch(
-          `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
+          `http://localhost:3000/api/vimeo/${videoData.videoId}`
+          // `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
         )
         const vimeoData = await vimeoRes.json()
-        setVideo({ ...video, ...vimeoData })
+        setVideo({ ...videoData, ...vimeoData })
       } else {
         console.log('No such document!')
       }

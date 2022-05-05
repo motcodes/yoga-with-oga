@@ -3,11 +3,10 @@ import { H3, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView } from 'react-native'
 import { createParam } from 'solito'
 import { Link } from 'solito/link'
-import { useSession } from 'app/helper'
+import { useParam, useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
 
-const { useParam } = createParam()
 export function SessionScreen() {
   const [sessionId] = useParam('sessionId')
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useWorkout } from 'app/helper'
+import { useParam, useWorkout } from 'app/helper'
 import { H3, H5, Pressable, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { createParam } from 'solito'
@@ -8,17 +8,15 @@ import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
 import { ImageModal } from '../components/imageModal'
 import { Button } from '../components/button'
+import { FloatingButton } from '../components/floatingButton'
 
-const { useParam } = createParam()
 export function SessionWorkoutScreen() {
   const [sessionId] = useParam('sessionId')
   const [workoutId] = useParam('workoutId')
   const router = useRouter()
   const [modalVisible, setModalVisible] = useState(false)
   const [modalData, setModalData] = useState({})
-  const windowSizes = useWindowDimensions()
   const workout = useWorkout(workoutId)
-  // console.log('workout :', workout)
 
   if (!workout) {
     return (
@@ -42,6 +40,7 @@ export function SessionWorkoutScreen() {
           sx={{
             px: 16,
             my: 80,
+            mb: '128px',
           }}
         >
           <H5 as={H3} sx={{ color: '$green' }}>
@@ -66,29 +65,13 @@ export function SessionWorkoutScreen() {
             ))}
         </View>
       </ScrollView>
-      <View
-        sx={{
-          position: 'fixed',
-          bottom: 112,
-          // px: 16,
-          // marginX: 'auto',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: windowSizes.width * 0.9,
-          boxShadow: 'md',
-        }}
+      <FloatingButton
+        onClick={() =>
+          router.push(`/session/${sessionId}/${workoutId}/${workout.videoId}`)
+        }
       >
-        <Button
-          hasShadow
-          onClick={() =>
-            router.replace(
-              `/session/${sessionId}/${workoutId}/${workout.videoId}`
-            )
-          }
-        >
-          Start
-        </Button>
-      </View>
+        Start
+      </FloatingButton>
       <ImageModal
         modalData={modalData}
         modalVisible={modalVisible}

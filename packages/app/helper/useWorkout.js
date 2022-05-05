@@ -4,10 +4,9 @@ import { db } from 'app/firebase/client'
 
 export function useWorkout(workoutId) {
   const [workout, setWorkout] = useState([])
-  const workoutDoc = doc(db, 'video', workoutId)
 
   useEffect(() => {
-    const fetchSession = async () => {
+    const fetchSession = async (workoutDoc) => {
       const workoutSnapshot = await getDoc(workoutDoc)
       if (workoutSnapshot.exists()) {
         const posesData = workoutSnapshot.data()
@@ -24,7 +23,10 @@ export function useWorkout(workoutId) {
         console.log('No such document!')
       }
     }
-    fetchSession()
+    if (workoutId) {
+      const workoutDoc = doc(db, 'video', workoutId)
+      fetchSession(workoutDoc)
+    }
   }, [workoutId])
 
   return workout

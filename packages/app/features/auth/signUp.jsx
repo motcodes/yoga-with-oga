@@ -17,7 +17,7 @@ import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
-import { useSignUp } from '../../helper/useSingUp'
+import { useSignUp } from '../../helper/useSignUp'
 
 import { auth, db } from '../../firebase/client'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -33,7 +33,7 @@ export function SignUp() {
     push('/')
   }
 
-  const [state, dispatch] = useSignUp()  
+  const [state, dispatch] = useSignUp()
 
   let uNameBC = '$grey80'
   let fNameBC = '$grey80'
@@ -53,7 +53,7 @@ export function SignUp() {
     if (mail && firstName && userName && password) {
       onSignUpSubmit(mail, firstName, userName, password)
     } else {
-      setModalVisible(true);
+      setModalVisible(true)
       setTimeout(() => {
         setModalVisible(false)
       }, 2000)

@@ -1,22 +1,12 @@
 import {
-    Box,
     Flex,
-    H3,
-    H4,
-    H5,
-    extraSmall,
     Text,
     View,
-    useSx,
-    ScrollView,
-    SafeAreaView,
   } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'
 import { TextLink, Link } from 'solito/link'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/client'
 import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
 import { GetSession } from '../../helper/getSession'

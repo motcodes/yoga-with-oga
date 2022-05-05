@@ -59,17 +59,16 @@ export const EditProfile = () => {
         }
     }
 
-    const onEditProfileSubmit = async (userName, firstName, gender, height, weight, { push, user, setUser }) => {
+    const onEditProfileSubmit = async (userName, firstName, genderInput, heightInput, weightInput, { push, user, setUser }) => {
         try {
-            const { id, ...tmpUser } = user
+            const { id, gender, height, weight, ...tmpUser } = user
             let data = { ...tmpUser, userName: userName, firstName: firstName }
-            if (gender) data = { ...data, gender: gender}
-            if (height) data = { ...data, height: height}
-            if (weight) data = { ...data, weight: weight}
+            if (genderInput && genderInput !== '') data = { ...data, gender: genderInput}
+            if (heightInput && heightInput !== '') data = { ...data, height: heightInput}
+            if (weightInput && heightInput !== '') data = { ...data, weight: weightInput}
 
-            console.log(data)
-            await setDoc(doc(db, 'users', id), data)        
-            setUser(data)
+            await setDoc(doc(db, 'users', id), data)
+            setUser({ ...data, id: id })
 
             push('/profile/settings')
         } catch (error) {

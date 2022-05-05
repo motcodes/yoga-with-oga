@@ -15,6 +15,7 @@ import { useEditProfile } from '../../helper/useEditProfile'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { InputErrorToast } from '../components/inputErrorToast'
+import { OnClickSave } from '../../helper/onClickSave'
 
 import { db } from '../../firebase/client'
 import { doc, setDoc } from 'firebase/firestore'
@@ -25,7 +26,6 @@ export const EditProfile = () => {
     const [state, dispatch] = useEditProfile()
     const [modalVisible, setModalVisible] = useState(false)
     const [mail, setMail] = useState()
-
     
     useEffect(() => {
         if (!user) {
@@ -46,40 +46,6 @@ export const EditProfile = () => {
         if (state.userName.gotTargeted && state.userName.val === '') dispatch({ type: 'userNameBcChange' })
         if (state.firstName.gotTargeted && state.firstName.val === '') dispatch({ type: 'firstNameBcChange' })
     }, [state])
-
-
-    const onClickSave = (userName, firstName, gender, height, weight, { push, user, setUser }) => {
-        if (userName && firstName) {
-            onEditProfileSubmit(userName, firstName, gender, height, weight, { push, user, setUser })
-        } else {
-        setModalVisible(true);
-        setTimeout(() => {
-            setModalVisible(false);
-        }, 2000);
-        }
-    }
-
-    const onEditProfileSubmit = async (userName, firstName, genderInput, heightInput, weightInput, { push, user, setUser }) => {
-        try {
-            const { id, gender, height, weight, ...tmpUser } = user
-            let data = { ...tmpUser, userName: userName, firstName: firstName }
-            if (genderInput && genderInput !== '') data = { ...data, gender: genderInput}
-            if (heightInput && heightInput !== '') data = { ...data, height: heightInput}
-            if (weightInput && heightInput !== '') data = { ...data, weight: weightInput}
-
-            await setDoc(doc(db, 'users', id), data)
-            setUser({ ...data, id: id })
-
-            push('/profile/settings')
-        } catch (error) {
-            console.log(error)
-
-            setModalVisible(true);
-            setTimeout(() => {
-                setModalVisible(false);
-            }, 2000);
-        }
-    }
 
     return (
         <SafeAreaView>
@@ -140,7 +106,7 @@ export const EditProfile = () => {
             
                     <View sx={{ height: 24 }} />
                     <Button
-                        onClick={() => onClickSave(state.userName.val, state.firstName.val, state.gender.val, state.height.val, state.weight.val, { push, user, setUser })}
+                        onClick={() => OnClickSave({ state, push, user, setUser, setModalVisible })}
                     >
                         Save
                     </Button>

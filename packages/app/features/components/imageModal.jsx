@@ -2,6 +2,7 @@ import { Image, Pressable, View } from 'dripsy'
 import React from 'react'
 import { Alert, Modal, useWindowDimensions } from 'react-native'
 import { X } from 'react-native-feather'
+import { IconButton } from './iconButton'
 
 export const ImageModal = ({ modalVisible, setModalVisible, modalData }) => {
   const windowSize = useWindowDimensions()
@@ -50,21 +51,9 @@ export const ImageModal = ({ modalVisible, setModalVisible, modalData }) => {
               sx={{ width: '100%', height: '100%', borderRadius: 6 }}
             />
 
-            <View
-              sx={{
-                width: 40,
-                height: 40,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '$white',
-                position: 'absolute',
-                right: 16,
-                top: 16,
-                borderRadius: '50%',
-              }}
-            >
+            <IconButton style={{ position: 'absolute' }}>
               <X />
-            </View>
+            </IconButton>
           </View>
         </Pressable>
       </View>

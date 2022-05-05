@@ -1,137 +1,124 @@
-import {
-  Box,
-  Flex,
-  H3,
-  H4,
-  H5,
-  extraSmall,
-  Text,
-  View,
-  useSx,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
+import { Text, View, ScrollView, SafeAreaView, Image } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
-import { Logo } from '../components/logo'
-import { useSignIn } from "../../helper/useSignIn"
+import { useSignIn } from '../../helper'
 
 import { auth, db } from '../../firebase/client'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
 export const SignIn = () => {
-    const { push, replace, back, parseNextPath } = useRouter()
-    const { user, setUser } = useUser()
-    const [modalVisible, setModalVisible] = useState(false)
-    const [state, dispatch] = useSignIn()
+  const router = useRouter()
+  const { user, setUser } = useUser()
+  const [modalVisible, setModalVisible] = useState(false)
+  const [state, dispatch] = useSignIn()
 
-    useEffect(() => {
-        if (user && user.id !== '') {
-            push('/')
-        }
-    }, [user])
-
-    useEffect(() => {
-        if (state.mail.gotTargeted && state.mail.val === '') dispatch({ type: 'mailBcChange' })
-        if (state.password.gotTargeted && state.password.val === '') dispatch({ type: 'passwordBcChange' })
-    }, [state])
-
-
-    const onClickContinue = (mail, password, { push }) => {
-        if (mail && password) {
-            onSignUpSubmit(mail, password, { push })
-        } else {
-        setModalVisible(true);
-        setTimeout(() => {
-            setModalVisible(false);
-        }, 2000);
-        }
+  useEffect(() => {
+    if (user && user.id !== '') {
+      router.push('/')
     }
+  }, [user])
 
-    const onSignUpSubmit = async (mail, password, { push }) => {
-        try {
-            const userCredentials = await signInWithEmailAndPassword(
-                auth,
-                mail,
-                password
-            )
-
-            const uId = userCredentials.user.uid
-            const userDoc = await getDoc(doc(db, 'users', uId))
-            
-            setUser({...userDoc.data(), id: uId})
-
-            push('/')
-        } catch (error) {
-            setModalVisible(true);
-            setTimeout(() => {
-                setModalVisible(false);
-            }, 2000);
-        }
+  useEffect(() => {
+    if (state.mail.gotTargeted && state.mail.value === '') {
+      dispatch({ type: 'mailBcChange' })
     }
+    if (state.password.gotTargeted && state.password.value === '') {
+      dispatch({ type: 'passwordBcChange' })
+    }
+  }, [state, dispatch])
 
-    return (
-        <SafeAreaView>
-        <ScrollView
-            sx={{
-            display: 'flex',
-            mx: 16,
-            }}
-        >
-            <InputErrorToast modalVisible={modalVisible} />
+  const onClickContinue = () => {
+    if (state.mail.value && state.password.value) {
+      onSignUpSubmit()
+    } else {
+      setModalVisible(true)
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 2000)
+    }
+  }
 
-            <View sx={{ height: 32 }} />
+  const onSignUpSubmit = async () => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        state.mail.value,
+        state.password.value
+      )
 
-            {/*<Logo />*/}
+      const uId = userCredentials.user.uid
+      const userDoc = await getDoc(doc(db, 'users', uId))
+      console.log('userDoc :', userDoc)
 
-            <View sx={{ height: 32 }} />
+      setUser({ ...userDoc.data(), id: uId })
 
-            <Text variant={'base'} sx={{ color: '$green' }}>
-            New To Yoga with Oga?
-            </Text>
-            <Text variant={'small'} sx={{ color: '$yellow' }}>
-            Sign up for free
-            </Text>
-            <View sx={{ height: 16 }} />
-            <Input
-            value={state.mail.val}
-            onChange={(text) => dispatch({ type: 'mailChange', value: text })}
-            placeholder="Email address*"
-            style={{ borderColor: state.mailBC }}
-            />
-            <View sx={{ height: 12 }} />
-            <Input
-            value={state.password.val}
-            onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
-            placeholder="Password*"
-            type="password"
-            style={{ borderColor: state.passwordBC }}
-            secureTextEntry={true}
-            />
-            <View sx={{ height: 24 }} />
+      router.push('/')
+    } catch (error) {
+      setModalVisible(true)
+      setTimeout(() => {
+        setModalVisible(false)
+      }, 2000)
+    }
+  }
 
-            <Button
-            onClick={() =>
-                onClickContinue(state.mail.val, state.password.val, {
-                push,
-                setModalVisible,
-                modalVisible,
-                })
-            }
-            >
-            Continue
-            </Button>
-            <View sx={{ height: 12 }} />
-            <Button variant={'text'}>
-            <TextLink href={'/auth/signUp'}>Sign Up</TextLink>
-            </Button>
-        </ScrollView>
-        </SafeAreaView>
-    )
+  return (
+    <SafeAreaView>
+      <ScrollView
+        sx={{
+          display: 'flex',
+          mx: 16,
+        }}
+      >
+        <InputErrorToast modalVisible={modalVisible} />
+
+        <View sx={{ height: 48 }} />
+        <Image
+          source={{
+            uri: 'https://firebasestorage.googleapis.com/v0/b/yoga-with-oga.appspot.com/o/yoga-with-oga-logo-320.png?alt=media&token=edb09175-1e90-4633-adc1-5717bdf947fd',
+          }}
+          accessibilityLabel="Yoga with Oga Logo"
+          sx={{
+            width: 128,
+            height: 128,
+            alignSelf: 'center',
+            mb: '24px',
+          }}
+        />
+        <View sx={{ height: 16 }} />
+
+        <Text sx={{ color: '$green' }}>New to Yoga with Oga?</Text>
+        <Text variant={'small'} sx={{ color: '$yellow' }}>
+          Sign up for free
+        </Text>
+        <View sx={{ height: 16 }} />
+        <Input
+          value={state.mail.value}
+          onChange={(text) => dispatch({ type: 'mailChange', value: text })}
+          placeholder="Email address*"
+          style={{ borderColor: state.mailBC }}
+        />
+        <View sx={{ height: 12 }} />
+        <Input
+          value={state.password.value}
+          onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
+          placeholder="Password*"
+          type="password"
+          style={{ borderColor: state.passwordBC }}
+          secureTextEntry={true}
+        />
+        <View sx={{ height: 24 }} />
+
+        <Button onClick={onClickContinue}>Continue</Button>
+        <View sx={{ height: 12 }} />
+        <Button variant={'text'} onClick={() => router.push('/auth/signUp')}>
+          Sign Up
+        </Button>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }

@@ -10,12 +10,12 @@ import { PersonalInfo } from '../../features/auth/personalInfo'
 import { ProfileScreen } from '../../features/profile'
 import { SettingsScreen } from '../../features/profile/settings'
 import { EditProfile } from '../../features/profile/editProfile'
-import { useUser } from '../../provider/userContext'
 
-import { auth } from '../../firebase/client'
 import { SessionWorkoutVideoScreen } from 'app/features/video'
+import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
 
 const Stack = createNativeStackNavigator()
+const VideoStack = createNativeStackNavigator()
 
 export function NativeNavigation() {
   return (
@@ -52,21 +52,24 @@ export function NativeNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="session-workout-video"
-        component={SessionWorkoutVideoScreen}
-        options={{
-          title: 'Workout Video',
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="personalInfo"
-        component={PersonalInfo}
-        options={{
-          title: 'Personal Info',
-        }}
-      />
+      <VideoStack.Navigator initialRouteName="session-workout-video">
+        <VideoStack.Screen
+          name="session-workout-video"
+          component={SessionWorkoutVideoScreen}
+          options={{
+            title: 'Workout Video',
+            headerShown: false,
+          }}
+        />
+        <VideoStack.Screen
+          name="session-workout-video-summary"
+          component={SessionWorkoutVideoSummaryScreen}
+          options={{
+            title: 'Workout Summary',
+            headerShown: false,
+          }}
+        />
+      </VideoStack.Navigator>
       <Stack.Screen
         name="personalInfo"
         component={PersonalInfo}
@@ -95,7 +98,7 @@ export function NativeNavigation() {
           title: 'Edit Profile',
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="signUp"
         component={SignUp}
         options={{
@@ -106,14 +109,7 @@ export function NativeNavigation() {
         name="signIn"
         component={SignIn}
         options={{
-          title: 'Sign In',         
-        }}
-      />
-      <Stack.Screen
-        name="personalInfo"
-        component={PersonalInfo}
-        options={{
-          title: 'Personal Info',
+          title: 'Sign In',
         }}
       />
     </Stack.Navigator>

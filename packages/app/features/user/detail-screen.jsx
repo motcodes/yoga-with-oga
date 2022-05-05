@@ -3,8 +3,7 @@ import { View, Text, SafeAreaView, ScrollView } from 'dripsy'
 import { createParam } from 'solito'
 import { TextLink } from 'solito/link'
 import { Banner } from '../components/session'
-
-const { useParam } = createParam()
+import { useParam } from 'app/helper'
 
 export function UserDetailScreen() {
   const [id] = useParam('id')

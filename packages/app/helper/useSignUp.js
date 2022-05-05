@@ -1,53 +1,51 @@
 import { useReducer } from 'react'
 
-let initialState = {
+const initialState = {
   userName: { value: '', gotTargeted: false },
   firstName: { value: '', gotTargeted: false },
-  gender: { value: '', gotTargeted: false },
-  height: { value: '', gotTargeted: false },
-  weight: { value: '', gotTargeted: false },
+  mail: { value: '', gotTargeted: false },
+  password: { value: '', gotTargeted: false },
   userNameBC: '$grey80',
   firstNameBC: '$grey80',
+  mailBC: '$grey80',
+  passwordBC: '$grey80',
 }
 
 const reducer = (state, action) => {
   let newState
   switch (action.type) {
-    case 'userNameChange':
+    case 'uNameChange':
       newState = {
         ...state,
         userName: { value: action.value, gotTargeted: true },
       }
       break
-    case 'firstNameChange':
+    case 'fNameChange':
       newState = {
         ...state,
         firstName: { value: action.value, gotTargeted: true },
       }
       break
-    case 'genderChange':
+    case 'mailChange':
+      newState = { ...state, mail: { value: action.value, gotTargeted: true } }
+      break
+    case 'passwordChange':
       newState = {
         ...state,
-        gender: { value: action.value, gotTargeted: true },
+        password: { value: action.value, gotTargeted: true },
       }
       break
-    case 'heightChange':
-      newState = {
-        ...state,
-        height: { value: action.value, gotTargeted: true },
-      }
-      break
-    case 'weightChange':
-      newState = {
-        ...state,
-        weight: { value: action.value, gotTargeted: true },
-      }
-      break
-    case 'userNameBcChange':
+    case 'uNameBcChange':
       newState = { ...state, userNameBC: '$salmon' }
       break
-    case 'firstNameBcChange':
+    case 'fNameBcChange':
       newState = { ...state, firstNameBC: '$salmon' }
+      break
+    case 'mailBcChange':
+      newState = { ...state, mailBC: '$salmon' }
+      break
+    case 'passwordBcChange':
+      newState = { ...state, passwordBC: '$salmon' }
       break
     default:
       throw new Error()
@@ -55,7 +53,7 @@ const reducer = (state, action) => {
   return newState
 }
 
-export const useEditProfile = () => {
+export const useSignUp = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   return [state, dispatch]
 }

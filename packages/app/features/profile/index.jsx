@@ -35,7 +35,7 @@ export const ProfileScreen = () => {
         }
         else{
             setFirstName(user.firstName)
-            setPastSessions(pastSessions)
+            setPastSessions(user.pastSessions)
         }
     }, [user])
     

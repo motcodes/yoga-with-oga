@@ -1,7 +1,6 @@
 import { Text, View, ScrollView, SafeAreaView, Flex } from 'dripsy'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'
-import { Link } from 'solito/link'
 import { auth } from '../../firebase/client'
 import { SettingsListItem } from '../components/settingsListItem'
 import { useEffect, useState } from 'react'

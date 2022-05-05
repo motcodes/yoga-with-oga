@@ -6,6 +6,7 @@
     "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "babel-jest": "^28.0.3",
     "dotenv": "^16.0.0",
     "dripsy": "^3.6.0",
     "expo-av": "^10.2.1",
@@ -13,12 +14,30 @@
     "expo-font": "latest",
     "expo-linking": "^3.0.0",
     "firebase": "^9.7.0",
+    "jest": "^28.0.3",
+    "jest-expo": "^44.0.1",
     "moti": "0.18.0-alpha.8",
     "react-native-dotenv": "^3.3.1",
     "react-native-feather": "^1.1.2",
     "react-native-svg": "^12.3.0",
     "solito": "0.0.22",
+    "ts-jest": "^28.0.1",
     "vimeo": "^2.1.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "react-test-renderer": "17"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|solito|dripsy|@dripsy/.*?|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
+  }
 }

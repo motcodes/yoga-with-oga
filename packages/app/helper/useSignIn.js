@@ -1,34 +1,37 @@
-import { useReducer } from "react";
+import { useReducer } from 'react'
 
 const initialState = {
-    mail: { val: '', gotTargeted: false },
-    password: { val: '', gotTargeted: false },
-    mailBC: '$grey80',
-    passwordBC: '$grey80'
+  mail: { value: '', gotTargeted: false },
+  password: { value: '', gotTargeted: false },
+  mailBC: '$grey80',
+  passwordBC: '$grey80',
 }
 
 const reducer = (state, action) => {
-    let newState;
-    switch (action.type) {
+  let newState
+  switch (action.type) {
     case 'mailChange':
-        newState = { ...state, mail: { val: action.value, gotTargeted: true } };
-        break;
+      newState = { ...state, mail: { value: action.value, gotTargeted: true } }
+      break
     case 'passwordChange':
-        newState = { ...state, password: { val: action.value, gotTargeted: true } };
-        break;
+      newState = {
+        ...state,
+        password: { value: action.value, gotTargeted: true },
+      }
+      break
     case 'mailBcChange':
-        newState = { ...state, mailBC: '$salmon' };
-        break;
+      newState = { ...state, mailBC: '$salmon' }
+      break
     case 'passwordBcChange':
-        newState = { ...state, passwordBC: '$salmon' };
-        break;
+      newState = { ...state, passwordBC: '$salmon' }
+      break
     default:
-        throw new Error();
-    }
-    return newState;
+      throw new Error()
+  }
+  return newState
 }
 
 export const useSignIn = () => {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    return [state, dispatch]
+  const [state, dispatch] = useReducer(reducer, initialState)
+  return [state, dispatch]
 }

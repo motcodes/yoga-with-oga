@@ -6,6 +6,7 @@ import { Link } from 'solito/link'
 import { useParam, useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
+import { BottomNavigation } from '../components/bottomNavigation'
 
 export function SessionScreen() {
   const [sessionId] = useParam('sessionId')
@@ -22,37 +23,44 @@ export function SessionScreen() {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Banner
-          imageUrl={session.imageUrl}
-          title={session.title}
-          subtitle={session.subtitle}
-          highlight=" "
-        />
+    <>
+      <SafeAreaView>
+        <ScrollView>
+          <Banner
+            imageUrl={session.imageUrl}
+            title={session.title}
+            subtitle={session.subtitle}
+            highlight=" "
+          />
 
-        <View
-          sx={{
-            px: 16,
-            my: 80,
-          }}
-        >
-          <H5 as={H3} sx={{ color: '$green' }}>
-            Workout Overview
-          </H5>
-          {session &&
-            session.videos &&
-            session.videos.map((item) => (
-              <Link key={item.title} href={`/session/${sessionId}/${item.id}`}>
-                <ListItem
-                  imageUrl={item.thumbnail}
-                  title={item.title}
-                  style={{ my: 16 }}
-                />
-              </Link>
-            ))}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          <View
+            sx={{
+              px: 16,
+              my: 80,
+            }}
+          >
+            <H5 as={H3} sx={{ color: '$green' }}>
+              Workout Overview
+            </H5>
+            {session &&
+              session.videos &&
+              session.videos.map((item) => (
+                <Link
+                  key={item.title}
+                  href={`/session/${sessionId}/${item.id}`}
+                >
+                  <ListItem
+                    imageUrl={item.thumbnail}
+                    title={item.title}
+                    style={{ my: 16 }}
+                  />
+                </Link>
+              ))}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+      <View sx={{ height: 48 }} />
+      <BottomNavigation isActive />
+    </>
   )
 }

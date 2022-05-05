@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
 import { SessionScreen } from '../../features/session'
 import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
@@ -25,14 +24,6 @@ export function NativeNavigation() {
         component={HomeScreen}
         options={{
           title: 'Home',
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
           headerShown: false,
         }}
       />

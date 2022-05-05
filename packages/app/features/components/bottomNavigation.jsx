@@ -85,7 +85,7 @@ export const BottomNavigation = () => {
 
       <View sx={{ width: 51}} />*/}
 
-        <TextLink href="/auth/signUp">
+        <TextLink href="/profile">
           <Flex
             sx={{
               flexDirection: 'column',
@@ -93,7 +93,7 @@ export const BottomNavigation = () => {
               alignItems: 'center',
             }}
           >
-            <View sx={{ height: 10 }} />
+            <View sx={{ height: 11 }} />
 
             <User stroke="hsla(180, 3%, 45%, 1)"></User>
 

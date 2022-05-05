@@ -1,32 +1,18 @@
-import {
-  Box,
-  Flex,
-  H3,
-  H4,
-  H5,
-  extraSmall,
-  Text,
-  View,
-  useSx,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
+import { Flex, Text, View } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'
 import { TextLink, Link } from 'solito/link'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/client'
 import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
+import { GetSession } from '../../helper/getSession'
 import { BottomNavigation } from '../components/bottomNavigation'
 
 export const ProfileScreen = () => {
   const { push } = useRouter()
-  const { user } = useUser()
+  const { user, setUser } = useUser()
   const [sessions, setSessions] = useState([])
   const [headerMsg, setHeaderMsg] = useState()
-  const [lastDone, setLastDone] = useState()
   const [firstName, setFirstName] = useState()
   const [pastSessions, setPastSessions] = useState()
 
@@ -39,36 +25,20 @@ export const ProfileScreen = () => {
     }
   }, [user])
 
-  const getSession = async (session) => {
-    const response = await getDoc(doc(db, 'session', session.session))
-    const data = response.data()
-    const timestamp = Math.ceil(
-      (new Date().getTime() - session.timeStamp) / (1000 * 3600 * 24)
-    )
+  useEffect(() => {
+    if (pastSessions && pastSessions.length > 0) {
+      const pastSessionsCount = pastSessions.length
+      const msgText =
+        pastSessions.length === 1 ? ' session done' : ' sessions done'
+      setHeaderMsg(pastSessionsCount + msgText)
 
-    switch (timestamp) {
-      case 0:
-        setLastDone('Today')
-        break
-      case 1:
-        setLastDone('Yesterday')
-        break
-      default:
-        setLastDone(timestamp + ' days ago')
-        break
+      pastSessions.map((session) => {
+        GetSession({ session, setSessions })
+      })
+    } else {
+      setHeaderMsg('No sessions done yet')
     }
-
-    setSessions((prev) => [
-      ...prev,
-      {
-        sessionId: session.session,
-        imageUrl: data.imageUrl,
-        subTitle: data.subtitle,
-        title: data.title,
-        lastDone: lastDone,
-      },
-    ])
-  }
+  }, [pastSessions])
 
   useEffect(() => {
     if (pastSessions && pastSessions.length > 0) {

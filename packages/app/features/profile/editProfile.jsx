@@ -5,13 +5,11 @@ import { Link } from 'solito/link'
 import { auth } from '../../firebase/client'
 import { SettingsListItem } from '../components/settingsListItem'
 import { useEffect, useState } from 'react'
-import { useEditProfile } from '../../helper'
+import { useEditProfile } from '../../helper/useEditProfile'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { InputErrorToast } from '../components/inputErrorToast'
-
-import { db } from '../../firebase/client'
-import { doc, setDoc } from 'firebase/firestore'
+import { onClickSave } from '../../helper/onClickSave'
 import { BottomNavigation } from '../components/bottomNavigation'
 
 export const EditProfile = () => {
@@ -25,6 +23,7 @@ export const EditProfile = () => {
     if (!user) {
       push('/')
     } else {
+      console.log(user)
       dispatch({ type: 'userNameChange', value: user.userName })
       dispatch({ type: 'firstNameChange', value: user.firstName })
       dispatch({
@@ -45,65 +44,11 @@ export const EditProfile = () => {
   }, [user, auth])
 
   useEffect(() => {
-    if (state.userName.gotTargeted && state.userName.value === '')
+    if (state.userName.gotTargeted && state.userName.val === '')
       dispatch({ type: 'userNameBcChange' })
-    if (state.firstName.gotTargeted && state.firstName.value === '')
+    if (state.firstName.gotTargeted && state.firstName.val === '')
       dispatch({ type: 'firstNameBcChange' })
   }, [state])
-
-  const onClickSave = (
-    userName,
-    firstName,
-    gender,
-    height,
-    weight,
-    { push, user, setUser }
-  ) => {
-    if (userName && firstName) {
-      onEditProfileSubmit(userName, firstName, gender, height, weight, {
-        push,
-        user,
-        setUser,
-      })
-    } else {
-      setModalVisible(true)
-      setTimeout(() => {
-        setModalVisible(false)
-      }, 2000)
-    }
-  }
-
-  const onEditProfileSubmit = async (
-    userName,
-    firstName,
-    genderInput,
-    heightInput,
-    weightInput,
-    { push, user, setUser }
-  ) => {
-    try {
-      const { id, gender, height, weight, ...tmpUser } = user
-      let data = { ...tmpUser, userName: userName, firstName: firstName }
-      if (genderInput && genderInput !== '')
-        data = { ...data, gender: genderInput }
-      if (heightInput && heightInput !== '')
-        data = { ...data, height: heightInput }
-      if (weightInput && heightInput !== '')
-        data = { ...data, weight: weightInput }
-
-      await setDoc(doc(db, 'users', id), data)
-      setUser({ ...data, id: id })
-
-      push('/profile/settings')
-    } catch (error) {
-      console.log(error)
-
-      setModalVisible(true)
-      setTimeout(() => {
-        setModalVisible(false)
-      }, 2000)
-    }
-  }
 
   return (
     <>
@@ -182,14 +127,7 @@ export const EditProfile = () => {
             <View sx={{ height: 24 }} />
             <Button
               onClick={() =>
-                onClickSave(
-                  state.userName.value,
-                  state.firstName.value,
-                  state.gender.value,
-                  state.height.value,
-                  state.weight.value,
-                  { push, user, setUser }
-                )
+                onClickSave({ state, push, user, setUser, setModalVisible })
               }
             >
               Save

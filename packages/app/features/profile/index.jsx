@@ -1,31 +1,21 @@
 import {
-    Box,
     Flex,
-    H3,
-    H4,
-    H5,
-    extraSmall,
     Text,
     View,
-    useSx,
-    ScrollView,
-    SafeAreaView,
   } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'
 import { TextLink, Link } from 'solito/link'
-import { doc, getDoc } from 'firebase/firestore'
-import { db } from '../../firebase/client'
 import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
+import { GetSession } from '../../helper/getSession'
 
 export const ProfileScreen = () => {
     const { push } = useRouter()
     const {user, setUser} = useUser()
     const [sessions, setSessions] = useState([])
     const [headerMsg, setHeaderMsg] = useState()
-    const [lastDone, setLastDone] = useState()
     const [firstName, setFirstName] = useState()
     const [pastSessions, setPastSessions] = useState()
 
@@ -38,26 +28,6 @@ export const ProfileScreen = () => {
             setPastSessions(user.pastSessions)
         }
     }, [user])
-    
-    const getSession = async (session) => {
-        const response = await getDoc(doc(db, 'session', session.session))
-        const data = response.data()
-        const timestamp = Math.ceil(((new Date().getTime()) - session.timeStamp) / (1000 * 3600 * 24))
-
-        switch (timestamp) {
-            case 0:
-                setLastDone('Today')
-                break;
-            case 1:
-                setLastDone('Yesterday')
-                break;
-            default:
-                setLastDone(timestamp + ' days ago')
-                break;
-        }
-
-        setSessions((prev) => ([...prev, { sessionId: session.session, imageUrl: data.imageUrl, subTitle: data.subtitle, title: data.title, lastDone: lastDone } ]))
-    }
 
     useEffect(() => {
         if (pastSessions && pastSessions.length > 0) {
@@ -66,7 +36,7 @@ export const ProfileScreen = () => {
             setHeaderMsg(pastSessionsCount + msgText)
             
             pastSessions.map((session) => {
-                getSession(session)
+                GetSession({ session, setSessions })
             })
         }
         else {

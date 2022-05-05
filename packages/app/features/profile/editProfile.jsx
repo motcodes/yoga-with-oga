@@ -47,41 +47,7 @@ export const EditProfile = () => {
         if (state.userName.gotTargeted && state.userName.val === '') dispatch({ type: 'userNameBcChange' })
         if (state.firstName.gotTargeted && state.firstName.val === '') dispatch({ type: 'firstNameBcChange' })
     }, [state])
-
-
-    /*function onClickSave ({ state, push, user, setUser }) {
-        if (state.userName.val && state.firstName.val) {
-            onEditProfileSubmit({ state, push, user, setUser })
-        } else {
-        setModalVisible(true);
-        setTimeout(() => {
-            setModalVisible(false);
-        }, 2000);
-        }
-    }
-
-    async function onEditProfileSubmit ({ state, push, user, setUser }) {
-        try {
-            const { id, gender, height, weight, ...tmpUser } = user
-            let data = { ...tmpUser, userName: state.userName.val, firstName: state.firstName.val }
-            if (state.gender.val && state.gender.val !== '') data = { ...data, gender: state.gender.val}
-            if (state.height.val && state.height.val !== '') data = { ...data, height: state.height.val}
-            if (state.weight.val && state.weight.val !== '') data = { ...data, weight: state.weight.val}
-
-            await setDoc(doc(db, 'users', id), data)
-            setUser({ ...data, id: id })
-
-            push('/profile/settings')
-        } catch (error) {
-            console.log(error)
-
-            setModalVisible(true);
-            setTimeout(() => {
-                setModalVisible(false);
-            }, 2000);
-        }
-    }*/
-
+    
     return (
         <SafeAreaView>
             <ScrollView>

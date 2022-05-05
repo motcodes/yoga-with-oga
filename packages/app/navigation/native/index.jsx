@@ -12,25 +12,11 @@ import { EditProfile } from '../../features/profile/editProfile'
 
 import { SessionWorkoutVideoScreen } from 'app/features/video'
 import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
-import { useParam, useWorkout } from 'app/helper'
+
+import { SessionWorkoutRoute } from 'app/routes'
 
 const Stack = createNativeStackNavigator()
 const VideoStack = createNativeStackNavigator()
-
-export const SessionWorkoutRoute = () => {
-  const [sessionId] = useParam('sessionId')
-  const [workoutId] = useParam('workoutId')
-
-  const workout = useWorkout(workoutId)
-
-  return (
-    <SessionWorkoutScreen
-      sessionId={sessionId}
-      workoutId={workoutId}
-      workout={workout}
-    />
-  )
-}
 
 export function NativeNavigation() {
   return (

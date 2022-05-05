@@ -3,6 +3,11 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**"]
+    },
+    "test": {
+      "outputs": [],
+      "dependsOn": ["^test"],
+      "inputs": ["packages/app/**/*.jsx", "packages/app/**/*.js"]
     }
   }
 }

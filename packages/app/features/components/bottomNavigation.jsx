@@ -17,7 +17,7 @@ export const BottomNavigation = ({
         borderTopWidth: 4,
         borderTopColor: '$grey80',
         backgroundColor: '$white',
-        position: 'fixed',
+        position: 'absolute',
         bottom: 0,
       }}
     >

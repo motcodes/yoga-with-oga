@@ -44,7 +44,7 @@ export function SessionWorkoutVideoSummaryScreen() {
           <X />
         </IconButton>
         <View sx={{ pt: 80, pb: 32 }}>
-          <Text as={H2} sx={{ color: '$yellow', lineHeight: '150%' }}>
+          <Text as={H2} sx={{ color: '$yellow', lineHeight: 16 * 1.5 }}>
             Great Session! You completed:
           </Text>
           {workout && (

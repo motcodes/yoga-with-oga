@@ -8,12 +8,13 @@ import { ImageModal } from '../components/imageModal'
 import { FloatingButton } from '../components/floatingButton'
 import { BottomNavigation } from '../components/bottomNavigation'
 
-export function SessionWorkoutScreen({ sessionId, workoutId, workout }) {
+export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
+  // console.log('workout :', workout)
   const router = useRouter()
   const [modalVisible, setModalVisible] = useState(false)
   const [modalData, setModalData] = useState({})
 
-  if (!workout) {
+  if (Object.keys(workout).length === 0) {
     return (
       <View>
         <Text>Loading...</Text>

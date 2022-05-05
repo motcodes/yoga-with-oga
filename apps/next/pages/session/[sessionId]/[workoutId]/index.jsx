@@ -1,4 +1,3 @@
-// import { SessionWorkoutScreen } from 'app/features/workout'
-import { SessionWorkoutRoute } from 'app/navigation/native'
+import { SessionWorkoutRoute } from 'app/routes'
 
 export default SessionWorkoutRoute

@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, SafeAreaView } from 'dripsy'
+import { Text, View, ScrollView, SafeAreaView, Image } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'solito/router'
 import { doc, setDoc } from 'firebase/firestore'
@@ -71,7 +71,22 @@ export const PersonalInfo = () => {
         }}
       >
         <InputErrorToast modalVisible={modalVisible} />
-        <View sx={{ height: 64 }} />
+
+        <View sx={{ height: 48 }} />
+        <Image
+          source={{
+            uri: 'https://firebasestorage.googleapis.com/v0/b/yoga-with-oga.appspot.com/o/yoga-with-oga-logo-320.png?alt=media&token=edb09175-1e90-4633-adc1-5717bdf947fd',
+          }}
+          accessibilityLabel="Yoga with Oga Logo"
+          sx={{
+            width: 128,
+            height: 128,
+            alignSelf: 'center',
+            mb: '24px',
+          }}
+        />
+        <View sx={{ height: 16 }} />
+
         <Text sx={{ color: '$green' }}>Almost ready</Text>
         <Text variant={'small'} sx={{ color: '$greenLight' }}>
           Just some more information about yourself, which helps us create a
@@ -107,19 +122,10 @@ export const PersonalInfo = () => {
 
         <Button onClick={() => onClickLogIn()}>Sign Up</Button>
         <View sx={{ height: 12 }} />
-        <Button variant={'outlined'}>
-          <TextLink href={'/'}>Skip for now</TextLink>
+        <Button variant={'text'} onClick={() => router.push('/')}>
+          Skip for now
         </Button>
         <View sx={{ height: 12 }} />
-        <View sx={{ alignItems: 'center' }}>
-          <Text variant={'small'} sx={{ color: '$grey45' }}>
-            or
-          </Text>
-        </View>
-        <View sx={{ height: 12 }} />
-        <Button variant={'text'} onClick={() => router.push('/auth/signUp')}>
-          Sign In
-        </Button>
       </ScrollView>
     </SafeAreaView>
   )

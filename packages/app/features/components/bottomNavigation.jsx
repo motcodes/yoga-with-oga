@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
 import { Link, TextLink } from 'solito/link'
 import { User } from 'react-native-feather'
-import { createParam } from 'solito'
 import { useParam } from 'app/helper'
 
 export const BottomNavigation = () => {

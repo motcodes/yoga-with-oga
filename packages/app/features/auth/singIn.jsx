@@ -1,52 +1,40 @@
-import {
-  Box,
-  Flex,
-  H3,
-  H4,
-  H5,
-  extraSmall,
-  Text,
-  View,
-  useSx,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
+import { Text, View, ScrollView, SafeAreaView, Image } from 'dripsy'
 import { useEffect, useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
-import { Logo } from '../components/logo'
 import { useSignIn } from '../../helper'
 
 import { auth, db } from '../../firebase/client'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
 export const SignIn = () => {
-  const { push, replace, back, parseNextPath } = useRouter()
+  const router = useRouter()
   const { user, setUser } = useUser()
   const [modalVisible, setModalVisible] = useState(false)
   const [state, dispatch] = useSignIn()
 
   useEffect(() => {
     if (user && user.id !== '') {
-      push('/')
+      router.push('/')
     }
   }, [user])
 
   useEffect(() => {
-    if (state.mail.gotTargeted && state.mail.val === '')
+    if (state.mail.gotTargeted && state.mail.val === '') {
       dispatch({ type: 'mailBcChange' })
-    if (state.password.gotTargeted && state.password.val === '')
+    }
+    if (state.password.gotTargeted && state.password.val === '') {
       dispatch({ type: 'passwordBcChange' })
+    }
   }, [state])
 
-  const onClickContinue = (mail, password, { push }) => {
-    if (mail && password) {
-      onSignUpSubmit(mail, password, { push })
+  const onClickContinue = () => {
+    if (state.mail.value && state.password.val) {
+      onSignUpSubmit()
     } else {
       setModalVisible(true)
       setTimeout(() => {
@@ -55,12 +43,12 @@ export const SignIn = () => {
     }
   }
 
-  const onSignUpSubmit = async (mail, password, { push }) => {
+  const onSignUpSubmit = async () => {
     try {
       const userCredentials = await signInWithEmailAndPassword(
         auth,
-        mail,
-        password
+        state.mail.val,
+        state.password.val
       )
 
       const uId = userCredentials.user.uid
@@ -68,7 +56,7 @@ export const SignIn = () => {
 
       setUser({ ...userDoc.data(), id: uId })
 
-      push('/')
+      router.push('/')
     } catch (error) {
       setModalVisible(true)
       setTimeout(() => {
@@ -87,15 +75,22 @@ export const SignIn = () => {
       >
         <InputErrorToast modalVisible={modalVisible} />
 
-        <View sx={{ height: 32 }} />
+        <View sx={{ height: 48 }} />
+        <Image
+          source={{
+            uri: 'https://firebasestorage.googleapis.com/v0/b/yoga-with-oga.appspot.com/o/yoga-with-oga-logo-320.png?alt=media&token=edb09175-1e90-4633-adc1-5717bdf947fd',
+          }}
+          accessibilityLabel="Yoga with Oga Logo"
+          sx={{
+            width: 128,
+            height: 128,
+            alignSelf: 'center',
+            mb: '24px',
+          }}
+        />
+        <View sx={{ height: 16 }} />
 
-        {/*<Logo />*/}
-
-        <View sx={{ height: 32 }} />
-
-        <Text variant={'base'} sx={{ color: '$green' }}>
-          New To Yoga with Oga?
-        </Text>
+        <Text sx={{ color: '$green' }}>New to Yoga with Oga?</Text>
         <Text variant={'small'} sx={{ color: '$yellow' }}>
           Sign up for free
         </Text>
@@ -117,20 +112,10 @@ export const SignIn = () => {
         />
         <View sx={{ height: 24 }} />
 
-        <Button
-          onClick={() =>
-            onClickContinue(state.mail.val, state.password.val, {
-              push,
-              setModalVisible,
-              modalVisible,
-            })
-          }
-        >
-          Continue
-        </Button>
+        <Button onClick={onClickContinue}>Continue</Button>
         <View sx={{ height: 12 }} />
-        <Button variant={'text'}>
-          <TextLink href={'/auth/signUp'}>Sign Up</TextLink>
+        <Button variant={'text'} onClick={() => router.push('/auth/signUp')}>
+          Sign Up
         </Button>
       </ScrollView>
     </SafeAreaView>

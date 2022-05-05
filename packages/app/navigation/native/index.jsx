@@ -7,6 +7,9 @@ import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
+import { ProfileScreen } from '../../features/profile'
+import { SettingsScreen } from '../../features/profile/settings'
+import { EditProfile } from '../../features/profile/editProfile'
 
 import { SessionWorkoutVideoScreen } from 'app/features/video'
 import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
@@ -68,6 +71,34 @@ export function NativeNavigation() {
         />
       </VideoStack.Navigator>
       <Stack.Screen
+        name="personalInfo"
+        component={PersonalInfo}
+        options={{
+          title: 'Personal Info',
+        }}
+      />
+      <Stack.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+        }}
+      />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{
+          title: 'Edit Profile',
+        }}
+      />
+      <Stack.Screen
         name="signUp"
         component={SignUp}
         options={{
@@ -79,14 +110,6 @@ export function NativeNavigation() {
         component={SignIn}
         options={{
           title: 'Sign In',
-        }}
-      />
-
-      <Stack.Screen
-        name="personalInfo"
-        component={PersonalInfo}
-        options={{
-          title: 'Personal Info',
         }}
       />
     </Stack.Navigator>

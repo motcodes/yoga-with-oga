@@ -11,7 +11,7 @@ import {
     ScrollView,
     SafeAreaView
 } from 'dripsy'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
 import { useRouter } from 'solito/router'
@@ -27,19 +27,13 @@ import { useUser } from '../../provider/userContext'
 export const PersonalInfo = () => {
     const { push, replace, back, parseNextPath } = useRouter()
     const { user, setUser } = useUser()
-
-    if (!user) {
-        //push('/')
-    }
-    
     const [state, dispatch] = usePersonalInfo()
     
-    let genderBC = '$grey80'
-    let heightBC = '$grey80'
-    let weightBC = '$grey80'
-    if (state.gender.gotTargeted && state.gender.val === '') genderBC = '$salmon'
-    if (state.height.gotTargeted && state.height.val === '') heightBC = '$salmon'
-    if (state.weight.gotTargeted && state.weight.val === '') weightBC = '$salmon'
+    useEffect(() => {
+        if (state.gender.gotTargeted && state.gender.val === '') dispatch({ type: 'genderBcChange' })
+        if (state.height.gotTargeted && state.height.val === '') dispatch({ type: 'heightBcChange' })
+        if (state.weight.gotTargeted && state.weight.val === '') dispatch({ type: 'weightBcChange' })
+    }, [state])
 
     const [modalVisible, setModalVisible] = useState(false)
 
@@ -96,21 +90,21 @@ export const PersonalInfo = () => {
                 value={state.gender.val}
                 onChange={text => dispatch({ type: 'genderChange', value: text })}
                 placeholder="Gender"
-                style={{ borderColor: genderBC }}
+                style={{ borderColor: state.genderBC }}
                 />
                 <View sx={{ height: 12 }} />
                 <Input
                 value={state.height.val}
                 onChange={text => dispatch({ type: 'heightChange', value: text })}
                 placeholder="Height"
-                style={{ borderColor: heightBC }}
+                style={{ borderColor: state.heightBC }}
                 />
                 <View sx={{ height: 12 }} />
                 <Input
                 value={state.weight.val}
                 onChange={text => dispatch({ type: 'weightChange', value: text })}
                 placeholder="Weight"
-                style={{ borderColor: weightBC }}
+                style={{ borderColor: state.weightBC }}
                 />
                 <View sx={{ height: 16 }} />
                 <Text variant={'extraSmall'} sx={{ color: '$grey45' }}>

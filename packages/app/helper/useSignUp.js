@@ -4,7 +4,11 @@ const initialState = {
     userName: { val: '', gotTargeted: false },
     firstName: { val: '', gotTargeted: false },
     mail: { val: '', gotTargeted: false },
-    password: { val: '', gotTargeted: false }
+    password: { val: '', gotTargeted: false },
+    userNameBC: '$grey80',
+    firstNameBC: '$grey80',
+    mailBC: '$grey80',
+    passwordBC: '$grey80'
 }
 
 const reducer = (state, action) => {
@@ -21,6 +25,18 @@ switch (action.type) {
     break;
     case 'passwordChange':
     newState = { ...state, password: { val: action.value, gotTargeted: true } };
+    break;
+    case 'uNameBcChange':
+    newState = { ...state, userNameBC: '$salmon' };
+    break;
+    case 'fNameBcChange':
+    newState = { ...state, firstNameBC: '$salmon' };
+    break;
+    case 'mailBcChange':
+    newState = { ...state, mailBC: '$salmon' };
+    break;
+    case 'passwordBcChange':
+    newState = { ...state, passwordBC: '$salmon' };
     break;
     default:
     throw new Error();

@@ -1,48 +1,38 @@
-import {
-  Box,
-  Flex,
-  H3,
-  H4,
-  H5,
-  extraSmall,
-  Text,
-  View,
-  useSx,
-  ScrollView,
-  SafeAreaView,
-} from 'dripsy'
+import { Text, View, ScrollView, SafeAreaView } from 'dripsy'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'solito/router'
+import { doc, setDoc } from 'firebase/firestore'
+import { TextLink } from 'solito/link'
 import { Input } from '../components/input'
 import { Button } from '../components/button'
-import { useRouter } from 'solito/router'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { Logo } from '../components/logo'
 import { usePersonalInfo } from '../../helper'
 
 import { db } from '../../firebase/client'
-import { doc, setDoc } from 'firebase/firestore'
-import { TextLink } from 'solito/link'
 import { useUser } from '../../provider/userContext'
 
 export const PersonalInfo = () => {
-  const { push, replace, back, parseNextPath } = useRouter()
-  const { user, setUser } = useUser()
+  const router = useRouter()
+  const { user } = useUser()
   const [state, dispatch] = usePersonalInfo()
-
-  useEffect(() => {
-    if (state.gender.gotTargeted && state.gender.val === '')
-      dispatch({ type: 'genderBcChange' })
-    if (state.height.gotTargeted && state.height.val === '')
-      dispatch({ type: 'heightBcChange' })
-    if (state.weight.gotTargeted && state.weight.val === '')
-      dispatch({ type: 'weightBcChange' })
-  }, [state])
-
   const [modalVisible, setModalVisible] = useState(false)
 
-  const onClickLogIn = (gender, height, weight, { push, user }) => {
-    if (gender && height && weight) {
-      onPersonalInfoSubmit(gender, height, weight, { push, user })
+  useEffect(() => {
+    if (state.gender.gotTargeted && state.gender.val === '') {
+      dispatch({ type: 'genderBcChange' })
+    }
+    if (state.height.gotTargeted && state.height.val === '') {
+      dispatch({ type: 'heightBcChange' })
+    }
+    if (state.weight.gotTargeted && state.weight.val === '') {
+      dispatch({ type: 'weightBcChange' })
+    }
+  }, [state])
+
+  const onClickLogIn = () => {
+    if (state.gender.val && state.height.val && state.weight.val) {
+      onPersonalInfoSubmit()
     } else {
       setModalVisible(true)
       setTimeout(() => {
@@ -51,22 +41,17 @@ export const PersonalInfo = () => {
     }
   }
 
-  const onPersonalInfoSubmit = async (
-    gender,
-    height,
-    weight,
-    { push, user }
-  ) => {
+  const onPersonalInfoSubmit = async () => {
     try {
       await setDoc(doc(db, 'users', user.id), {
         userName: user.userName,
         firstName: user.firstName,
-        gender: gender,
-        height: height,
-        weight: weight,
+        gender: state.gender.val,
+        height: state.height.val,
+        weight: state.weight.val,
       })
 
-      push('/')
+      router.push('/')
     } catch (error) {
       console.log(error)
 
@@ -86,16 +71,8 @@ export const PersonalInfo = () => {
         }}
       >
         <InputErrorToast modalVisible={modalVisible} />
-
-        <View sx={{ height: 32 }} />
-
-        {/*<Logo />*/}
-
-        <View sx={{ height: 32 }} />
-
-        <Text variant={'base'} sx={{ color: '$green' }}>
-          Almost ready
-        </Text>
+        <View sx={{ height: 64 }} />
+        <Text sx={{ color: '$green' }}>Almost ready</Text>
         <Text variant={'small'} sx={{ color: '$greenLight' }}>
           Just some more information about yourself, which helps us create a
           better experience.
@@ -123,21 +100,12 @@ export const PersonalInfo = () => {
         />
         <View sx={{ height: 16 }} />
         <Text variant={'extraSmall'} sx={{ color: '$grey45' }}>
-          By signing up, you’re agree to our Terms and Conditions and Privacy
+          By signing up, you're agree to our Terms and Conditions and Privacy
           Policy
         </Text>
         <View sx={{ height: 24 }} />
 
-        <Button
-          onClick={() =>
-            onClickLogIn(state.gender.val, state.height.val, state.weight.val, {
-              push,
-              user,
-            })
-          }
-        >
-          Sign Up
-        </Button>
+        <Button onClick={() => onClickLogIn()}>Sign Up</Button>
         <View sx={{ height: 12 }} />
         <Button variant={'outlined'}>
           <TextLink href={'/'}>Skip for now</TextLink>
@@ -149,8 +117,8 @@ export const PersonalInfo = () => {
           </Text>
         </View>
         <View sx={{ height: 12 }} />
-        <Button variant={'text'}>
-          <TextLink href={'/auth/signUp'}>Sign In</TextLink>
+        <Button variant={'text'} onClick={() => router.push('/auth/signUp')}>
+          Sign In
         </Button>
       </ScrollView>
     </SafeAreaView>

@@ -13,6 +13,7 @@ import { EditProfile } from '../../features/profile/editProfile'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
+import { SessionWorkoutVideoScreen } from 'app/features/video'
 
 const Stack = createNativeStackNavigator()
 
@@ -44,7 +45,7 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="workout"
+        name="session-workout"
         component={SessionWorkoutScreen}
         options={{
           title: 'Workout',
@@ -52,17 +53,11 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="signUp"
-        component={SignUp}
+        name="session-workout-video"
+        component={SessionWorkoutVideoScreen}
         options={{
-          title: 'Sign Up',
-        }}
-      />
-      <Stack.Screen
-        name="signIn"
-        component={SignIn}
-        options={{
-          title: 'Sign In',
+          title: 'Workout Video',
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -98,6 +93,27 @@ export function NativeNavigation() {
         component={EditProfile}
         options={{
           title: 'Edit Profile',
+        }}
+      />
+       <Stack.Screen
+        name="signUp"
+        component={SignUp}
+        options={{
+          title: 'Sign Up',
+        }}
+      />
+      <Stack.Screen
+        name="signIn"
+        component={SignIn}
+        options={{
+          title: 'Sign In',         
+        }}
+      />
+      <Stack.Screen
+        name="personalInfo"
+        component={PersonalInfo}
+        options={{
+          title: 'Personal Info',
         }}
       />
     </Stack.Navigator>

@@ -1,4 +1,4 @@
-import { Flex, Text, View } from 'dripsy'
+import { Flex, SafeAreaView, Text, View } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'

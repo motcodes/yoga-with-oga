@@ -29,9 +29,6 @@ export const PersonalInfo = () => {
     const { user, setUser } = useUser()
     const [state, dispatch] = usePersonalInfo()
     
-    let genderBC = '$grey80'
-    let heightBC = '$grey80'
-    let weightBC = '$grey80'
     useEffect(() => {
         if (state.gender.gotTargeted && state.gender.val === '') dispatch({ type: 'genderBcChange' })
         if (state.height.gotTargeted && state.height.val === '') dispatch({ type: 'heightBcChange' })

@@ -19,7 +19,8 @@ export function NavigationProvider({ children }) {
               'signUp': 'auth/signUp',
               'signIn': 'auth/signIn',
               'personalInfo': 'auth/personalInfo',
-              'profile': 'profile'
+              'profile': 'profile',
+              'settings': 'profile/settings'
             },
           },
         }),

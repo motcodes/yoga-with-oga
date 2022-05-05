@@ -8,6 +8,7 @@ import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
 import { ProfileScreen } from '../../features/profile'
+import { SettingsScreen } from '../../features/profile/settings'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
@@ -82,6 +83,13 @@ export function NativeNavigation() {
         component={ProfileScreen}
         options={{
           title: 'Profile',
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
         }}
       />
     </Stack.Navigator>

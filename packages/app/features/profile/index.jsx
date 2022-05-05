@@ -21,20 +21,22 @@ import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
 
 export const ProfileScreen = () => {
-    const { push, replace, back, parseNextPath } = useRouter()
-    const sx = useSx()
+    const { push } = useRouter()
     const {user, setUser} = useUser()
     const [sessions, setSessions] = useState([])
     const [headerMsg, setHeaderMsg] = useState()
     const [lastDone, setLastDone] = useState()
     const [firstName, setFirstName] = useState()
+    const [pastSessions, setPastSessions] = useState()
 
     useEffect(()=>{
         if (!user) {
             push('/auth/signIn')
         }
-        
-        setFirstName(user.firstName)
+        else{
+            setFirstName(user.firstName)
+            setPastSessions(pastSessions)
+        }
     }, [user])
     
     const getSession = async (session) => {
@@ -58,8 +60,7 @@ export const ProfileScreen = () => {
     }
 
     useEffect(() => {
-        const pastSessions = user.pastSessions
-        if (pastSessions.length > 0) {
+        if (pastSessions && pastSessions.length > 0) {
             const pastSessionsCount = pastSessions.length 
             const msgText = pastSessions.length === 1 ? ' session done' : ' sessions done'
             setHeaderMsg(pastSessionsCount + msgText)
@@ -71,7 +72,7 @@ export const ProfileScreen = () => {
         else {
             setHeaderMsg('No sessions done yet')
         }
-    }, [user])
+    }, [pastSessions])
 
     return(
         <View>
@@ -109,7 +110,7 @@ export const ProfileScreen = () => {
                     </Text>
                 </Flex>
                 
-                <TextLink href={'/'}>
+                <TextLink href={'/profile/settings'}>
                     <View sx={{
                         alignItems: 'center',
                         height: 40,

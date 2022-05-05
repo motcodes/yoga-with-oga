@@ -20,7 +20,8 @@ export function NavigationProvider({ children }) {
               'signIn': 'auth/signIn',
               'personalInfo': 'auth/personalInfo',
               'profile': 'profile',
-              'settings': 'profile/settings'
+              'settings': 'profile/settings',
+              'editProfile': 'profile/editProfile'
             },
           },
         }),

@@ -9,6 +9,7 @@ import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
 import { ProfileScreen } from '../../features/profile'
 import { SettingsScreen } from '../../features/profile/settings'
+import { EditProfile } from '../../features/profile/editProfile'
 import { useUser } from '../../provider/userContext'
 
 import { auth } from '../../firebase/client'
@@ -90,6 +91,13 @@ export function NativeNavigation() {
         component={SettingsScreen}
         options={{
           title: 'Settings',
+        }}
+      />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{
+          title: 'Edit Profile',
         }}
       />
     </Stack.Navigator>

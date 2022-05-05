@@ -31,7 +31,7 @@ export const SettingsScreen = () => {
                 <View sx={{ height: 62 }}/>
             </View>
 
-            <Link href={'/'}>
+            <Link href={'/profile/editProfile'}>
                 <SettingsListItem title='Edit Profile' />
             </Link>
             

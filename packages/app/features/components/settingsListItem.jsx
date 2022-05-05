@@ -3,6 +3,7 @@ import React from 'react'
 
 export const SettingsListItem = ({
   title = 'Pose #1',
+  info,
   style,
 }) => {
   return (
@@ -12,6 +13,7 @@ export const SettingsListItem = ({
             height: 32,
             mx: 16,
             width: '90%',
+            justifyContent: 'space-between',
             alignItems: 'center',
             borderBottomStyle: 'solid',
             borderBottomColor: '$grey45',
@@ -20,6 +22,11 @@ export const SettingsListItem = ({
         }}>
             <Text variant={'base'} sx={{ color: '$greenLight' }}>
                 {title}
+            </Text>
+            <Text variant={'small'} sx={{
+                color: '$grey45',
+            }}>
+                {info}
             </Text>
         </Flex>
     </>

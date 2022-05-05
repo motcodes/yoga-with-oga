@@ -19,19 +19,19 @@ export const PersonalInfo = () => {
   const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
-    if (state.gender.gotTargeted && state.gender.val === '') {
+    if (state.gender.gotTargeted && state.gender.value === '') {
       dispatch({ type: 'genderBcChange' })
     }
-    if (state.height.gotTargeted && state.height.val === '') {
+    if (state.height.gotTargeted && state.height.value === '') {
       dispatch({ type: 'heightBcChange' })
     }
-    if (state.weight.gotTargeted && state.weight.val === '') {
+    if (state.weight.gotTargeted && state.weight.value === '') {
       dispatch({ type: 'weightBcChange' })
     }
   }, [state])
 
   const onClickLogIn = () => {
-    if (state.gender.val && state.height.val && state.weight.val) {
+    if (state.gender.value && state.height.value && state.weight.value) {
       onPersonalInfoSubmit()
     } else {
       setModalVisible(true)
@@ -46,9 +46,9 @@ export const PersonalInfo = () => {
       await setDoc(doc(db, 'users', user.id), {
         userName: user.userName,
         firstName: user.firstName,
-        gender: state.gender.val,
-        height: state.height.val,
-        weight: state.weight.val,
+        gender: state.gender.value,
+        height: state.height.value,
+        weight: state.weight.value,
       })
 
       router.push('/')
@@ -94,21 +94,21 @@ export const PersonalInfo = () => {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
-          value={state.gender.val}
+          value={state.gender.value}
           onChange={(text) => dispatch({ type: 'genderChange', value: text })}
           placeholder="Gender"
           style={{ borderColor: state.genderBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.height.val}
+          value={state.height.value}
           onChange={(text) => dispatch({ type: 'heightChange', value: text })}
           placeholder="Height"
           style={{ borderColor: state.heightBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.weight.val}
+          value={state.weight.value}
           onChange={(text) => dispatch({ type: 'weightChange', value: text })}
           placeholder="Weight"
           style={{ borderColor: state.weightBC }}

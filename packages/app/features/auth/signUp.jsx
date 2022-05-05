@@ -27,26 +27,26 @@ export function SignUp() {
   }, [user])
 
   useEffect(() => {
-    if (state.userName.gotTargeted && state.userName.val === '') {
+    if (state.userName.gotTargeted && state.userName.value === '') {
       dispatch({ type: 'uNameBcChange' })
     }
-    if (state.firstName.gotTargeted && state.firstName.val === '') {
+    if (state.firstName.gotTargeted && state.firstName.value === '') {
       dispatch({ type: 'fNameBcChange' })
     }
-    if (state.mail.gotTargeted && state.mail.val === '') {
+    if (state.mail.gotTargeted && state.mail.value === '') {
       dispatch({ type: 'mailBcChange' })
     }
-    if (state.password.gotTargeted && state.password.val === '') {
+    if (state.password.gotTargeted && state.password.value === '') {
       dispatch({ type: 'passwordBcChange' })
     }
   }, [state])
 
   const onClickContinue = () => {
     if (
-      state.mail.val &&
-      state.firstName.val &&
-      state.userName.val &&
-      state.password.val
+      state.mail.value &&
+      state.firstName.value &&
+      state.userName.value &&
+      state.password.value
     ) {
       onSignUpSubmit()
     } else {
@@ -61,20 +61,20 @@ export function SignUp() {
     try {
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
-        state.mail.val,
-        state.password.val
+        state.mail.value,
+        state.password.value
       )
 
       const uId = userCredentials.user.uid
       await setDoc(doc(db, 'users', uId), {
-        firstName: state.firstName.val,
-        userName: state.userName.val,
+        firstName: state.firstName.value,
+        userName: state.userName.value,
       })
 
       setUser({
         id: uId,
-        userName: state.userName.val,
-        firstName: state.valfirstName.val,
+        userName: state.userName.value,
+        firstName: state.valfirstName.value,
       })
 
       router.push('/')
@@ -117,28 +117,28 @@ export function SignUp() {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
-          value={state.userName.val}
+          value={state.userName.value}
           onChange={(text) => dispatch({ type: 'uNameChange', value: text })}
           placeholder="Username*"
           style={{ borderColor: state.userNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.firstName.val}
+          value={state.firstName.value}
           onChange={(text) => dispatch({ type: 'fNameChange', value: text })}
           placeholder="First name*"
           style={{ borderColor: state.firstNameBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.mail.val}
+          value={state.mail.value}
           onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
           style={{ borderColor: state.mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.password.val}
+          value={state.password.value}
           onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
           type="password"

@@ -44,9 +44,9 @@ export const EditProfile = () => {
   }, [user, auth])
 
   useEffect(() => {
-    if (state.userName.gotTargeted && state.userName.val === '')
+    if (state.userName.gotTargeted && state.userName.value === '')
       dispatch({ type: 'userNameBcChange' })
-    if (state.firstName.gotTargeted && state.firstName.val === '')
+    if (state.firstName.gotTargeted && state.firstName.value === '')
       dispatch({ type: 'firstNameBcChange' })
   }, [state])
 
@@ -133,7 +133,7 @@ export const EditProfile = () => {
           }}
         >
           <Input
-            value={state.userName.val}
+            value={state.userName.value}
             onChange={(text) =>
               dispatch({ type: 'userNameChange', value: text })
             }
@@ -142,7 +142,7 @@ export const EditProfile = () => {
           />
           <View sx={{ height: 12 }} />
           <Input
-            value={state.firstName.val}
+            value={state.firstName.value}
             onChange={(text) =>
               dispatch({ type: 'firstNameChange', value: text })
             }
@@ -151,21 +151,21 @@ export const EditProfile = () => {
           />
           <View sx={{ height: 12 }} />
           <Input
-            value={state.gender.val}
+            value={state.gender.value}
             onChange={(text) => dispatch({ type: 'genderChange', value: text })}
             placeholder="Gender"
             style={{ borderColor: '$grey80' }}
           />
           <View sx={{ height: 12 }} />
           <Input
-            value={state.height.val}
+            value={state.height.value}
             onChange={(text) => dispatch({ type: 'heightChange', value: text })}
             placeholder="Height"
             style={{ borderColor: '$grey80' }}
           />
           <View sx={{ height: 12 }} />
           <Input
-            value={state.weight.val}
+            value={state.weight.value}
             onChange={(text) => dispatch({ type: 'weightChange', value: text })}
             placeholder="Weight"
             style={{ borderColor: '$grey80' }}
@@ -175,11 +175,11 @@ export const EditProfile = () => {
           <Button
             onClick={() =>
               onClickSave(
-                state.userName.val,
-                state.firstName.val,
-                state.gender.val,
-                state.height.val,
-                state.weight.val,
+                state.userName.value,
+                state.firstName.value,
+                state.gender.value,
+                state.height.value,
+                state.weight.value,
                 { push, user, setUser }
               )
             }

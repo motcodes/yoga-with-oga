@@ -24,16 +24,16 @@ export const SignIn = () => {
   }, [user])
 
   useEffect(() => {
-    if (state.mail.gotTargeted && state.mail.val === '') {
+    if (state.mail.gotTargeted && state.mail.value === '') {
       dispatch({ type: 'mailBcChange' })
     }
-    if (state.password.gotTargeted && state.password.val === '') {
+    if (state.password.gotTargeted && state.password.value === '') {
       dispatch({ type: 'passwordBcChange' })
     }
-  }, [state])
+  }, [state, dispatch])
 
   const onClickContinue = () => {
-    if (state.mail.value && state.password.val) {
+    if (state.mail.value && state.password.value) {
       onSignUpSubmit()
     } else {
       setModalVisible(true)
@@ -47,12 +47,13 @@ export const SignIn = () => {
     try {
       const userCredentials = await signInWithEmailAndPassword(
         auth,
-        state.mail.val,
-        state.password.val
+        state.mail.value,
+        state.password.value
       )
 
       const uId = userCredentials.user.uid
       const userDoc = await getDoc(doc(db, 'users', uId))
+      console.log('userDoc :', userDoc)
 
       setUser({ ...userDoc.data(), id: uId })
 
@@ -96,14 +97,14 @@ export const SignIn = () => {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
-          value={state.mail.val}
+          value={state.mail.value}
           onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
           style={{ borderColor: state.mailBC }}
         />
         <View sx={{ height: 12 }} />
         <Input
-          value={state.password.val}
+          value={state.password.value}
           onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
           type="password"

@@ -1,26 +1,27 @@
 import { Flex, Text, View, useSx } from 'dripsy'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
 import { Link, TextLink } from 'solito/link'
 import { User } from 'react-native-feather'
-import { createParam } from 'solito'
 import { useParam } from 'app/helper'
+import { BottomNavigationContext } from 'app/provider/bottomNavigationProvider'
+import { useRoute } from '@react-navigation/native'
 
 export const BottomNavigation = () => {
   const sx = useSx()
   const [videoId] = useParam('videoId')
-  const [isVisible, setVisible] = useState(true)
+  const { isBottomNav, setBottomNav } = useContext(BottomNavigationContext)
 
-  useEffect(() => {
-    if (videoId) {
-      setVisible(false)
-    } else {
-      setVisible(true)
-    }
-  }, [videoId])
+  // useEffect(() => {
+  //   if (videoId) {
+  //     setBottomNav(false)
+  //   } else {
+  //     setBottomNav(true)
+  //   }
+  // }, [videoId])
 
   return (
-    isVisible && (
+    isBottomNav && (
       <Flex
         sx={{
           justifyContent: 'center',

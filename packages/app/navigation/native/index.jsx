@@ -13,6 +13,8 @@ import { EditProfile } from '../../features/profile/editProfile'
 import { SessionWorkoutVideoScreen } from 'app/features/video'
 import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
 
+import { SessionWorkoutRoute } from 'app/routes'
+
 const Stack = createNativeStackNavigator()
 const VideoStack = createNativeStackNavigator()
 
@@ -37,7 +39,7 @@ export function NativeNavigation() {
       />
       <Stack.Screen
         name="session-workout"
-        component={SessionWorkoutScreen}
+        component={SessionWorkoutRoute}
         options={{
           title: 'Workout',
           headerShown: false,

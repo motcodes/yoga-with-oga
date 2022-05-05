@@ -26,7 +26,7 @@ export const ListItem = ({
       />
       <View sx={{ width: 20 }} />
       <Flex sx={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-        <Text as={H3} sx={{ color: '$green', lineHeight: '150%' }}>
+        <Text as={H3} sx={{ color: '$green', lineHeight: 16 * 1.5 }}>
           {title}
         </Text>
       </Flex>

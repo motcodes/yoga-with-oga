@@ -1,3 +1,3 @@
-import { SessionWorkoutScreen } from 'app/features/workout'
+import { SessionWorkoutRoute } from 'app/routes'
 
-export default SessionWorkoutScreen
+export default SessionWorkoutRoute

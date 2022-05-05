@@ -1,25 +1,20 @@
 import React, { useState } from 'react'
-import { useParam, useWorkout } from 'app/helper'
 import { H3, H5, Pressable, ScrollView, Text, View } from 'dripsy'
-import { SafeAreaView, useWindowDimensions } from 'react-native'
-import { createParam } from 'solito'
+import { SafeAreaView } from 'react-native'
 import { useRouter } from 'solito/router'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
 import { ImageModal } from '../components/imageModal'
-import { Button } from '../components/button'
 import { FloatingButton } from '../components/floatingButton'
 import { BottomNavigation } from '../components/bottomNavigation'
 
-export function SessionWorkoutScreen() {
-  const [sessionId] = useParam('sessionId')
-  const [workoutId] = useParam('workoutId')
+export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
+  // console.log('workout :', workout)
   const router = useRouter()
   const [modalVisible, setModalVisible] = useState(false)
   const [modalData, setModalData] = useState({})
-  const workout = useWorkout(workoutId)
 
-  if (!workout) {
+  if (Object.keys(workout).length === 0) {
     return (
       <View>
         <Text>Loading...</Text>

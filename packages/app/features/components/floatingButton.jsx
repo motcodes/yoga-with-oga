@@ -8,10 +8,10 @@ export const FloatingButton = ({ onClick, style, children }) => {
   return (
     <View
       sx={{
-        position: 'fixed',
+        position: 'absolute',
         bottom: 112,
         left: '50%',
-        transform: 'translateX(-50%)',
+        transform: [{ translateX: '-50%' }],
         width: width * 0.9,
         boxShadow: 'md',
         ...style,

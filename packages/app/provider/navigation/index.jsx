@@ -14,6 +14,7 @@ export function NavigationProvider({ children }) {
               home: '',
               session: 'session/:sessionId',
               workout: 'session/:sessionId/:workoutId',
+              video: 'session/:sessionId/:workoutId/:videoId',
               'user-detail': 'user/:id',
               'front-end': 'front-end',
               'signUp': 'auth/signUp',

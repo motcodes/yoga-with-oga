@@ -1,5 +1,5 @@
 import React from 'react'
-import { H5, ScrollView, Text, View } from 'dripsy'
+import { H3, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView } from 'react-native'
 import { createParam } from 'solito'
 import { Link } from 'solito/link'
@@ -12,6 +12,7 @@ export function SessionScreen() {
   const [sessionId] = useParam('sessionId')
 
   const session = useSession(sessionId)
+  console.log('session :', session)
 
   if (!session) {
     return (
@@ -37,13 +38,15 @@ export function SessionScreen() {
             my: 80,
           }}
         >
-          <H5>Workout Overview</H5>
+          <H5 as={H3} sx={{ color: '$green' }}>
+            Workout Overview
+          </H5>
           {session &&
             session.videos &&
             session.videos.map((item) => (
               <Link key={item.title} href={`/session/${sessionId}/${item.id}`}>
                 <ListItem
-                  imageUrl={item.vimeo.thumbnailUrl}
+                  imageUrl={item.thumbnail}
                   title={item.title}
                   style={{ my: 16 }}
                 />

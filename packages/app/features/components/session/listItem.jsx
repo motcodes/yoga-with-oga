@@ -14,6 +14,7 @@ export const ListItem = ({
       sx={{
         height: 88,
         width: '100%',
+        maxWidth: '100%',
         ...style,
       }}
     >
@@ -24,8 +25,8 @@ export const ListItem = ({
         sx={{ borderRadius: 6, height: '100%', width: '40%', maxWidth: 204 }}
       />
       <View sx={{ width: 20 }} />
-      <Flex sx={{ flexDirection: 'column', justifyContent: 'center' }}>
-        <Text as={H3} sx={{ color: '$green' }}>
+      <Flex sx={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
+        <Text as={H3} sx={{ color: '$green', lineHeight: '150%' }}>
           {title}
         </Text>
       </Flex>

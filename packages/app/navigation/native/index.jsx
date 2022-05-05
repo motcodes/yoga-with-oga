@@ -7,12 +7,12 @@ import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
-import { useUser } from '../../provider/userContext'
 
-import { auth } from '../../firebase/client'
 import { SessionWorkoutVideoScreen } from 'app/features/video'
+import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
 
 const Stack = createNativeStackNavigator()
+const VideoStack = createNativeStackNavigator()
 
 export function NativeNavigation() {
   return (
@@ -49,14 +49,24 @@ export function NativeNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="session-workout-video"
-        component={SessionWorkoutVideoScreen}
-        options={{
-          title: 'Workout Video',
-          headerShown: false,
-        }}
-      />
+      <VideoStack.Navigator initialRouteName="session-workout-video">
+        <VideoStack.Screen
+          name="session-workout-video"
+          component={SessionWorkoutVideoScreen}
+          options={{
+            title: 'Workout Video',
+            headerShown: false,
+          }}
+        />
+        <VideoStack.Screen
+          name="session-workout-video-summary"
+          component={SessionWorkoutVideoSummaryScreen}
+          options={{
+            title: 'Workout Summary',
+            headerShown: false,
+          }}
+        />
+      </VideoStack.Navigator>
       <Stack.Screen
         name="signUp"
         component={SignUp}

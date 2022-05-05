@@ -7,10 +7,7 @@ let initialState = {
     height: { val: '', gotTargeted: false},
     weight: { val: '', gotTargeted: false },
     userNameBC: '$grey80',
-    firstNameBC: '$grey80',
-    genderBC: '$grey80',
-    heightBC: '$grey80',
-    weightBC: '$grey80'
+    firstNameBC: '$grey80'
 }
 
 const reducer = (state, action) => {
@@ -36,15 +33,6 @@ const reducer = (state, action) => {
         break;
     case 'firstNameBcChange':
         newState = { ...state, firstNameBC: '$salmon' };
-        break;
-    case 'genderBcChange':
-        newState = { ...state, genderBC: '$salmon' };
-        break;
-    case 'heightBcChange':
-        newState = { ...state, heightBC: '$salmon' };
-        break;
-    case 'weightBcChange':
-        newState = { ...state, weightBC: '$salmon' };
         break;
     default:
         throw new Error();

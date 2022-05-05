@@ -45,9 +45,6 @@ export const EditProfile = () => {
     useEffect(() => {
         if (state.userName.gotTargeted && state.userName.val === '') dispatch({ type: 'userNameBcChange' })
         if (state.firstName.gotTargeted && state.firstName.val === '') dispatch({ type: 'firstNameBcChange' })
-        if (state.gender.gotTargeted && state.gender.val === '') dispatch({ type: 'genderBcChange' })
-        if (state.height.gotTargeted && state.height.val === '') dispatch({ type: 'heightBcChange' })
-        if (state.weight.gotTargeted && state.weight.val === '') dispatch({ type: 'weightBcChange' })
     }, [state])
 
 
@@ -74,7 +71,7 @@ export const EditProfile = () => {
             await setDoc(doc(db, 'users', id), data)        
             setUser(data)
 
-            push('/')
+            push('/profile/settings')
         } catch (error) {
             console.log(error)
 
@@ -125,21 +122,21 @@ export const EditProfile = () => {
                     value={state.gender.val}
                     onChange={text => dispatch({ type: 'genderChange', value: text })}
                     placeholder="Gender"
-                    style={{ borderColor: state.genderBC }}
+                    style={{ borderColor: '$grey80' }}
                     />
                     <View sx={{ height: 12 }} />
                     <Input
                     value={state.height.val}
                     onChange={text => dispatch({ type: 'heightChange', value: text })}
                     placeholder="Height"
-                    style={{ borderColor: state.heightBC }}
+                    style={{ borderColor: '$grey80' }}
                     />
                     <View sx={{ height: 12 }} />
                     <Input
                     value={state.weight.val}
                     onChange={text => dispatch({ type: 'weightChange', value: text })}
                     placeholder="Weight"
-                    style={{ borderColor: state.weightBC }}
+                    style={{ borderColor: '$grey80' }}
                     />
             
                     <View sx={{ height: 24 }} />

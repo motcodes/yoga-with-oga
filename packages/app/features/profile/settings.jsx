@@ -37,9 +37,14 @@ export const SettingsScreen = () => {
         <Link href={'/profile/editProfile'}>
           <SettingsListItem title="Edit Profile" />
         </Link>
+            
+        <Link href={'/contactUs'}>
+            <SettingsListItem title='Contact Us' />
+        </Link>
 
-        <SettingsListItem title="Contact Us" />
-        <SettingsListItem title="Imprint" />
+        <Link href={'/imprint'}>
+            <SettingsListItem title='Imprint' />
+        </Link>
 
         <NativeButton
           onPress={() => {

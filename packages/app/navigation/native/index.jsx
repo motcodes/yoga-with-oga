@@ -9,6 +9,8 @@ import { PersonalInfo } from '../../features/auth/personalInfo'
 import { ProfileScreen } from '../../features/profile'
 import { SettingsScreen } from '../../features/profile/settings'
 import { EditProfile } from '../../features/profile/editProfile'
+import { ContactUs } from '../../features/contactUs/contactUs'
+import { Imprint } from '../../features/imprint/imprint'
 
 import { SessionWorkoutVideoScreen } from 'app/features/video'
 import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
@@ -103,6 +105,20 @@ export function NativeNavigation() {
         component={SignIn}
         options={{
           title: 'Sign In',
+        }}
+      />
+      <Stack.Screen
+        name="contactUs"
+        component={ContactUs}
+        options={{
+          title: 'Cotact Us',
+        }}
+      />
+      <Stack.Screen
+        name="imprint"
+        component={Imprint}
+        options={{
+          title: 'Imprint',
         }}
       />
     </Stack.Navigator>

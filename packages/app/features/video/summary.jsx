@@ -1,49 +1,30 @@
 import React from 'react'
 import { useParam, useWorkout } from 'app/helper'
 import { H1, H2, H3, H4, H5, Pressable, ScrollView, Text, View } from 'dripsy'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { ArrowLeft, X } from 'react-native-feather'
 import { IconButton } from '../components/iconButton'
 import { ListItem } from '../components/session/listItem'
 import { FloatingButton } from '../components/floatingButton'
+import { LoadingScreen } from '../components/loadingScreen'
 
 export function SessionWorkoutVideoSummaryScreen() {
   const [sessionId] = useParam('sessionId')
   const [workoutId] = useParam('workoutId')
   const [videoId] = useParam('videoId')
   const router = useRouter()
-
   const workout = useWorkout(workoutId)
-  console.log('workout :', workout)
+  const { height } = useWindowDimensions()
 
-  if (!workout) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    )
+  if (Object.keys(workout).length === 0) {
+    return <LoadingScreen />
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView sx={{ px: 20, mb: 80 }}>
-        <IconButton
-          style={{ left: 16 }}
-          onPress={() =>
-            router.replace(`/session/${sessionId}/${workoutId}/${videoId}`)
-          }
-        >
-          <ArrowLeft />
-        </IconButton>
-        <IconButton
-          onPress={() =>
-            video.current.playFromPositionAsync((duration - 10) * 1000)
-          }
-        >
-          <X />
-        </IconButton>
-        <View sx={{ pt: 80, pb: 32 }}>
+    <SafeAreaView sx={{ flex: 1 }}>
+      <ScrollView sx={{ mb: 80, height: height, pb: 128 }}>
+        <View sx={{ pt: 80, pb: 32, px: 20 }}>
           <Text as={H2} sx={{ color: '$yellow', lineHeight: 16 * 1.5 }}>
             Great Session! You completed:
           </Text>
@@ -53,7 +34,7 @@ export function SessionWorkoutVideoSummaryScreen() {
             </H4>
           )}
         </View>
-        <View sx={{ mt: 32 }}>
+        <View sx={{ mt: 32, px: 20 }}>
           <H5 as={H3} sx={{ color: '$green' }}>
             Summary
           </H5>
@@ -71,14 +52,27 @@ export function SessionWorkoutVideoSummaryScreen() {
           </View>
         </View>
       </ScrollView>
+      <IconButton
+        style={{ left: 16 }}
+        onPress={() =>
+          router.replace(`/session/${sessionId}/${workoutId}/${videoId}`)
+        }
+      >
+        <ArrowLeft />
+      </IconButton>
+
       {workout && workout.title === 'End Relaxation' ? (
-        <FloatingButton onClick={() => router.push(`/`)} style={{ bottom: 64 }}>
+        <FloatingButton
+          onClick={() => router.push(`/`)}
+          style={{ top: height - 112 }}
+        >
           Finish this Session
         </FloatingButton>
       ) : (
         <FloatingButton
           onClick={() => router.push(`/session/${sessionId}`)}
-          style={{ bottom: 64 }}
+          // style={{ bottom: 64 }}
+          style={{ top: height - 112 }}
         >
           Next Workout
         </FloatingButton>

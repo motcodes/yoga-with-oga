@@ -10,6 +10,7 @@ import { Button } from '../components/button'
 import { InputErrorToast } from '../components/inputErrorToast'
 import { onClickSave } from '../../helper/onClickSave'
 import { BottomNavigation } from '../components/bottomNavigation'
+import { useWindowDimensions } from 'react-native'
 
 export const EditProfile = () => {
   const { user, setUser } = useUser()
@@ -17,6 +18,7 @@ export const EditProfile = () => {
   const [state, dispatch] = useEditProfile()
   const [modalVisible, setModalVisible] = useState(false)
   const [mail, setMail] = useState()
+  const { height } = useWindowDimensions()
 
   useEffect(() => {
     if (!user) {
@@ -51,8 +53,8 @@ export const EditProfile = () => {
 
   return (
     <>
-      <SafeAreaView>
-        <ScrollView>
+      <SafeAreaView sx={{ flex: 1 }}>
+        <ScrollView sx={{ height: height - 80 }}>
           <InputErrorToast modalVisible={modalVisible} />
 
           <View
@@ -135,8 +137,7 @@ export const EditProfile = () => {
           </Flex>
         </ScrollView>
       </SafeAreaView>
-      <View sx={{ height: 48 }} />
-      <BottomNavigation isRightActive />
+      <BottomNavigation isRightActive height={height} />
     </>
   )
 }

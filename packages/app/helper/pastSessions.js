@@ -1,5 +1,5 @@
 import { db } from '../firebase/client'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, Timestamp } from 'firebase/firestore'
 
 export function addPastSession(sessionSlug, user, setUser) {
   if (!user) {
@@ -12,7 +12,7 @@ export function addPastSession(sessionSlug, user, setUser) {
   if (data.pastSessions) {
     data.pastSessions.push({ session: sessionSlug, timeStamp: new Date() })
   } else {
-    pastSessions.push({ session: sessionSlug, timeStamp: new Date().getDate() })
+    pastSessions.push({ session: sessionSlug, timeStamp: new Timestamp() })
     data.pastSessions = pastSessions
   }
 

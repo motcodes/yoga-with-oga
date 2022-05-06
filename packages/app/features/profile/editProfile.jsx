@@ -40,6 +40,7 @@ export const EditProfile = () => {
         value: user.weight === '' ? undefined : user.weight,
       })
 
+      console.log(state)
       if (auth) setMail(auth.currentUser.email)
     }
   }, [user, auth])

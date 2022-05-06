@@ -12,16 +12,17 @@ export async function onEditProfileSubmit({
     const { id, gender, height, weight, ...tmpUser } = user
     let data = {
       ...tmpUser,
-      userName: state.userName.val,
-      firstName: state.firstName.val,
+      userName: state.userName.value,
+      firstName: state.firstName.value,
     }
-    if (state.gender.val && state.gender.val !== '')
-      data = { ...data, gender: state.gender.val }
-    if (state.height.val && state.height.val !== '')
-      data = { ...data, height: state.height.val }
-    if (state.weight.val && state.weight.val !== '')
-      data = { ...data, weight: state.weight.val }
+    if (state.gender.value && state.gender.value !== '')
+      data = { ...data, gender: state.gender.value }
+    if (state.height.value && state.height.value !== '')
+      data = { ...data, height: state.height.value }
+    if (state.weight.value && state.weight.value !== '')
+      data = { ...data, weight: state.weight.value }
 
+    console.log(data)
     await setDoc(doc(db, 'users', id), data)
     setUser({ ...data, id: id })
 

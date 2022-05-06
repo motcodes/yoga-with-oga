@@ -51,7 +51,7 @@ export const ImageModal = ({ modalVisible, setModalVisible, modalData }) => {
               sx={{ width: '100%', height: '100%', borderRadius: 6 }}
             />
 
-            <IconButton style={{ position: 'absolute' }}>
+            <IconButton onPress={() => setModalVisible(!modalVisible)} style={{ position: 'absolute' }}>
               <X />
             </IconButton>
           </View>

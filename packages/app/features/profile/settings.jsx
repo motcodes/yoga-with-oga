@@ -5,7 +5,7 @@ import { Link } from 'solito/link'
 import { auth } from '../../firebase/client'
 import { SettingsListItem } from '../components/settingsListItem'
 import { useEffect } from 'react'
-import { Pressable as NativeButton } from 'react-native'
+import { Pressable as NativeButton, useWindowDimensions } from 'react-native'
 import { BottomNavigation } from '../components/bottomNavigation'
 
 export const SettingsScreen = () => {

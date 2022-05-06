@@ -1,8 +1,8 @@
-import { OnEditProfileSubmit } from './onEditProfileSubmit'
+import { onEditProfileSubmit } from './onEditProfileSubmit'
 
 export function onClickSave({ state, push, user, setUser, setModalVisible }) {
   if (state.userName.val && state.firstName.val) {
-    OnEditProfileSubmit({ state, push, user, setUser, setModalVisible })
+    onEditProfileSubmit({ state, push, user, setUser, setModalVisible })
   } else {
     setModalVisible(true)
     setTimeout(() => {

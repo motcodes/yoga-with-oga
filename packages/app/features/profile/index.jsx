@@ -1,12 +1,13 @@
-import { Flex, SafeAreaView, Text, View } from 'dripsy'
+import { Flex, SafeAreaView, ScrollView, Text, View } from 'dripsy'
 import Svg, { Path } from 'react-native-svg'
 import { useUser } from '../../provider/userContext'
 import { useRouter } from 'solito/router'
 import { TextLink, Link } from 'solito/link'
 import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
-import { GetSession } from '../../helper/getSession'
+import { getSession } from '../../helper/getSession'
 import { BottomNavigation } from '../components/bottomNavigation'
+import { useWindowDimensions } from 'react-native'
 
 export const ProfileScreen = () => {
   const { push } = useRouter()
@@ -15,6 +16,7 @@ export const ProfileScreen = () => {
   const [headerMsg, setHeaderMsg] = useState()
   const [firstName, setFirstName] = useState()
   const [pastSessions, setPastSessions] = useState()
+  const { height } = useWindowDimensions()
 
   useEffect(() => {
     if (!user) {
@@ -33,7 +35,7 @@ export const ProfileScreen = () => {
       setHeaderMsg(pastSessionsCount + msgText)
 
       pastSessions.map((session) => {
-        GetSession({ session, setSessions })
+        getSession({ session, setSessions })
       })
     } else {
       setHeaderMsg('No sessions done yet')
@@ -42,11 +44,12 @@ export const ProfileScreen = () => {
 
   return (
     <>
-      <SafeAreaView>
-        <View
+      <SafeAreaView sx={{ flex: 1 }}>
+        <ScrollView
           sx={{
             alignItems: 'center',
             width: '100%',
+            height: height - 80,
           }}
         >
           <Svg
@@ -133,7 +136,7 @@ export const ProfileScreen = () => {
               </Svg>
             </View>
           </TextLink>
-        </View>
+        </ScrollView>
 
         <View sx={{ height: 80 }} />
 
@@ -161,10 +164,8 @@ export const ProfileScreen = () => {
             <View sx={{ height: 16 }} />
           </Link>
         ))}
-        <View sx={{ height: 60 }} />
+        <BottomNavigation isRightActive height={height} />
       </SafeAreaView>
-      <View sx={{ height: 48 }} />
-      <BottomNavigation isRightActive />
     </>
   )
 }

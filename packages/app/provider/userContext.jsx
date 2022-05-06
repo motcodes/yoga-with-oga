@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { auth, db } from '../firebase/client'
 import { doc, getDoc } from 'firebase/firestore'
 
-const UserContext = React.createContext()
+export const UserContext = React.createContext()
 
 function UserProvider({ children }) {
   const [user, setUser] = useState()

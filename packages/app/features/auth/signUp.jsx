@@ -14,7 +14,7 @@ import { useSignUp } from '../../helper'
 import { auth, db } from '../../firebase/client'
 import { useUser } from '../../provider/userContext'
 
-export function SignUp() {
+export function SignUp({ onSuccessfulCheckClick, onFailedCheckClick }) {
   const router = useRouter()
   const { user, setUser } = useUser()
   const [state, dispatch] = useSignUp()
@@ -48,8 +48,14 @@ export function SignUp() {
       state.userName.value &&
       state.password.value
     ) {
+      if (process.env.NODE_ENV === 'test') {
+        onSuccessfulCheckClick()
+      }
       onSignUpSubmit()
     } else {
+      if (process.env.NODE_ENV === 'test') {
+        onFailedCheckClick()
+      }
       setModalVisible(true)
       setTimeout(() => {
         setModalVisible(false)
@@ -126,7 +132,7 @@ export function SignUp() {
         <Input
           value={state.firstName.value}
           onChange={(text) => dispatch({ type: 'fNameChange', value: text })}
-          placeholder="First name*"
+          placeholder="Firstname*"
           style={{ borderColor: state.firstNameBC }}
         />
         <View sx={{ height: 12 }} />

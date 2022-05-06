@@ -11,7 +11,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useUser } from '../../provider/userContext'
 
-export const SignIn = () => {
+export const SignIn = ({ onSuccessfulCheckClick, onFailedCheckClick }) => {
   const router = useRouter()
   const { user, setUser } = useUser()
   const [modalVisible, setModalVisible] = useState(false)
@@ -32,10 +32,16 @@ export const SignIn = () => {
     }
   }, [state, dispatch])
 
-  const onClickContinue = () => {
+  const onClickContinue = ({ state, setModalVisible, setUser }) => {
     if (state.mail.value && state.password.value) {
-      onSignUpSubmit()
+      if (process.env.NODE_ENV === 'test') {
+        onSuccessfulCheckClick()
+      }
+      onSignUpSubmit({ state, setModalVisible, setUser })
     } else {
+      if (process.env.NODE_ENV === 'test') {
+        onFailedCheckClick()
+      }
       setModalVisible(true)
       setTimeout(() => {
         setModalVisible(false)
@@ -43,7 +49,7 @@ export const SignIn = () => {
     }
   }
 
-  const onSignUpSubmit = async () => {
+  const onSignUpSubmit = async ({state, setModalVisible, setUser}) => {
     try {
       const userCredentials = await signInWithEmailAndPassword(
         auth,
@@ -53,7 +59,6 @@ export const SignIn = () => {
 
       const uId = userCredentials.user.uid
       const userDoc = await getDoc(doc(db, 'users', uId))
-      console.log('userDoc :', userDoc)
 
       setUser({ ...userDoc.data(), id: uId })
 
@@ -113,7 +118,7 @@ export const SignIn = () => {
         />
         <View sx={{ height: 24 }} />
 
-        <Button onClick={onClickContinue}>Continue</Button>
+        <Button onClick={ () => onClickContinue({ state, setModalVisible, setUser }) }>Continue</Button>
         <View sx={{ height: 12 }} />
         <Button variant={'text'} onClick={() => router.push('/auth/signUp')}>
           Sign Up

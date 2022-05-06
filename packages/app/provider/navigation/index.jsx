@@ -23,7 +23,9 @@ export function NavigationProvider({ children }) {
               'personalInfo': 'auth/personalInfo',
               'profile': 'profile',
               'settings': 'profile/settings',
-              'editProfile': 'profile/editProfile'
+              'editProfile': 'profile/editProfile',
+              'contactUs': 'contactUs',
+              'imprint': 'imprint'
             },
           },
         }),

@@ -11,15 +11,6 @@ import { useEffect} from 'react'
 import { Pressable as NativeButton } from 'react-native'
 
 export const SettingsScreen = () => {
-    const { user, setUser } = useUser()
-    const { push } = useRouter()
-
-    useEffect(() => {
-        if (!user) {
-            push('/')
-        }
-    }, [user])
-
     return (
         <>
             <View sx={{
@@ -35,8 +26,13 @@ export const SettingsScreen = () => {
                 <SettingsListItem title='Edit Profile' />
             </Link>
             
-            <SettingsListItem title='Contact Us' />
-            <SettingsListItem title='Imprint' />
+            <Link href={'/contactUs'}>
+                <SettingsListItem title='Contact Us' />
+            </Link>
+
+            <Link href={'/imprint'}>
+                <SettingsListItem title='Imprint' />
+            </Link>
             
             <NativeButton onPress={() => {
                 auth.signOut()

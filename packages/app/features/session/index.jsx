@@ -1,18 +1,18 @@
 import React from 'react'
 import { H3, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
-import { createParam } from 'solito'
 import { Link } from 'solito/link'
-import { useParam, useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
 import { BottomNavigation } from '../components/bottomNavigation'
 import { LoadingScreen } from '../components/loadingScreen'
 import { IconButton } from '../components/iconButton'
 import { ArrowLeft } from 'react-native-feather'
+import { useRouter } from 'solito/router'
 
 export function SessionScreen({ sessionId, session = {} }) {
   const { height } = useWindowDimensions()
+  const router = useRouter()
 
   if (Object.keys(session).length === 0) {
     return <LoadingScreen />

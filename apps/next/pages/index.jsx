@@ -1,3 +1,3 @@
-import { HomeScreen } from 'app/features/home/screen'
+import { HomeRoute } from 'app/routes'
 
-export default HomeScreen
+export default HomeRoute

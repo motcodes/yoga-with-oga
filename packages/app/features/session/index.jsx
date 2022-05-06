@@ -7,41 +7,37 @@ import { useParam, useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
 import { BottomNavigation } from '../components/bottomNavigation'
+import { LoadingScreen } from '../components/loadingScreen'
+import { IconButton } from '../components/iconButton'
+import { ArrowLeft } from 'react-native-feather'
 
-export function SessionScreen() {
-  const [sessionId] = useParam('sessionId')
-  const session = useSession(sessionId)
-  console.log('session :', session)
+export function SessionScreen({ sessionId, session = {} }) {
   const { height } = useWindowDimensions()
 
-  if (!session) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    )
+  if (Object.keys(session).length === 0) {
+    return <LoadingScreen />
   }
 
   return (
-    <>
-      <SafeAreaView sx={{ flex: 1 }}>
-        <ScrollView sx={{ height: height - 80 }}>
-          <Banner
-            imageUrl={session.imageUrl}
-            title={session.title}
-            subtitle={session.subtitle}
-            highlight=" "
-          />
+    <SafeAreaView sx={{ flex: 1 }}>
+      <ScrollView sx={{ height: height - 80 }}>
+        <Banner
+          imageUrl={session.imageUrl}
+          title={session.title}
+          subtitle={session.subtitle}
+          highlight=" "
+        />
 
-          <View
-            sx={{
-              px: 16,
-              my: 80,
-            }}
-          >
-            <H5 as={H3} sx={{ color: '$green' }}>
-              Workout Overview
-            </H5>
+        <View
+          sx={{
+            px: 16,
+            my: 80,
+          }}
+        >
+          <H5 as={H3} sx={{ color: '$green' }}>
+            Workout Overview
+          </H5>
+          <View>
             {session &&
               session.videos &&
               session.videos.map((item) => (
@@ -57,9 +53,12 @@ export function SessionScreen() {
                 </Link>
               ))}
           </View>
-        </ScrollView>
-        <BottomNavigation isActive height={height} />
-      </SafeAreaView>
-    </>
+        </View>
+      </ScrollView>
+      <BottomNavigation isActive height={height} />
+      <IconButton onPress={() => router.push(`/`)} style={{ left: 16 }}>
+        <ArrowLeft />
+      </IconButton>
+    </SafeAreaView>
   )
 }

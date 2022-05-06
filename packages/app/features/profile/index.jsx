@@ -40,21 +40,6 @@ export const ProfileScreen = () => {
     }
   }, [pastSessions])
 
-  useEffect(() => {
-    if (pastSessions && pastSessions.length > 0) {
-      const pastSessionsCount = pastSessions.length
-      const msgText =
-        pastSessions.length === 1 ? ' session done' : ' sessions done'
-      setHeaderMsg(pastSessionsCount + msgText)
-
-      pastSessions.map((session) => {
-        getSession(session)
-      })
-    } else {
-      setHeaderMsg('No sessions done yet')
-    }
-  }, [pastSessions])
-
   return (
     <>
       <SafeAreaView>

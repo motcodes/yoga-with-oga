@@ -1,6 +1,6 @@
 import React from 'react'
 import { H3, H5, ScrollView, Text, View } from 'dripsy'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { createParam } from 'solito'
 import { Link } from 'solito/link'
 import { useParam, useSession } from 'app/helper'
@@ -10,9 +10,9 @@ import { BottomNavigation } from '../components/bottomNavigation'
 
 export function SessionScreen() {
   const [sessionId] = useParam('sessionId')
-
   const session = useSession(sessionId)
   console.log('session :', session)
+  const { height } = useWindowDimensions()
 
   if (!session) {
     return (
@@ -24,8 +24,8 @@ export function SessionScreen() {
 
   return (
     <>
-      <SafeAreaView>
-        <ScrollView>
+      <SafeAreaView sx={{ flex: 1 }}>
+        <ScrollView sx={{ height: height - 80 }}>
           <Banner
             imageUrl={session.imageUrl}
             title={session.title}
@@ -58,9 +58,8 @@ export function SessionScreen() {
               ))}
           </View>
         </ScrollView>
+        <BottomNavigation isActive height={height} />
       </SafeAreaView>
-      <View sx={{ height: 48 }} />
-      <BottomNavigation isActive />
     </>
   )
 }

@@ -179,7 +179,6 @@ export const ProfileScreen = () => {
             <View sx={{ height: 16 }} />
           </Link>
         ))}
-        <View sx={{ height: 60 }} />
         <BottomNavigation isRightActive height={height} />
       </SafeAreaView>
     </>

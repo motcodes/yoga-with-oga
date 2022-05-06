@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParam, useWorkout } from 'app/helper'
-import { H1, H2, H3, H4, H5, Pressable, ScrollView, Text, View } from 'dripsy'
+import { H1, H2, H3, H4, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { ArrowLeft, X } from 'react-native-feather'

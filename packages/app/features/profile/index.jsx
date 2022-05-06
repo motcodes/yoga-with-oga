@@ -12,39 +12,31 @@ import { TextLink, Link } from 'solito/link'
 import { ProfileListItem } from '../components/profileListItem'
 import { useEffect, useState } from 'react'
 import { GetSession } from '../../helper/getSession'
+import { BottomNavigation } from '../components/bottomNavigation'
 
 export const ProfileScreen = () => {
-    const { push } = useRouter()
-    const {user, setUser} = useUser()
-    const [sessions, setSessions] = useState([])
-    const [headerMsg, setHeaderMsg] = useState()
-    const [firstName, setFirstName] = useState()
-    const [pastSessions, setPastSessions] = useState()
+  const { push } = useRouter()
+  const { user, setUser } = useUser()
+  const [sessions, setSessions] = useState([])
+  const [headerMsg, setHeaderMsg] = useState()
+  const [firstName, setFirstName] = useState()
+  const [pastSessions, setPastSessions] = useState()
 
-    useEffect(()=>{
-        if (!user) {
-            push('/auth/signIn')
-        }
-        else{
-            setFirstName(user.firstName)
-            setPastSessions(user.pastSessions)
-        }
-    }, [user])
+  useEffect(() => {
+    if (!user) {
+      push('/auth/signIn')
+    } else {
+      setFirstName(user.firstName)
+      setPastSessions(user.pastSessions)
+    }
+  }, [user])
 
-    useEffect(() => {
-        if (pastSessions && pastSessions.length > 0) {
-            const pastSessionsCount = pastSessions.length 
-            const msgText = pastSessions.length === 1 ? ' session done' : ' sessions done'
-            setHeaderMsg(pastSessionsCount + msgText)
-            
-            pastSessions.map((session) => {
-                GetSession({ session, setSessions })
-            })
-        }
-        else {
-            setHeaderMsg('No sessions done yet')
-        }
-    }, [pastSessions])
+  useEffect(() => {
+    if (pastSessions && pastSessions.length > 0) {
+      const pastSessionsCount = pastSessions.length
+      const msgText =
+        pastSessions.length === 1 ? ' session done' : ' sessions done'
+      setHeaderMsg(pastSessionsCount + msgText)
 
     return(
         <SafeAreaView>

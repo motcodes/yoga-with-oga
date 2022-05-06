@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
 import { SessionScreen } from '../../features/session'
 import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
@@ -15,6 +14,8 @@ import { Imprint } from '../../features/imprint/imprint'
 
 import { SessionWorkoutVideoScreen } from 'app/features/video'
 import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
+
+import { SessionWorkoutRoute } from 'app/routes'
 
 const Stack = createNativeStackNavigator()
 const VideoStack = createNativeStackNavigator()
@@ -31,14 +32,6 @@ export function NativeNavigation() {
         }}
       />
       <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="session"
         component={SessionScreen}
         options={{
@@ -48,7 +41,7 @@ export function NativeNavigation() {
       />
       <Stack.Screen
         name="session-workout"
-        component={SessionWorkoutScreen}
+        component={SessionWorkoutRoute}
         options={{
           title: 'Workout',
           headerShown: false,

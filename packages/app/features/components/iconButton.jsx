@@ -11,10 +11,10 @@ export const IconButton = ({ children, style, onPress }) => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '$white',
-        position: 'fixed',
+        position: 'absolute',
         right: 16,
         top: 16,
-        borderRadius: '50%',
+        borderRadius: 40 / 2,
         color: '$green',
         ...style,
       }}

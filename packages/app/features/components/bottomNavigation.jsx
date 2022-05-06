@@ -3,10 +3,12 @@ import React from 'react'
 import Svg, { Path, Circle } from 'react-native-svg'
 import { Link } from 'solito/link'
 import { User } from 'react-native-feather'
+import { useWindowDimensions } from 'react-native'
 
 export const BottomNavigation = ({
   isActive = false,
   isRightActive = false,
+  height,
 }) => {
   return (
     <Flex
@@ -18,7 +20,8 @@ export const BottomNavigation = ({
         borderTopColor: '$grey80',
         backgroundColor: '$white',
         position: 'absolute',
-        bottom: 0,
+        // bottom: 0,
+        top: height - 80,
       }}
     >
       <Link sx={{ mt: 50 }} href="/">

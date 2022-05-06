@@ -18,16 +18,19 @@ import { Link } from 'solito/link'
 import { useSessions } from 'app/helper'
 import { useUser } from 'app/provider/userContext'
 import { BottomNavigation } from '../components/bottomNavigation'
+import { useWindowDimensions } from 'react-native'
 
 export function HomeScreen() {
   const { user } = useUser()
   const sessions = useSessions()
+  const { height } = useWindowDimensions()
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView sx={{ flex: 1 }}>
         <ScrollView
           sx={{
             display: 'flex',
+            height: height - 80,
           }}
         >
           <Flex
@@ -91,15 +94,14 @@ export function HomeScreen() {
                 )}
               </React.Fragment>
             ))}
-          <View sx={{ px: 16, pt: 24, pb: 96 }}>
+          <View sx={{ px: 16, pt: 24, pb: 64 }}>
             <H5 sx={{ color: '$greenLight' }}>
               more Sessions are comming soon...
             </H5>
           </View>
         </ScrollView>
+        <BottomNavigation isActive height={height} />
       </SafeAreaView>
-      <View sx={{ height: 48 }} />
-      <BottomNavigation isActive />
     </>
   )
 }

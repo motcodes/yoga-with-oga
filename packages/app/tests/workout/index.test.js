@@ -7,6 +7,7 @@ import { testWorkoutData } from '../testWorkoutData'
 import { Dripsy } from 'app/provider/dripsy'
 
 const sessionId = 'downward-facing-dog'
+const workoutId = 'downward-facing-dog'
 const workout = testWorkoutData
 const emptyWorkout = {}
 

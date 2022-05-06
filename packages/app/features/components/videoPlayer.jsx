@@ -73,13 +73,6 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
       >
         <ArrowLeft />
       </IconButton>
-      <IconButton
-        onPress={() =>
-          video.current.playFromPositionAsync((duration - 10) * 1000)
-        }
-      >
-        <Flag />
-      </IconButton>
 
       <View
         sx={{

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParam, useWorkout } from 'app/helper'
-import { H1, H2, H3, H4, H5, Pressable, ScrollView, Text, View } from 'dripsy'
+import { H1, H2, H3, H4, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
 import { ArrowLeft, X } from 'react-native-feather'
@@ -8,11 +8,14 @@ import { IconButton } from '../components/iconButton'
 import { ListItem } from '../components/session/listItem'
 import { FloatingButton } from '../components/floatingButton'
 import { LoadingScreen } from '../components/loadingScreen'
+import { useUser } from 'app/provider/userContext'
+import { addPastSession } from 'app/helper/pastSessions'
 
 export function SessionWorkoutVideoSummaryScreen() {
   const [sessionId] = useParam('sessionId')
   const [workoutId] = useParam('workoutId')
   const [videoId] = useParam('videoId')
+  const { user, setUser } = useUser()
   const router = useRouter()
   const workout = useWorkout(workoutId)
   const { height } = useWindowDimensions()
@@ -63,7 +66,10 @@ export function SessionWorkoutVideoSummaryScreen() {
 
       {workout && workout.title === 'End Relaxation' ? (
         <FloatingButton
-          onClick={() => router.push(`/`)}
+          onClick={() => {
+            addPastSession(sessionId, user, setUser)
+            router.push(`/`)
+          }}
           style={{ top: height - 112 }}
         >
           Finish this Session

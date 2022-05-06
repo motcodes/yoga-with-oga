@@ -6,14 +6,20 @@ import {
     ScrollView,
     SafeAreaView
   } from 'dripsy'
+import { useWindowDimensions } from 'react-native'
 import { Link } from 'solito/link'
 import { BottomNavigation } from '../components/bottomNavigation'
 
 export const Imprint = () => {
+    const { height } = useWindowDimensions()
     return(
         <>
-            <SafeAreaView>
-                <ScrollView>
+            <SafeAreaView
+                sx={{
+                    flex: 1,
+                  }}
+            >
+                <ScrollView sx={{ height: height - 80 }}>
                     <View sx={{
                         mx: 16,
                         alignItems: 'center'
@@ -62,10 +68,10 @@ export const Imprint = () => {
                         The Icons we use are from <Link href={'https://feathericons.com/'}><Text variant={'small'} sx={{ color: '$yellow'}}>FeatherIcons</Text></Link>.
                     </Text>
 
-                    <View sx={{ height: 96 }} />
+                    <View sx={{ height: 32 }} />
                 </ScrollView>
+                <BottomNavigation isRightActive height={height} />
             </SafeAreaView>
-            <BottomNavigation isRightActive />
         </>
     )
 }

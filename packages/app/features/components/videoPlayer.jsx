@@ -89,7 +89,7 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
           maxWidth: 425,
         }}
       >
-        {timestamps && (
+        {timestamps && timestamps.length >=2 && (
           <BottomBar
             status={status}
             video={video}

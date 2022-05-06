@@ -10,7 +10,7 @@ export function Layout({ children }) {
         minHeight: '100%',
       }}
     >
-      {children}
+      <View sx={{ maxWidth: 425, width: '100%', mx: 'auto' }}>{children}</View>
     </View>
   )
 }

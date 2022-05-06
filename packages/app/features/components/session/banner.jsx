@@ -33,12 +33,15 @@ export function Banner({
           width: '100%',
           display: 'flex',
           justifyContent: 'flex-end',
+          alignItems: 'center',
         })}
       >
         <Flex
           sx={{
             height: windowSizes.width * 0.304,
             width: windowSizes.width,
+            maxWidth: 425,
+            maxHeight: 425 * 0.304,
             position: 'absolute',
             bottom: 0,
           }}

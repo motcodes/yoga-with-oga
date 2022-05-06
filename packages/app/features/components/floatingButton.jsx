@@ -13,6 +13,7 @@ export const FloatingButton = ({ onClick, style, children }) => {
         left: '50%',
         transform: [{ translateX: '-50%' }],
         width: width * 0.9,
+        maxWidth: 425 * 0.9,
         height: 46,
         borderRadius: 6,
         boxShadow: 'md',

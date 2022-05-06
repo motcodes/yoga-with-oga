@@ -47,7 +47,7 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
           style={{
             height: 'auto',
             width: windowSize.width,
-            maxWidth: 512,
+            maxWidth: 425,
             marginHorizontal: 'auto',
           }}
           source={{
@@ -59,7 +59,7 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
           posterStyle={{
             height: 'auto',
             width: windowSize.width,
-            maxWidth: 512,
+            maxWidth: 425,
             marginHorizontal: 'auto',
           }}
           resizeMode="contain"
@@ -80,7 +80,14 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
         <Flag />
       </IconButton>
 
-      <View sx={{ position: 'absolute', bottom: 0, width: windowSize.width }}>
+      <View
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          width: windowSize.width,
+          maxWidth: 425,
+        }}
+      >
         {timestamps && (
           <BottomBar
             status={status}

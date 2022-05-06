@@ -6,13 +6,13 @@ import { SessionWorkoutScreen } from 'app/features/workout'
 import { testWorkoutData } from '../testWorkoutData'
 import { Dripsy } from 'app/provider/dripsy'
 
+const workout = testWorkoutData
 const sessionId = 'downward-facing-dog'
 const workoutId = 'downward-facing-dog'
-const workout = testWorkoutData
 const emptyWorkout = {}
 
 describe('<SessionWorkoutScreen />', () => {
-  it('has 3 children', () => {
+  it('Wrapper has 3 children', () => {
     jest.useFakeTimers()
     const tree = renderer
       .create(
@@ -25,7 +25,7 @@ describe('<SessionWorkoutScreen />', () => {
         </Dripsy>
       )
       .toJSON()
-    expect(tree.length).toBe(3)
+    expect(tree.children.length).toBe(5)
   })
 })
 
@@ -77,9 +77,10 @@ describe('<SessionWorkoutScreen /> Pose List with Heading', () => {
       )
       .toJSON()
 
-    const poseListWithHeading = tree[0].children[0].children[0].children[1]
+    const poseListWithHeading =
+      tree.children[0].children[0].children[1].children[1]
     expect(tree instanceof Object).toBe(true)
-    expect(poseListWithHeading.children.length).toBe(12)
+    expect(poseListWithHeading.children.length).toBe(11)
   })
 })
 
@@ -112,8 +113,7 @@ describe('<SessionWorkoutScreen /> Pose List with Heading', () => {
       </Dripsy>
     )
     const poseListWithHeading =
-      tree.toJSON()[0].children[0].children[0].children[1].children
-    poseListWithHeading.shift()
+      tree.toJSON().children[0].children[0].children[1].children[1].children
     poseListWithHeading.forEach((item, index) => {
       const poseName = item.children[0].children[2].children[0].children[0]
       expect(poseName).toBe(workout.poses[index].title)

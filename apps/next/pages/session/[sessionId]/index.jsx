@@ -1,3 +1,3 @@
-import { SessionScreen } from 'app/features/session'
+import { SessionRoute } from 'app/routes'
 
-export default SessionScreen
+export default SessionRoute

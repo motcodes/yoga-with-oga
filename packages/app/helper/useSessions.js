@@ -24,10 +24,9 @@ export function useSessions() {
 
 export function useSession(slug) {
   const [video, setVideo] = useState([])
-  const sessionBlock = doc(db, 'session', slug)
 
   useEffect(() => {
-    const fetchSession = async () => {
+    const fetchSession = async (sessionBlock) => {
       const sessionSnapshot = await getDoc(sessionBlock)
       if (sessionSnapshot.exists()) {
         const session = sessionSnapshot.data()
@@ -35,14 +34,7 @@ export function useSession(slug) {
           session.videos.map(async (item) => {
             const videoSnap = await getDoc(item)
             const video = videoSnap.data()
-            console.log('video :', video)
 
-            // `https://yoga-with-oga.vercel.app/api/vimeo/${video.videoId}`
-            // const vimeoRes = await fetch(
-            //   `http://localhost:3000/api/vimeo/${video.videoId}`
-            // )
-            // const vimeoData = await vimeoRes.json()
-            // video.vimeo = vimeoData
             video.id = item.id
             return video
           })
@@ -54,8 +46,11 @@ export function useSession(slug) {
         console.log('No such document!')
       }
     }
-    fetchSession()
-  }, [])
+    if (slug) {
+      const sessionBlock = doc(db, 'session', slug)
+      fetchSession(sessionBlock)
+    }
+  }, [slug])
 
   return video
 }

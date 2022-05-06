@@ -7,6 +7,9 @@ import { ListItem } from '../components/session/listItem'
 import { ImageModal } from '../components/imageModal'
 import { FloatingButton } from '../components/floatingButton'
 import { BottomNavigation } from '../components/bottomNavigation'
+import { LoadingScreen } from '../components/loadingScreen'
+import { IconButton } from '../components/iconButton'
+import { ArrowLeft } from 'react-native-feather'
 
 export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
   const router = useRouter()
@@ -15,11 +18,7 @@ export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
   const { height } = useWindowDimensions()
 
   if (Object.keys(workout).length === 0) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    )
+    return <LoadingScreen />
   }
 
   return (
@@ -42,30 +41,32 @@ export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
           <H5 as={H3} sx={{ color: '$green' }}>
             Workout Overview
           </H5>
-          {workout &&
-            workout.poses &&
-            workout.poses.map((item) => (
-              <Pressable
-                key={item.title}
-                onPress={() => {
-                  setModalData(item)
-                  setModalVisible(true)
-                }}
-              >
-                <ListItem
-                  imageUrl={item.imageUrlSmall}
-                  title={item.title}
-                  style={{ my: 16 }}
-                />
-              </Pressable>
-            ))}
+          <View>
+            {workout &&
+              workout.poses &&
+              workout.poses.map((item) => (
+                <Pressable
+                  key={item.title}
+                  onPress={() => {
+                    setModalData(item)
+                    setModalVisible(true)
+                  }}
+                >
+                  <ListItem
+                    imageUrl={item.imageUrlSmall}
+                    title={item.title}
+                    style={{ my: 16 }}
+                  />
+                </Pressable>
+              ))}
+          </View>
         </View>
       </ScrollView>
       <FloatingButton
         onClick={() =>
           router.push(`/session/${sessionId}/${workoutId}/${workout.videoId}`)
         }
-        style={{ top: height - 112 }}
+        style={{ top: height - 160 }}
       >
         Start
       </FloatingButton>
@@ -74,7 +75,13 @@ export function SessionWorkoutScreen({ sessionId, workoutId, workout = {} }) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
-      <BottomNavigation isActive />
+      <IconButton
+        style={{ left: 16 }}
+        onPress={() => router.push(`/session/${sessionId}`)}
+      >
+        <ArrowLeft />
+      </IconButton>
+      <BottomNavigation isActive height={height} />
     </SafeAreaView>
   )
 }

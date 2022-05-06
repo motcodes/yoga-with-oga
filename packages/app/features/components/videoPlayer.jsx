@@ -62,6 +62,7 @@ export function VideoPlayer({ data, sessionId, workoutId, firstCycle }) {
             maxWidth: 425,
             marginHorizontal: 'auto',
           }}
+          rate={2}
           resizeMode="contain"
           onPlaybackStatusUpdate={(status) => setStatus(() => status)}
         />

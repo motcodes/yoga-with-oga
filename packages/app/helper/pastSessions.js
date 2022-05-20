@@ -10,9 +10,11 @@ export function addPastSession(sessionSlug, user, setUser) {
 
   let pastSessions = []
   if (data.pastSessions) {
-    data.pastSessions.push({ session: sessionSlug, timeStamp: new Date() })
+    pastSessions.push({ session: sessionSlug, timeStamp: Timestamp.fromDate(new Date()) })
+    data.pastSessions = pastSessions.concat(data.pastSessions)
+    //data.pastSessions.push({ session: sessionSlug, timeStamp: Timestamp.fromDate(new Date()) })
   } else {
-    pastSessions.push({ session: sessionSlug, timeStamp: new Timestamp() })
+    pastSessions.push({ session: sessionSlug, timeStamp: Timestamp.fromDate(new Date()) })
     data.pastSessions = pastSessions
   }
 

@@ -123,27 +123,31 @@ export function SignUp({ onSuccessfulCheckClick, onFailedCheckClick }) {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
+          lable='Username*'
           value={state.userName.value}
           onChange={(text) => dispatch({ type: 'uNameChange', value: text })}
           placeholder="Username*"
           style={{ borderColor: state.userNameBC }}
         />
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Input
+          lable='Firstname*'
           value={state.firstName.value}
           onChange={(text) => dispatch({ type: 'fNameChange', value: text })}
           placeholder="Firstname*"
           style={{ borderColor: state.firstNameBC }}
         />
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Input
+          lable='Email*'
           value={state.mail.value}
           onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
           style={{ borderColor: state.mailBC }}
         />
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Input
+          lable='Password*'
           value={state.password.value}
           onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"
@@ -160,7 +164,7 @@ export function SignUp({ onSuccessfulCheckClick, onFailedCheckClick }) {
         <View sx={{ height: 24 }} />
 
         <Button onClick={onClickContinue}>Continue</Button>
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Button variant={'text'} onClick={() => router.push('/auth/signIn')}>
           Sign In
         </Button>

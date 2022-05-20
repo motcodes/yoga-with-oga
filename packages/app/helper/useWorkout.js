@@ -3,26 +3,31 @@ import { getDoc, doc } from 'firebase/firestore'
 import { db } from 'app/firebase/client'
 
 export function useWorkout(workoutId) {
-  const [video, setVideo] = useState([])
-  const videoDoc = doc(db, 'video', workoutId)
+  const [workout, setWorkout] = useState([])
 
   useEffect(() => {
-    const fetchSession = async () => {
-      const videoSnapshot = await getDoc(videoDoc)
-      if (videoSnapshot.exists()) {
-        const videoData = videoSnapshot.data()
-        console.log('videoData :', videoData)
-        const vimeoRes = await fetch(
-          `https://yoga-with-oga.vercel.app/api/vimeo/${videoData.videoId}`
+    const fetchSession = async (workoutDoc) => {
+      const workoutSnapshot = await getDoc(workoutDoc)
+      if (workoutSnapshot.exists()) {
+        const posesData = workoutSnapshot.data()
+        const poses = await Promise.all(
+          posesData.poses.map(async (item) => {
+            const poseSnap = await getDoc(item)
+            const pose = poseSnap.data()
+            return pose
+          })
         )
-        const vimeoData = await vimeoRes.json()
-        setVideo({ ...video, ...vimeoData })
+        posesData.poses = poses
+        setWorkout({ ...posesData })
       } else {
         console.log('No such document!')
       }
     }
-    fetchSession()
-  }, [])
+    if (workoutId) {
+      const workoutDoc = doc(db, 'video', workoutId)
+      fetchSession(workoutDoc)
+    }
+  }, [workoutId])
 
-  return video
+  return workout
 }

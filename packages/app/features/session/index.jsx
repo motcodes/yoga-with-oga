@@ -1,29 +1,26 @@
 import React from 'react'
-import { H5, ScrollView, Text, View } from 'dripsy'
-import { SafeAreaView } from 'react-native'
-import { createParam } from 'solito'
+import { H3, H5, ScrollView, Text, View } from 'dripsy'
+import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { Link } from 'solito/link'
-import { useSession } from 'app/helper'
 import { Banner } from '../components/session'
 import { ListItem } from '../components/session/listItem'
+import { BottomNavigation } from '../components/bottomNavigation'
+import { LoadingScreen } from '../components/loadingScreen'
+import { IconButton } from '../components/iconButton'
+import { ArrowLeft } from 'react-native-feather'
+import { useRouter } from 'solito/router'
 
-const { useParam } = createParam()
-export function SessionScreen() {
-  const [sessionId] = useParam('sessionId')
+export function SessionScreen({ sessionId, session = {} }) {
+  const { height } = useWindowDimensions()
+  const router = useRouter()
 
-  const session = useSession(sessionId)
-
-  if (!session) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    )
+  if (Object.keys(session).length === 0) {
+    return <LoadingScreen />
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <SafeAreaView sx={{ flex: 1 }}>
+      <ScrollView sx={{ height: height - 80 }}>
         <Banner
           imageUrl={session.imageUrl}
           title={session.title}
@@ -37,20 +34,31 @@ export function SessionScreen() {
             my: 80,
           }}
         >
-          <H5>Workout Overview</H5>
-          {session &&
-            session.videos &&
-            session.videos.map((item) => (
-              <Link key={item.title} href={`/session/${sessionId}/${item.id}`}>
-                <ListItem
-                  imageUrl={item.vimeo.thumbnailUrl}
-                  title={item.title}
-                  style={{ my: 16 }}
-                />
-              </Link>
-            ))}
+          <H5 as={H3} sx={{ color: '$green' }}>
+            Workout Overview
+          </H5>
+          <View>
+            {session &&
+              session.videos &&
+              session.videos.map((item) => (
+                <Link
+                  key={item.title}
+                  href={`/session/${sessionId}/${item.id}`}
+                >
+                  <ListItem
+                    imageUrl={item.thumbnail}
+                    title={item.title}
+                    style={{ my: 16 }}
+                  />
+                </Link>
+              ))}
+          </View>
         </View>
       </ScrollView>
+      <BottomNavigation isActive height={height} />
+      <IconButton onPress={() => router.push(`/`)} style={{ left: 16 }}>
+        <ArrowLeft />
+      </IconButton>
     </SafeAreaView>
   )
 }

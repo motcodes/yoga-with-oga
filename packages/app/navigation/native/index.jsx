@@ -1,66 +1,93 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { HomeScreen } from '../../features/home/screen'
-import { UserDetailScreen } from '../../features/user/detail-screen'
-import { SessionScreen } from '../../features/session'
-import { SessionWorkoutScreen } from '../../features/workout'
 import { SignUp } from '../../features/auth/signUp'
 import { SignIn } from '../../features/auth/singIn'
 import { PersonalInfo } from '../../features/auth/personalInfo'
-import { useUser } from '../../provider/userContext'
+import { ProfileScreen } from '../../features/profile'
+import { SettingsScreen } from '../../features/profile/settings'
+import { EditProfile } from '../../features/profile/editProfile'
+import { ContactUs } from '../../features/contactUs/contactUs'
+import { Imprint } from '../../features/imprint/imprint'
 
-import { auth } from '../../firebase/client'
+import { SessionWorkoutVideoScreen } from 'app/features/video'
+import { SessionWorkoutVideoSummaryScreen } from 'app/features/video/summary'
+
+import { SessionWorkoutRoute, HomeRoute, SessionRoute } from 'app/routes'
 
 const Stack = createNativeStackNavigator()
+const VideoStack = createNativeStackNavigator()
 
 export function NativeNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="home"
-        component={HomeScreen}
+        component={HomeRoute}
         options={{
           title: 'Home',
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
-        options={{
-          title: 'User',
           headerShown: false,
         }}
       />
       <Stack.Screen
         name="session"
-        component={SessionScreen}
+        component={SessionRoute}
         options={{
           title: 'Session',
-          // headerShown: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
-        name="workout"
-        component={SessionWorkoutScreen}
+        name="session-workout"
+        component={SessionWorkoutRoute}
         options={{
           title: 'Workout',
           headerShown: false,
         }}
       />
-
+      <VideoStack.Navigator initialRouteName="session-workout-video">
+        <VideoStack.Screen
+          name="session-workout-video"
+          component={SessionWorkoutVideoScreen}
+          options={{
+            title: 'Workout Video',
+            headerShown: false,
+          }}
+        />
+        <VideoStack.Screen
+          name="session-workout-video-summary"
+          component={SessionWorkoutVideoSummaryScreen}
+          options={{
+            title: 'Workout Summary',
+            headerShown: false,
+          }}
+        />
+      </VideoStack.Navigator>
       <Stack.Screen
-        name="home"
-        component={HomeScreen}
+        name="personalInfo"
+        component={PersonalInfo}
         options={{
-          title: 'Home',
+          title: 'Personal Info',
         }}
       />
       <Stack.Screen
-        name="user-detail"
-        component={UserDetailScreen}
+        name="profile"
+        component={ProfileScreen}
         options={{
-          title: 'User',
+          title: 'Profile',
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        component={SettingsScreen}
+        options={{
+          title: 'Settings',
+        }}
+      />
+      <Stack.Screen
+        name="editProfile"
+        component={EditProfile}
+        options={{
+          title: 'Edit Profile',
         }}
       />
       <Stack.Screen
@@ -77,14 +104,20 @@ export function NativeNavigation() {
           title: 'Sign In',
         }}
       />
-
-        <Stack.Screen
-          name="personalInfo"
-          component={PersonalInfo}
-          options={{
-            title: 'Personal Info',
-          }}
-        />
+      <Stack.Screen
+        name="contactUs"
+        component={ContactUs}
+        options={{
+          title: 'Cotact Us',
+        }}
+      />
+      <Stack.Screen
+        name="imprint"
+        component={Imprint}
+        options={{
+          title: 'Imprint',
+        }}
+      />
     </Stack.Navigator>
   )
 }

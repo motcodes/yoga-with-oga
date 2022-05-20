@@ -72,7 +72,7 @@ export const EditProfile = () => {
           </View>
 
           <SettingsListItem title="Email" info={mail} />
-          <View sx={{ height: 16 }} />
+          <View sx={{ height: 14 }} />
 
           <Flex
             sx={{
@@ -82,6 +82,7 @@ export const EditProfile = () => {
             }}
           >
             <Input
+              lable='Username'
               value={state.userName.value}
               onChange={(text) =>
                 dispatch({ type: 'userNameChange', value: text })
@@ -89,8 +90,9 @@ export const EditProfile = () => {
               placeholder="User Name"
               style={{ borderColor: state.userNameBC }}
             />
-            <View sx={{ height: 12 }} />
+            <View sx={{ height: 14 }} />
             <Input
+              lable='Firstname'
               value={state.firstName.value}
               onChange={(text) =>
                 dispatch({ type: 'firstNameChange', value: text })
@@ -98,8 +100,9 @@ export const EditProfile = () => {
               placeholder="First Name"
               style={{ borderColor: state.firstNameBC }}
             />
-            <View sx={{ height: 12 }} />
+            <View sx={{ height: 14 }} />
             <Input
+              lable='Gender'
               value={state.gender.value}
               onChange={(text) =>
                 dispatch({ type: 'genderChange', value: text })
@@ -107,8 +110,9 @@ export const EditProfile = () => {
               placeholder="Gender"
               style={{ borderColor: '$grey80' }}
             />
-            <View sx={{ height: 12 }} />
+            <View sx={{ height: 14 }} />
             <Input
+              lable='Height'
               value={state.height.value}
               onChange={(text) =>
                 dispatch({ type: 'heightChange', value: text })
@@ -116,8 +120,9 @@ export const EditProfile = () => {
               placeholder="Height"
               style={{ borderColor: '$grey80' }}
             />
-            <View sx={{ height: 12 }} />
+            <View sx={{ height: 14 }} />
             <Input
+              lable='Weight'
               value={state.weight.value}
               onChange={(text) =>
                 dispatch({ type: 'weightChange', value: text })

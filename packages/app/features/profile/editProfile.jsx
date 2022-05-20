@@ -82,7 +82,7 @@ export const EditProfile = () => {
             }}
           >
             <Input
-              lable='Username'
+              lable='Username*'
               value={state.userName.value}
               onChange={(text) =>
                 dispatch({ type: 'userNameChange', value: text })
@@ -92,7 +92,7 @@ export const EditProfile = () => {
             />
             <View sx={{ height: 14 }} />
             <Input
-              lable='Firstname'
+              lable='Firstname*'
               value={state.firstName.value}
               onChange={(text) =>
                 dispatch({ type: 'firstNameChange', value: text })

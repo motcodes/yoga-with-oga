@@ -102,6 +102,7 @@ export const SignIn = ({ onSuccessfulCheckClick, onFailedCheckClick }) => {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
+          lable='Email*'
           value={state.mail.value}
           onChange={(text) => dispatch({ type: 'mailChange', value: text })}
           placeholder="Email address*"
@@ -109,6 +110,7 @@ export const SignIn = ({ onSuccessfulCheckClick, onFailedCheckClick }) => {
         />
         <View sx={{ height: 12 }} />
         <Input
+          lable='Password*'
           value={state.password.value}
           onChange={(text) => dispatch({ type: 'passwordChange', value: text })}
           placeholder="Password*"

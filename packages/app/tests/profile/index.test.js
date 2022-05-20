@@ -17,11 +17,11 @@ describe('getDays', () => {
 
         const result = getDays(todayAsTimeStamp)
         
-        expect(result).toBe('Yesterday')
+        expect(result).toBe('Today')
     })
 
     it('returns "Yesterday" if two dates are one day apart', () => {
-        const yesterdayAsDate = new Date(new Date().setDate(new Date().getDate()))
+        const yesterdayAsDate = new Date(new Date().setDate(new Date().getDate() - 1))
         const yesterdayAsTimeStamp = Timestamp.fromDate(yesterdayAsDate)
 
         const result = getDays(yesterdayAsTimeStamp)
@@ -30,7 +30,7 @@ describe('getDays', () => {
     })
 
     it('returns "2 days ago" if two dates are two days apart', () => {
-        const date = new Date(new Date().setDate(new Date().getDate() - 1))
+        const date = new Date(new Date().setDate(new Date().getDate() - 2))
         const timeStamp = Timestamp.fromDate(date)
 
         const result = getDays(timeStamp)

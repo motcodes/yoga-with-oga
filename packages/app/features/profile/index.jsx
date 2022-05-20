@@ -42,6 +42,7 @@ export const ProfileScreen = () => {
     }
   }, [pastSessions])
 
+  console.log(user)
   return (
     <>
       <SafeAreaView sx={{ flex: 1 }}>
@@ -50,6 +51,7 @@ export const ProfileScreen = () => {
           sx={{
             width: '100%',
             flexGrow: 0,
+            height: height - 80
           }}
         >
           <View sx={{ alignItems: 'center' }}>
@@ -138,37 +140,38 @@ export const ProfileScreen = () => {
               </View>
             </TextLink>
           </View>
+          
+          <View sx={{ height: 80 }} />
+
+          {sessions.length > 0 && (
+            <Text
+              variant={'h5'}
+              sx={{
+                color: '$greenDark',
+                mx: 16,
+              }}
+            >
+              Session History
+            </Text>
+          )}
+          <View sx={{ height: 16 }} />
+
+          {sessions.map((session, index) => (
+            <Link
+              href={'/session/' + session.sessionId}
+              key={session.sessionId + index}
+            >
+              <ProfileListItem
+                imageUrl={session.imageUrl}
+                title={session.title}
+                subTitle={session.subTitle}
+                lastDone={session.lastDone}
+              />
+              <View sx={{ height: 16 }} />
+            </Link>
+          ))}
         </ScrollView>
 
-        <View sx={{ height: 80 }} />
-
-        {sessions.length > 0 && (
-          <Text
-            variant={'h5'}
-            sx={{
-              color: '$greenDark',
-              mx: 16,
-            }}
-          >
-            Session History
-          </Text>
-        )}
-        <View sx={{ height: 16 }} />
-
-        {sessions.map((session, index) => (
-          <Link
-            href={'/session/' + session.sessionId}
-            key={session.sessionId + index}
-          >
-            <ProfileListItem
-              imageUrl={session.imageUrl}
-              title={session.title}
-              subTitle={session.subTitle}
-              lastDone={session.lastDone}
-            />
-            <View sx={{ height: 16 }} />
-          </Link>
-        ))}
         <BottomNavigation isRightActive height={height} />
       </SafeAreaView>
     </>

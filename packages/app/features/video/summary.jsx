@@ -1,5 +1,5 @@
-import React from 'react'
-import { useParam, useWorkout } from 'app/helper'
+import React, { useEffect, useState } from 'react'
+import { useParam, useSession, useWorkout } from 'app/helper'
 import { H1, H2, H3, H4, H5, ScrollView, Text, View } from 'dripsy'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { useRouter } from 'solito/router'
@@ -15,10 +15,19 @@ export function SessionWorkoutVideoSummaryScreen() {
   const [sessionId] = useParam('sessionId')
   const [workoutId] = useParam('workoutId')
   const [videoId] = useParam('videoId')
-  const { user, setUser } = useUser()
   const router = useRouter()
   const workout = useWorkout(workoutId)
+  const { videos } = useSession(sessionId)
+  const { user, setUser } = useUser()
   const { height } = useWindowDimensions()
+
+  const [workoutIndex, setWorkoutIndex] = useState()
+
+  useEffect(() => {
+    if (workout && videos) {
+      setWorkoutIndex(videos.findIndex((item) => item.title === workout.title))
+    }
+  }, [workout, videos])
 
   if (Object.keys(workout).length === 0) {
     return <LoadingScreen />
@@ -64,7 +73,7 @@ export function SessionWorkoutVideoSummaryScreen() {
         <ArrowLeft />
       </IconButton>
 
-      {workout && workout.title === 'End Relaxation' ? (
+      {videos && workout && workoutIndex + 1 === videos.length ? (
         <FloatingButton
           onClick={() => {
             addPastSession(sessionId, user, setUser)
@@ -76,8 +85,9 @@ export function SessionWorkoutVideoSummaryScreen() {
         </FloatingButton>
       ) : (
         <FloatingButton
-          onClick={() => router.push(`/session/${sessionId}`)}
-          // style={{ bottom: 64 }}
+          onClick={() =>
+            router.push(`/session/${sessionId}/${videos[workoutIndex + 1].id}`)
+          }
           style={{ top: height - 112 }}
         >
           Next Workout

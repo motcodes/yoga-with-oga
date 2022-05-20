@@ -93,20 +93,23 @@ export const PersonalInfo = () => {
         </Text>
         <View sx={{ height: 16 }} />
         <Input
+          lable='Gender'
           value={state.gender.value}
           onChange={(text) => dispatch({ type: 'genderChange', value: text })}
           placeholder="Gender"
           style={{ borderColor: state.genderBC }}
         />
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Input
+          lable='Height'
           value={state.height.value}
           onChange={(text) => dispatch({ type: 'heightChange', value: text })}
           placeholder="Height"
           style={{ borderColor: state.heightBC }}
         />
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Input
+          lable='Weight'
           value={state.weight.value}
           onChange={(text) => dispatch({ type: 'weightChange', value: text })}
           placeholder="Weight"
@@ -120,11 +123,11 @@ export const PersonalInfo = () => {
         <View sx={{ height: 24 }} />
 
         <Button onClick={() => onClickLogIn()}>Sign Up</Button>
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
         <Button variant={'text'} onClick={() => router.push('/')}>
           Skip for now
         </Button>
-        <View sx={{ height: 12 }} />
+        <View sx={{ height: 14 }} />
       </ScrollView>
     </SafeAreaView>
   )

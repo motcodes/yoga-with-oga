@@ -2,8 +2,8 @@ export function getDays(timeStamp) {
   let daysPassed
   const days = Math.ceil(
     (new Date() - new Date(timeStamp.seconds * 1000)) / (1000 * 3600 * 24)
-  )
-
+  ) -1
+  
   if (days === 0) {
     daysPassed = 'Today'
   } else if (days === 1) {

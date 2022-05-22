@@ -1,0 +1,36 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500 !important;
+}
+
+/* * {
+  --h2XL-font-size: 48.83px;
+  --hXL-font-size: 39.06px;
+  --hLG-font-size: 31.25px;
+  --hMD-font-size: 25px;
+  --hSM-font-size: 20px;
+  --base-font-size: 16px;
+  --small-font-size: 16px;
+  --extraSmall-font-size: 12.8px;
+
+} */
+
+:root {
+  --green: #00473e;
+  --green-light: #475d5b;
+  --green-dark: #00332c;
+  --yellow: #faae2b;
+  --pink: #ffa8ba;
+  --salmon: #fa5246;
+  --white: #f2f7f5;
+  --grey-45: #6f7676;
+  --grey-80: #cacecd;
+}
+
+html {
+  font-family: 'GeneralSans-Medium';
+}

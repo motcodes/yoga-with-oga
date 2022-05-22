@@ -17,6 +17,24 @@
   },
   "scripts": {
     "native": "cd apps/expo && expo start",
-    "web": "cd apps/next && yarn next"
-  }
+    "web": "cd apps/next && yarn next",
+    "native:build-all": "cd apps/expo && eas build --platform all",
+    "native:build-android": "cd apps/expo && eas build --platform android",
+    "native:build-ios": "cd apps/expo && eas build --platform ios",
+    "test": "cd packages/app && jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|solito|dripsy|@dripsy/.*?|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
+  },
+  "packageManager": "yarn@1.22.17"
 }
